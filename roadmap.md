@@ -1,8 +1,8 @@
 * 3D tisk
-  * Obecné informace o tisku
-  * FDM
+  * [x] Obecné informace o tisku
+  * [x] FDM
 * Webové rozhraní OctoPrint
-  * API (verze + endpointy)
+  * [x] API (verze + endpointy)
   * Stávající řešení
     * App 1
     * App 2
