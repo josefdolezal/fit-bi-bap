@@ -1,0 +1,28 @@
+% arara: xelatex: { shell: yes }
+% arara: makeglossaries
+% arara: biber
+% arara: xelatex: { shell: yes }
+% arara: xelatex: { shell: yes }
+\documentclass[thesis=B,czech,hidelinks]{template/FITthesisXE}
+
+\usepackage{ graphicx }		% graphics files inclusion
+\usepackage{ dirtree } 		% directory tree visualisation
+\usepackage{ longtable } 	% tables which Pandoc use
+\usepackage{ lscape }		  % to be able to rotate stuff
+\usepackage{ metalogo }		% for \XeLaTeX
+
+\bibliography{library.bib}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\acknowledgements{\input{acknoledgements.tex}}
+\abstractCS{\input{abstract_cs.tex}}
+\abstractEN{\input{abstract_en.tex}}
+
+\input{meta.tex}
+
+\begin{document}
+
+
+
+\end{document}
