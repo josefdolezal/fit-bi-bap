@@ -8,12 +8,13 @@
     * App 2
 
 * Architektura iOS aplikace
+  * MVC
+  * MVVM
   * Reaktivní programování
     * Signály (hot + cold)
     * Operátory
     * Synchronizace vláken
-    * Napojení na UI
-  * MVVM
+    * Napojení na UI (bindings)
   * Coordinators
 * Datová vrstva
   * Realm
@@ -26,3 +27,5 @@
     * Rocket socket
   * REST API
     * Moya
+* Testování
+* CI
