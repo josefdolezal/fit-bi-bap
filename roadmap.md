@@ -8,7 +8,7 @@
     * App 2
 
 * Architektura iOS aplikace
-  * MVC
+  * [x] MVC
   * MVVM
   * Reaktivní programování
     * Signály (hot + cold)

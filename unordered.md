@@ -17,20 +17,23 @@ Dále se stará o navigaci mezi obrazovkami, síťování a interakci s uživate
 Při rozdělení do obrazovek platí pravidlo, že jeden controller obsluhuje jedno nebo více view za pomoci libovolného počtu modelových objektů.
 O jednu obrazovku se typicky stará právě jeden controller, ale je možné jich použít více.
 
+![Architektura MVC](illustrations/mvc-architecture.png)
+
 Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
 Model udává, jakým způsobem jsou data uložena,
-View udává, jak jsou data zobrazena
+View udává, jak jsou data vykreslena,
 O zbylou logiku aplikace se stará controller.
 
+Z tohoto shrnutí vyplývá, že controller je velmi blízce spjat s view. Tuto skutečnost zachycuje obrázek 2.
+![Massive View Cotnroller](illustrations/mvc-massive-view-controller.png)
+
 MVC je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
-Při tvorbě větších aplikací nemusí být ale tato architektura vhodná.
+Při tvorbě větších aplikací lae nemusí být tato architektura vhodná.
 Controller se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
-Díky přímému napojení controlleru na view se při testování chování controlleru (behavioral testing) musí využít simulátoru operačního systému a aplikaci v něm automaticky "proklikat". To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle vnutit mock objekty).
-Tento problém se snaží řešit architektura MVVM od společnosti Microsoft.
-
-[appol]
-
-[obrázek MVC]
+Z tohoto důvodu se MVC často přezdívá Massive View Controller.
+Díky přímému napojení controlleru na view se při testování chování controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky "proklikat".
+To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle podvrhnout mock objekty).
+Tento problém se snaží řešit architektura MVVM od společnosti Microsoft. [zdroj: appol]
 
 * appol https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html
 
