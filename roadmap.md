@@ -27,5 +27,6 @@
     * Rocket socket
   * REST API
     * Moya
+* Knihovny
 * Testování
 * CI

@@ -1,47 +1,132 @@
+# [Abstract CZ](abstract_cs.tex)
+
+# [Abstract EN](abstract_en.tex)
+
+# Úvod
+-- doplnit
+
 # Architektura aplikace
 Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple MVC.
 Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 
-Model: perzistentní objekty, které aplikace využívá k pro vnitřní logiku a prezentaci dat uživateli.
+**Model** perzistentní objekty, které aplikace využívá k pro vnitřní logiku a prezentaci dat uživateli.
 Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
 Tato vrstva je často reprezentována databází, příkladem mohou být databáze CoreData, Realm nebo SQLite.
 
-View: datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
+**View** datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
 Přestože se view standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
 Na platformě iOS tuto vrstvu reprezentuje framework UIKit vytvořený Applem.
 
-Controller: vrstva, která na základě vstupů z view aktualizuje a mění model nebo překresluje view v případě, že zobrazovaná data už nejsou aktuální.
-Jedním z úkolů controlleru je striktně zamezit interakci mezi view a modelem.
+**Controller** vrstva, která na základě vstupů z view aktualizuje a mění model nebo překresluje view v případě, že zobrazovaná data už nejsou aktuální.
+Jedním z úkolů controlleru je striktně zamezit přímé interakci mezi view a modelem.
 Toto oddělení je zavedeno proto, aby view nemuselo znát konkrétní strukturu modelu a aby model nemusel obsahovat logiku pro formátování dat (cena, čas, ...).
 Dále se stará o navigaci mezi obrazovkami, síťování a interakci s uživatelem.
-Při rozdělení do obrazovek platí pravidlo, že jeden controller obsluhuje jedno nebo více view za pomoci libovolného počtu modelových objektů.
+Při rozdělení do obrazovek platí pravidlo, že jeden controller obsluhuje jedno nebo více view.
+K tomu využívá libovoné množství modelových objektů.
 O jednu obrazovku se typicky stará právě jeden controller, ale je možné jich použít více.
 
 ![Architektura MVC](illustrations/mvc-architecture.png)
 
 Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
-Model udává, jakým způsobem jsou data uložena,
-View udává, jak jsou data vykreslena,
-O zbylou logiku aplikace se stará controller.
+* Model udává, jakým způsobem jsou data uložena,
+* View se stará o správné vykreslení dat,
+* Controller se stará o ostatní logiku.
 
 Z tohoto shrnutí vyplývá, že controller je velmi blízce spjat s view. Tuto skutečnost zachycuje obrázek 2.
+
 ![Massive View Cotnroller](illustrations/mvc-massive-view-controller.png)
 
+Pro možné porovnání architektury jsem připravil scénář stažení libovolných dat na základě požadavku uživatele. V MVC by se architektura chovala takto:
+* Uživatel v aplikaci klikne na tlačítko "Stáhnout data".
+* Tuto interakci odchytí view a upozorní controller.
+* Controller na základě upozornění stáhne data a předá je modelu k uložení.
+* Model ukládá data a notifikuje controller o změně.
+* Controller aktualizuje view.
+* Nastane-li během stahování chyba, controller vytváří nové view a chybu prezentuje uživateli.
+
+Pro zmíněné notifikace nabízí Apple řešení pomocí Delegate pattern.
+Controller musí naimplementovat specifické rozhraní, čímž se stane delegátem.
+Jako delegát se pak může zaregistrovat na notifikace obejktů, jejichž rozhraní implementoval.
+
 MVC je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
-Při tvorbě větších aplikací lae nemusí být tato architektura vhodná.
+Při tvorbě větších aplikací ale nemusí být vhodné.
 Controller se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
 Z tohoto důvodu se MVC často přezdívá Massive View Controller.
 Díky přímému napojení controlleru na view se při testování chování controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky "proklikat".
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle podvrhnout mock objekty).
 Tento problém se snaží řešit architektura MVVM od společnosti Microsoft. [zdroj: appol]
 
-* appol https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html
+## MVVM
+Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura MVVM.
+Tato architektura vychází ze zmíněného MVC a jejím základním úkolem je zjednodušit controller.
+Za tímto účelem se ke stávajícím třem vrstvám přidává View Model, který se stará o přípravu dat z Modelu pro zobrazení a také o perzistenci změn.
 
-MVC - model view controller
-Model
-View
-Controller
-framework
-user-stories
-behavioral testing
-mock
+**View Model** objekt vlastněný controllerem za pomoci kompozice.
+Pro controller připravuje naformátované výstupy a poskytuje mu rozhraní pro vstupy.
+Výstupem se rozumí veškerá data, která jsou potřebná pro sestavení View.
+To může být např. datum ve specifickém formátu, cena včetně měny nebo informace o tom, kolik řádků bude obsahovat tabulka na obrazovce.
+Oproti MVC tedy perzistentní data nejsou viditelná controlleru, ale pouze view modelu.
+Ten je nejdříve připraví pro zobrazení.
+Vstupem může být libovolná interakce uživatele.
+Změna textu v textovém poli, stisknutí tlačítka, ale i fyzický pohyb telefonem (otočení obrazovky).
+Na základě vstupů spouští view model svou vnitřní logiku a generuje výstupy.
+
+Zodpovědnost controlleru se zavedením View Modelu dramaticky snižuje.
+V ideálním případě je controller zodpovědný pouze za správné sestavení view a napojení zfromátovaných výstupů na něj.
+Dále pak za odchycení uživatelských interakcí a jejich propagaci do view modelu.
+Toto chování zachycuje obrázek 3.
+
+![Architektura MVVM](illustrations/mvvm-architecture.png)
+
+Vrstvy mají následující klíčové vlastnosti:
+* Model definuje jakým způsobem jsou data uložena a při změně notifikuje view model,
+* View vykresluje na obrazovku naformátované výstupy a upozorňuje controller při interakci uživatele,
+* Controller sestavuje hierarchii view, napojuje zformátované výstupy view modelu na view a z uživatelské interakce vytváří vstupy pro view model,
+* View model načítá data modelu, na základě vstupů z controlleru nebo změny modelu generuje výstupy pro controller.
+
+Pro porovnání architektury s MVC lze opět využít scénář pro stažení dat. Pro tento scénář by se architektura MVVM chovala následovně:
+* Controller napojuje výstupy view modelu na view a vytváří pravidla pro převod uživatelské interakce na vstupy view modelu.
+* Uživatel v aplikaci klikne na tlačítko "Stáhnout data".
+* View upozorňuje controller na interakci uživatele, ten automaticky vytváří vstup pro view model.
+* View model na základě vstupu stahuje data a předává je modelu.
+* Model po uložení notifikuje view model, ten vytváří výstup pro controller, který nechává překreslit view.
+* V případě chyby vytvoří view model chybový výstup, ten se pomocí controlleru propaguje do view.
+
+Oproti MVC je na tomto příkladu vidět snížení zodpovědnosti controlleru. Tato zodpovědnost se přesunula do view modelu.
+Na první pohled nemusí být tato změna opodstatněná, protože logika aplikace nezmizela, jen se přesunula.
+Právě to ale umožnilo (nebo minimálně zjednodušilo) způsob, jakým lze logiku testovat.
+View model generuje výstupy na základě vstupů, v testech tedy lze uživatelskou interakci podvrhnout a testovat pouze výstupy (není potřeba vytvářet view ani controller).
+Dodatečně lze otestovat i uživatelské rozhraní.
+Protože logika aplikace je otestována pomocí view modelu, uživatelské rozhraní už stačí otestovat např. shodou s referenčním obrázkem.
+
+Při pohledu na notifikace je vidět, že přibyl typ, který nebyl v MVC potřeba.
+Jedná se o notifikace směrem z view modelu ke controlleru (view model nemá referenci na controller, nemůže ho notifikovat přímo).
+Některé výstupy view modelu je tedy potřeba sledovat v čase a na jejich změny reagovat.
+Toto lze vyřešit pomocí KVO, které nabízí Apple v základu.
+KVO umožňuje zaregistrovat se na notifikace o změně stavu nějakého objektu.
+V případě controlleru by se registroval na změny stavu výstupů view modelu.
+Kdykoliv by se výstup změnil, controller by dostal notifikaci.
+Tento přístup ale není běžný pro použití s jazykem Swift.
+Místo KVO se nyní standardně používají reaktivní rozšíření, které popisuji v následujících kapitolách.
+
+[zdroj: objcio]
+
+## Zdroje
+* appol https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html
+* objcio https://www.objc.io/issues/13-architecture/mvvm/
+
+## Pojmy
+* MVC - model view controller
+* Model
+* View
+* Controller
+* framework
+* user-stories
+* behavioral testing
+* mock
+* MVVM
+* view model
+* kompozice
+* ui test
+* delegate pattern
+* KVO - key-value observing
