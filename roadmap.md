@@ -9,7 +9,7 @@
 
 * Architektura iOS aplikace
   * [x] MVC
-  * MVVM
+  * [x] MVVM
   * Reaktivní programování
     * Signály (hot + cold)
     * Operátory

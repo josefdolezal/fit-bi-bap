@@ -109,6 +109,10 @@ Kdykoliv by se výstup změnil, controller by dostal notifikaci.
 Tento přístup ale není běžný pro použití s jazykem Swift.
 Místo KVO se nyní standardně používají reaktivní rozšíření, které popisuji v následujících kapitolách.
 
+Přestože implementovaná aplikace není v ohledu na uživatelské scénáře nijak složitá, obsahuje mnoho obrazovek.
+Obrazovky jsou vysoce interaktivní a více se k jejich implementaci hodí reaktivní přístup.
+Z tohoto důvodu jsem jako architekturu vybral MVVM s použitím reaktivních rozšíření místo standardního MVC.
+
 [zdroj: objcio]
 
 ## Zdroje
