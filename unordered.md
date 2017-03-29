@@ -157,9 +157,45 @@ kdy se vzhled obrazovky (úmyslně) změní byť o jediný obrazový bod.
 Podstatnou výhodou tohoto přístupu je ale nezávislost na implementaci.
 Pokud se implementace změní, s velkou pravděpodobností to výsledky testů neovlivní.
 
+**Testy chování aplikace** Testované objekty mají definované své rozhraní a závisloti.
+Tím jsou deklarovány i závazky objektu.
+Závazky určují, jakým způsobem by měl objekt působit na zbylé části aplikace, jaké schopnosti a funkce má - definují chování objektu.
+Testovaným objektem může být libovolný modul aplikace.
+Složitost a rozsah testů se odvíjí od počtu závazků objektu.
+Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny a sleduje se, jestli se objekt na základě změn chová podle očekávání.
+[29. 3. 2017 https://www.objc.io/issues/15-testing/behavior-driven-development/]
+
+V reálném světě si lze jako objekt představit auto.
+Jako změnu vlastnosti můžeme lze použít vyprázdnění nádrže.
+Očekávaným chováním auta následně je, že přestane být pojízdné a rozsvítí kontrolku řidiči.
+Auto projde testem chování, právě když při prázdné nádrži je nepojízdné a svítí kontrolka.
+
+Tento princip testování využívám pro testování View Modelu a Modelu (viz. kapitola [Architektura MVVM](#MVVM)).
+Díky úspěšnému otestování více než 70% [TODO] logiky aplikace, lze usuzovat, že při používání aplikace se chyb vyskytne jen nepatrné množství.
+View vrstvu následně není samostatně nutné testovat, protože z testů View Modelu je jisté, že data jsou správně připravena k zobrazení.
+Testy pomocí porovnání skutečného vzhledu s očekávaným (zmíněno v testech uživatelského rozhraní) jsou tedy dostačující.
+
+Obdobně jako testy rozhraní i tyto testy se pouštějí při vývoji až několikrát denně.
+Slouží také jako dobrý ukazatel kvality aplikace a dokáží určit její rozsah.
+
+S pojmem *testování chování* je velmi blízce spjat **vývoj řízený testováním chování** (z anglického Behavior Driven Development, zkráceně BDD).
+V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
+Následně se sestavují testy, které vyžadují úplné implementování vyžadovaného chování.
+Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
+Testy jsou popisovány tkzv. DSL, který pomocí kombinace klíčových slov a textového popisu chování. [SHOW PREVIEW DSL]
+Na základě definice objektu se následně přechází ke konkrétní implementaci.
+[29. 3. 2017 https://www.objc.io/issues/15-testing/behavior-driven-development/]
+
+[PREVIEW DSL]
+
 ## Zdroje
 * appol https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html
 * objcio https://www.objc.io/issues/13-architecture/mvvm/
+
+## Tagy
+* [TODO] - Potřeba doplnit
+* [SHOW `ABC` `DEF`] - Link na prvek, který je v textu jinde
+* [PREVIEW `XYZ`] - Nahradit ukázkou kódu `XYZ`
 
 ## Pojmy
 * MVC - model view controller
@@ -178,3 +214,4 @@ Pokud se implementace změní, s velkou pravděpodobností to výsledky testů n
 * KVO - key-value observing
 * BDD - behavioral driven development
 * TDD - test driven development
+* DSL - Domain specific language (u testů BDD)
