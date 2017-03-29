@@ -3,7 +3,7 @@
 # [Abstract EN](abstract_en.tex)
 
 # Úvod
--- doplnit
+[TODO]
 
 # Architektura aplikace
 Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple MVC.
@@ -52,7 +52,7 @@ MVC je v době psaní této práce nejpoužívanější architekturou a to před
 Při tvorbě větších aplikací ale nemusí být vhodné.
 Controller se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
 Z tohoto důvodu se MVC často přezdívá Massive View Controller.
-Díky přímému napojení controlleru na view se při testování chování controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky "proklikat".
+Díky přímému napojení controlleru na *View* se při testování chování controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky "proklikat".
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle podvrhnout mock objekty).
 Tento problém se snaží řešit architektura MVVM od společnosti Microsoft. [zdroj: appol]
 
@@ -115,6 +115,34 @@ Z tohoto důvodu jsem jako architekturu vybral MVVM s použitím reaktivních ro
 
 [zdroj: objcio]
 
+# Testování
+V kapitole o testování se podrobněji zabývám způsoby a postupy naznačenými v kapitolách [Architektura MVVM](#architektura-mvvm) a [Reaktivní programování](#reaktivni-programovani).
+
+Testováním software se rozumí postupy a procesy, pomocí kterých lze měřit, zda testovaný software (či jeho části) splňuje požadované nároky či nikoliv.
+Opakovaným aplikováním těchto postupů lze v softwaru nalézt chyby, nedostatky nebo chybějící vlastnosti oproti dodané specifikaci.
+Výsledky testování následně vypovídají o kvalitě softwaru a o míře splnění specifikace.
+[28. 3. 2017 https://www.tutorialspoint.com/software_testing/]
+
+V této práci jsem využil tří typů testů.
+Prvním typem jsou uživatelské testy, zkoumající chování uživatelů při používání aplikace.
+Druhým typem jsou testy uživatelského rozhraní, které zjišťují, zda vlivem změn ve vzhledu aplikace nebyla omezena některá z vyžadovaných funkcionalit.
+Posledním technika testování, kterou jsem využil jsou testy chování aplikace.
+Ty ověřují zda aplikace na sadu vstupů produkuje odpovídající výstupy.
+V následujícím shrnutí se těmto technikám věnuji podrobněji.
+
+**Uživatelské testy** Slouží ke zjišťování problémů s návrhem vzhledu aplikace.
+Na výsledcích těchto testů lze sledovat, jaké části aplikace jsou uživatelům nesrozumitelné či zda se v aplikaci orientují.
+Obsahem testů jsou předpřipravené scénáře pokrývající vybrané funkce aplikace.
+[29. 3. 2017 http://www.dobryweb.cz/uzivatelske-testovani]
+Tyto testy se provádějí na vzorku vybraných uživatelů z cílové skupiny.
+Uživatelé během testů prochází aplikaci a mají za úkol naplnit zadanané scénáře.
+Během testů se podrobně sleduje, jakým způsobem uživatelé reagují a jak úspěšní jsou při plnění úkolů.
+Vzhledem k vysoké časové (mnohdy také finanční) náročnosti se tyto testy provádějí obvykle pouze jednou a to v začátcích projektu.
+[29. 3. 2017 http://www.h1.cz/pouzitelnost]
+
+Ve své práci jsem prováděl testování na malé skupině uživatelů 3D tiskáren.
+Na základě pozorování jsem následně změnil...[TODO]
+
 ## Zdroje
 * appol https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html
 * objcio https://www.objc.io/issues/13-architecture/mvvm/
@@ -134,3 +162,5 @@ Z tohoto důvodu jsem jako architekturu vybral MVVM s použitím reaktivních ro
 * ui test
 * delegate pattern
 * KVO - key-value observing
+* BDD - behavioral driven development
+* TDD - test driven development
