@@ -143,6 +143,20 @@ Vzhledem k vysoké časové (mnohdy také finanční) náročnosti se tyto testy
 Ve své práci jsem prováděl testování na malé skupině uživatelů 3D tiskáren.
 Na základě pozorování jsem následně změnil...[TODO]
 
+**Testy uživatelského rozhraní** Dávají možnost intereagovat s komponentami uživatelského rozhraní za účelem jejich validace.
+Na rozdíl od testů chování přistupují tyto testy k aplikaci jako k celku a zacházejí s ní obdobně jako by s ní zacházel uživatel. Tyto testy tedy nemají přístup k vnitřní implementaci aplikace.
+Jelikož nevyžadují během chodu zásah člověk (test *nahrazuje* jeho přítomnost), mohou být pouštěny automaticky.
+Standardně se tedy pouští při implementaci každé nové funkce, mnohdy až několikrát denně.
+[29. 3. 2017 https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/testing_with_xcode/chapters/09-ui_testing.html]
+
+Protože tyto testy z jsou v mém případě pouze nadstavbou nad *testy chování* vysvětlené níže, rozhodl jsem se je implementovat pomocí referenčních obrázků.
+Testy tedy pro každý podstatný krok scénáře obsahují referenční obrázek, jak by obrazovka měla v dannou chvíli vypadat.
+Pokud se vzhled s referenčním obrázkem shoduje, test projde.
+Nevýhodou tohoto přístupu je nutnost přegenerování referenčních obrázků v momentě,
+kdy se vzhled obrazovky (úmyslně) změní byť o jediný obrazový bod.
+Podstatnou výhodou tohoto přístupu je ale nezávislost na implementaci.
+Pokud se implementace změní, s velkou pravděpodobností to výsledky testů neovlivní.
+
 ## Zdroje
 * appol https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html
 * objcio https://www.objc.io/issues/13-architecture/mvvm/
