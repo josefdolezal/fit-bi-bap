@@ -12,7 +12,7 @@ I navzdory těmto faktům je v současné době využívání a ovládání 3D t
 O tom svědčí především rozšíření mobilních aplikací.
 Ty jsou v současné době pouze dvě, jejich funkcionalita je navíc oproti desktopové verzi značně omezená.
 
-Ve své bakalářské práci se zabývám návrhem mobilní aplikace pro ovládání 3D tiskáren, její analýzou a implementací.
+Ve své bakalářské práci se zabývám návrhem mobilní aplikace pro ovládání 3D tiskáren prostřednictví rozhraní OctoPrint, její analýzou a implementací.
 Práci uvádím kapitolou *3D tisk*, která čtenáře stručně uvede do problému.
 V kapitole *Analýza* zkoumám možné technologie a paradigmata, z nichž vybrané zmiňuji následně v kapitole o implementaci.
 V části věnující se návrhu popisuji jaké funkcionality implementovaná aplikace bude obsahovat a způsob jakým jsem je do aplikace zakomponoval.
@@ -26,11 +26,40 @@ Jednotilivé verze aplikace jsou v tuto chvíli distribuovány pouze registrovan
 # Klíčová slova
 mobilní aplikace, 3d tisk, octoprint, iOS, Swift, open source
 
+# 3D Tisk
+
+V této kapitole stručně zmiňuji princip a technologii 3D tisku.
+Čtenáře uvedu také do stávajícího stavu z pohledu ovládání 3D tiskáren a využití mobilních aplikací k tomuto účelu.
+
+## Technologie 3D tisku
+
+3D tisk je proces, při kterém lze z digitálního modelu vytvořit reálný objekt.
+Tyto objekty vznikají postup nanášením jednotlivých vrstev modelu na sebe ve vertikálním směru.
+Jedna z metod využívajících vrstvení materiálu se nazývá Fused deposition modeling (zkráceně FDM).
+Princip FDM spočívá v tavení plastu (případně jiných materiálů) pomocí tiskové hlavy, která následně nanáší taveninu ve vrstvách na sebe[1].
+Takto vytvořené plastové objekty mají velkou výhodu v nízkých nákladech na výrobu.
+Jsou tedy ideálním prostředkem k výrobě prototypů nebo produkování omezeného množství výrobků [11. 4. http://www.efunda.com/processes/rapid_prototyping/intro.cfm].
+
+## OctoPrint - Ovládání 3D tiskárny
+
+V závislosti na typu tiskárny existuje více možností jak ji ovladát.
+Mezi nejrozšířenější patří v tuto chvíli volně dostupné webové rozhraní OctoPrint [11. 4. http://octoprint.org].
+Bohužel je ale toto rozhraní zcela zaměřeno na použití z počítače.
+Ovládací prvky nejsou dostatečně veliké a manipulace s nimi přináší velmi špatnou uživatelskou zkušenost na mobilních zařízeních.
+Pro lepší čitelnost ovládání je nutné stránku v prohlížeči přiblížit.
+To ale z části omezuje funkcionalitu, protože některé prvky se při přiblížení vykreslí až za okraj stránky a není možné je využít. Možné alternativy v kapitole [Analýza] Mobilní klienti.
+
+## Definice pojmů
+
+Přestože se obvykle slovem tisk rozumí běžný papírový tisk pomocí inkoustové nebo laserové tiskárny,
+ve své práci tento druh tisku vůbec neuvažuji a pojmem tisk rozumím 3D tisk.
+Analogické předefinování si dovolím i u pojmů odvozených.
+
+Přestože metod tisku existuje mnoho, ve své práci uvažuji pouze FDM, tedy metodu zmíněnou v kapitole [Technologie 3D tisku].
+
 # Architektura aplikace
 Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple MVC.
 Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller. [15. 3. 2017 https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html]
-
-# 3D Tisk
 
 **Model** perzistentní objekty, které aplikace využívá k pro vnitřní logiku a prezentaci dat uživateli.
 Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
