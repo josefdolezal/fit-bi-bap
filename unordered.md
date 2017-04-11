@@ -3,11 +3,34 @@
 # [Abstract EN](abstract_en.tex)
 
 # Úvod
-[TODO]
+V posledních letech můžeme být svědky velkého technologického rozmachu.
+Nedílnou součástí tohoto rozmachu jsou mobilní aplikace a také 3D tiskárny.
+V oblasti 3D tiskáren se popularita zvýšila za posledních pět let více než osmkrát (měřeno dle zájmu o téma v Google vyhledávání)[11. 4. 2017 https://trends.google.cz/trends/explore?q=3d%20print].
+Mnohem většího úspěchu dosáhly mobilní zařízení, ktrá v září 2016 poprvé přesáhli využívání osobních počítačů [11. 4. 2017 http://www.telegraph.co.uk/technology/2016/11/01/mobile-web-usage-overtakes-desktop-for-first-time/].
+
+I navzdory těmto faktům je v současné době využívání a ovládání 3D tiskáren doménou zejména počítačů.
+O tom svědčí především rozšíření mobilních aplikací.
+Ty jsou v současné době pouze dvě, jejich funkcionalita je navíc oproti desktopové verzi značně omezená.
+
+Ve své bakalářské práci se zabývám návrhem mobilní aplikace pro ovládání 3D tiskáren, její analýzou a implementací.
+Práci uvádím kapitolou *3D tisk*, která čtenáře stručně uvede do problému.
+V kapitole *Analýza* zkoumám možné technologie a paradigmata, z nichž vybrané zmiňuji následně v kapitole o implementaci.
+V části věnující se návrhu popisuji jaké funkcionality implementovaná aplikace bude obsahovat a způsob jakým jsem je do aplikace zakomponoval.
+O udržení kvality aplikace a využití automatizace v průběhu vývoje mluvím v kapitole *Testování*.
+
+Výsledná aplikace je vedena jakou open source.
+Její zdrojový kód je tedy volně dostupný s možností libovolných úprav.
+Přestože aplikace není distribuována standardní cestou obchodem App Store, je na tuto formu distribuce plně připravena.
+Jednotilivé verze aplikace jsou v tuto chvíli distribuovány pouze registrovaným vývojářům pomocí Fabric Beta.
+
+# Klíčová slova
+mobilní aplikace, 3d tisk, octoprint, iOS, Swift, open source
 
 # Architektura aplikace
 Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple MVC.
-Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
+Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller. [15. 3. 2017 https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html]
+
+# 3D Tisk
 
 **Model** perzistentní objekty, které aplikace využívá k pro vnitřní logiku a prezentaci dat uživateli.
 Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
@@ -215,3 +238,5 @@ Na základě definice objektu se následně přechází ke konkrétní implement
 * BDD - behavioral driven development
 * TDD - test driven development
 * DSL - Domain specific language (u testů BDD)
+* App Store
+* Fabric Beta

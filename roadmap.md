@@ -28,7 +28,10 @@
   * REST API
     * Moya
 * Knihovny
-* Testování
+* [x] Testování
+  * [x] Uživatelské testy
+  * [x] UI testy
+  * [x] Testy chování
 * CI
 
 0. Úvod do problému
