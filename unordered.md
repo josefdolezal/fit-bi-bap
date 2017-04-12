@@ -42,12 +42,20 @@ Jsou tedy ideálním prostředkem k výrobě prototypů nebo produkování omeze
 
 ## OctoPrint - Ovládání 3D tiskárny
 
-V závislosti na typu tiskárny existuje více možností jak ji ovladát.
-Mezi nejrozšířenější patří v tuto chvíli volně dostupné webové rozhraní OctoPrint [11. 4. http://octoprint.org].
+Tisk lze obsloužit pomocí mnoha aplikačních rozhraní.
+Velmi oblíbeným nástrojem je OctoPrint, který nabízí ovládání pomocí webového prohlížeče.
+Jedná se tedy o webové rozhraní, které reprezentuje uživateli příkazy tiskárny pomocí tlačítek či jiných grafických prvků.
+Z prohlížeče je tak možné měnit základní vlastnosti jako např. teploty, průběh tisku či nastavení připojení k tiskárně.
 Bohužel je ale toto rozhraní zcela zaměřeno na použití z počítače.
 Ovládací prvky nejsou dostatečně veliké a manipulace s nimi přináší velmi špatnou uživatelskou zkušenost na mobilních zařízeních.
-Pro lepší čitelnost ovládání je nutné stránku v prohlížeči přiblížit.
-To ale z části omezuje funkcionalitu, protože některé prvky se při přiblížení vykreslí až za okraj stránky a není možné je využít. Možné alternativy v kapitole [Analýza] Mobilní klienti.
+Možné alternativy v kapitole [Analýza] Mobilní klienti.
+
+Kromě webového rozhraní nabízí OctoPrint také API pro aplikace třetích stran. Pro implementaci své aplikace využiji právě tohoto rozhraní.
+
+V době psaní práce je dostupná verze API 1.3, která oproti předchozí verzi nabízí nové funkce jako např. správu uživatelů či nastavení systému.
+Ty ale sám autor označuje za experimentální.
+Pro mobilní aplikaci navíc nejsou stěžejní.
+Z tohoto důvodu jsem se rozhodl využít starší verzi 1.2.15, která většinu funkcí označuje jako stabilní.
 
 ## Definice pojmů
 
