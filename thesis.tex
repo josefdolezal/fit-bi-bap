@@ -1,32 +1,93 @@
-% arara: xelatex: { shell: yes }
-% arara: makeglossaries
-% arara: biber
-% arara: xelatex: { shell: yes }
-% arara: xelatex: { shell: yes }
-\documentclass[thesis=B,czech,hidelinks]{template/FITthesisXE}
+% options:
+% thesis=B bachelor's thesis
+% thesis=M master's thesis
+% czech thesis in Czech language
+% slovak thesis in Slovak language
+% english thesis in English language
+% hidelinks remove colour boxes around hyperlinks
 
-\usepackage{ graphicx }		% graphics files inclusion
-\usepackage{ dirtree } 		% directory tree visualisation
-\usepackage{ longtable } 	% tables which Pandoc use
-\usepackage{ lscape }		  % to be able to rotate stuff
-\usepackage{ metalogo }		% for \XeLaTeX
+\documentclass[thesis=B,czech]{FITthesis}[2012/06/26]
 
-\bibliography{library.bib}
+\usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
+
+\usepackage{graphicx} %graphics files inclusion
+% \usepackage{amsmath} %advanced maths
+% \usepackage{amssymb} %additional math symbols
+
+\usepackage{dirtree} %directory tree visualisation
+
+% % list of acronyms
+% \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
+% \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
+% \makeglossaries
+
+\newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
+\newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% ODTUD DAL VSE ZMENTE
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-%\acknowledgements{\input{acknoledgements.tex}}
-\abstractCS{\input{abstract_cs.tex}}
-\abstractEN{\input{abstract_en.tex}}
-
-%\input{meta.tex}
+\department{Katedra informačních technologií}
+\title{iOS aplikace k ovládání 3D tiskáren}
+\authorGN{Josef} %(křestní) jméno (jména) autora
+\authorFN{Doležal} %příjmení autora
+\authorWithDegrees{Josef Doležal} %jméno autora včetně současných akademických titulů
+\supervisor{Ing. Miroslav Hrončok}
+\acknowledgements{\input{preambule/acknowledgements}}
+\abstractCS{\input{preambule/abstract_cs}}
+\abstractEN{\input{preambule/abstract_en}}
+\placeForDeclarationOfAuthenticity{V~Praze}
+\declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
+\keywordsCS{\input{preambule/keywords_cs}}
+\keywordsEN{\input{preambule/keywords_cs}}
+\website{https://github.com/josefdolezal/fit-bi-bap}
 
 \begin{document}
 
+% \newacronym{CVUT}{{\v C}VUT}{{\v C}esk{\' e} vysok{\' e} u{\v c}en{\' i} technick{\' e} v Praze}
+% \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
+
 \begin{introduction}
-\label{introduction}
-\input{introduction.tex}
+  \input{chapters/introduction}
 \end{introduction}
 
+\input{chapters/3d-print}
+
+\input{chapters/analysis}
+
+\input{chapters/testing}
+
+\begin{conclusion}
+  \input{chapters/conclusion}
+\end{conclusion}
+
+\bibliographystyle{csn690}
+\bibliography{bibliography.bib}
+
+\appendix
+
+\chapter{Seznam použitých zkratek}
+% \printglossaries
+% \begin{description}
+%
+% \end{description}
+
+\chapter{Obsah přiloženého CD}
+
+%upravte podle skutecnosti
+
+\begin{figure}
+	\dirtree{%
+		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
+		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
+		.1 src.
+		.2 impl\DTcomment{zdrojové kódy implementace}.
+		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
+		.1 text\DTcomment{text práce}.
+		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
+		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
+	}
+\end{figure}
 
 \end{document}

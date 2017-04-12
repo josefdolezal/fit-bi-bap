@@ -1,0 +1,76 @@
+\chapter{Testování}
+
+V kapitole o testování se podrobněji zabývám způsoby a postupy naznačenými v kapitolách Architektura MVVM \ref{chapter-mvvm} a Reaktivní programování \ref{chapter-reactive-programming}.
+
+Testováním software se rozumí postupy a procesy, pomocí kterých lze měřit, zda testovaný software (či jeho části) splňuje požadované nároky či nikoliv.
+Opakovaným aplikováním těchto postupů lze v softwaru nalézt chyby, nedostatky nebo chybějící vlastnosti oproti dodané specifikaci.
+Výsledky testování následně vypovídají o kvalitě softwaru a o míře splnění specifikace. \cite{software-testing-definition}
+
+V této práci jsem využil tří typů testů.
+Prvním typem jsou uživatelské testy, zkoumající chování uživatelů při používání aplikace.
+Druhým typem jsou testy uživatelského rozhraní, které zjišťují, zda vlivem změn ve vzhledu aplikace nebyla omezena některá z vyžadovaných funkcionalit.
+Posledním technika testování, kterou jsem využil jsou testy chování aplikace.
+Ty ověřují zda aplikace na sadu vstupů produkuje odpovídající výstupy.
+V následujícím shrnutí se těmto technikám věnuji podrobněji.
+
+\section{Uživatelské testy}
+
+Slouží ke zjišťování problémů s návrhem vzhledu aplikace.
+Na výsledcích těchto testů lze sledovat, jaké části aplikace jsou uživatelům nesrozumitelné či zda se v aplikaci orientují.
+Obsahem testů jsou předpřipravené scénáře pokrývající vybrané funkce aplikace.\cite{dobry-web-ux-testing}
+
+Tyto testy se provádějí na vzorku vybraných uživatelů z cílové skupiny.
+Uživatelé během testů prochází aplikaci a mají za úkol naplnit zadanané scénáře.
+Během testů se podrobně sleduje, jakým způsobem uživatelé reagují a jak úspěšní jsou při plnění úkolů.
+Vzhledem k vysoké časové (mnohdy také finanční) náročnosti se tyto testy provádějí obvykle pouze jednou a to v začátcích projektu. \cite{h1-ux-testing}
+
+Ve své práci jsem prováděl testování na malé skupině uživatelů 3D tiskáren.
+Na základě pozorování jsem následně změnil...\textbf{TODO}
+
+\section{Testy uživatelského rozhraní}
+
+Dávají možnost intereagovat s komponentami uživatelského rozhraní za účelem jejich validace.
+Na rozdíl od testů chování přistupují tyto testy k aplikaci jako k celku a zacházejí s ní obdobně jako by s ní zacházel uživatel. Tyto testy tedy nemají přístup k vnitřní implementaci aplikace.
+Jelikož nevyžadují během chodu zásah člověk (test *nahrazuje* jeho přítomnost), mohou být pouštěny automaticky.
+Standardně se tedy pouští při implementaci každé nové funkce, mnohdy až několikrát denně. \cite{apple-ui-testing}
+
+Protože tyto testy z jsou v mém případě pouze nadstavbou nad *testy chování* vysvětlené níže, rozhodl jsem se je implementovat pomocí referenčních obrázků.
+Testy tedy pro každý podstatný krok scénáře obsahují referenční obrázek, jak by obrazovka měla v dannou chvíli vypadat.
+Pokud se vzhled s referenčním obrázkem shoduje, test projde.
+Nevýhodou tohoto přístupu je nutnost přegenerování referenčních obrázků v momentě,
+kdy se vzhled obrazovky (úmyslně) změní byť o jediný obrazový bod.
+Podstatnou výhodou tohoto přístupu je ale nezávislost na implementaci.
+Pokud se implementace změní, s velkou pravděpodobností to výsledky testů neovlivní.
+
+\section{Testy chování}
+
+estované objekty mají definované své rozhraní a závisloti.
+Tím jsou deklarovány i závazky objektu.
+Závazky určují, jakým způsobem by měl objekt působit na zbylé části aplikace, jaké schopnosti a funkce má - definují chování objektu.
+Testovaným objektem může být libovolný modul aplikace.
+Složitost a rozsah testů se odvíjí od počtu závazků objektu.
+Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny a sleduje se, jestli se objekt na základě změn chová podle očekávání. \cite{objcio-bdd}
+
+
+V reálném světě si lze jako objekt představit auto.
+Jako změnu vlastnosti můžeme lze použít vyprázdnění nádrže.
+Očekávaným chováním auta následně je, že přestane být pojízdné a rozsvítí kontrolku řidiči.
+Auto projde testem chování, právě když při prázdné nádrži je nepojízdné a svítí kontrolka.
+
+
+Tento princip testování využívám pro testování View Modelu a Modelu (viz. kapitola MVVM: Model-View-ViewModel).
+Díky úspěšnému otestování více než 70\% [TODO] logiky aplikace, lze usuzovat, že při používání aplikace se chyb vyskytne jen nepatrné množství.
+View vrstvu následně není samostatně nutné testovat, protože z testů View Modelu je jisté, že data jsou správně připravena k zobrazení.
+Testy pomocí porovnání skutečného vzhledu s očekávaným (zmíněno v testech uživatelského rozhraní) jsou tedy dostačující.
+
+
+Obdobně jako testy rozhraní i tyto testy se pouštějí při vývoji až několikrát denně.
+Slouží také jako dobrý ukazatel kvality aplikace a dokáží určit její rozsah.
+
+
+S pojmem *testování chování* je velmi blízce spjat **vývoj řízený testováním chování** (z anglického Behavior Driven Development, zkráceně BDD).
+V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
+Následně se sestavují testy, které vyžadují úplné implementování vyžadovaného chování.
+Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
+Testy jsou popisovány tkzv. DSL, který pomocí kombinace klíčových slov a textového popisu chování. \textbf{SHOW PREVIEW DSL}
+Na základě definice objektu se následně přechází ke konkrétní implementaci. \cite{objcio-bdd}

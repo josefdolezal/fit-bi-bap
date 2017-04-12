@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/tex,latex,macos
 
+## Document build folder
+build
+
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
 *.aux
