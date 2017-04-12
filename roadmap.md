@@ -1,41 +1,45 @@
-* 3D tisk
+* [x] Úvod
+* [x] 3D tisk
   * [x] Obecné informace o tisku
-  * [x] FDM
-* Webové rozhraní OctoPrint
-  * [x] API (verze + endpointy)
+  * [x] Webové rozhraní OctoPrint
+* Analýza a rešerše
   * Stávající řešení
     * App 1
     * App 2
-
-* Architektura iOS aplikace
-  * [x] MVC
-  * [x] MVVM
-  * Reaktivní programování
-    * Signály (hot + cold)
-    * Operátory
-    * Synchronizace vláken
-    * Napojení na UI (bindings)
-  * Coordinators
-* Datová vrstva
-  * Realm
+  * Paradigmata
+    * [x] MVC
+    * [x] MVVM
+  * Technologie
+    * Reaktivní programování
+      * Signály (hot + cold)
+      * Operátory
+      * Synchronizace vláken
+      * Napojení na UI (bindings)
+    * Ukládání dat (perzistence)
+* Návrh
+  * Popis funkcí podle API
+  * Wireframe
+  * Konečné UI
+* Implementace
+  * Architektura (zvoleno MVVM)
+  * Síťová vrstva
+    * Alamofire
+    * Moya
+    * Rocket Socket
+  * Datová vrstva
     * Popis push based databáze
     * Notifikace
-    * Ukázka
-* UI
-* Networking
-  * Sockety
-    * Rocket socket
-  * REST API
-    * Moya
-* Knihovny
+    * Ukázky
+  * Routování v aplikaci (Coordinators)
 * [x] Testování
   * [x] Uživatelské testy
   * [x] UI testy
   * [x] Testy chování
-* CI
+  * CI
+* Závěr
 
 0. Úvod do problému
-  * 3d tisk + OctoPrint -> o co se jedná a k čemu slouží
+  * 3d tisk + OctoPrint -> o co se jedná a k čemu slouží [x]
 0. Analýza a rešerše
   * Technologie + Paradigmata -> co použít na iosu
   * Použité technologie *(zabývám se postupy a technologie + zdůvodnění)*
