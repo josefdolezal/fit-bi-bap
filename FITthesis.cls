@@ -446,7 +446,7 @@ sp\^ osobom, ktor\'y nezni\v zuje hodnotu Diela (vr\'atane komer\v cn\'eho vyu\v
 \AfterEndPreamble{
 	\frontmatter
 	\thispagestyle{empty}
-	\if\@lang1{Sem vlo{\v z}te zad{\' a}n{\' i} Va{\v s}{\' i} pr{\' a}ce.}\else\if\@lang2{Sem vlo{\v z}te zadanie Va{\v s}ej pr{\' a}ce.}\else{Insert here your thesis' task.}\fi\fi
+	\includepdf[pages={1}]{assets/assignment.pdf}
 
 	\pagestyle{plain}
 	\cleardoublepage
