@@ -57,9 +57,16 @@ Analogické předefinování si dovolím i u pojmů odvozených.
 
 Přestože metod tisku existuje mnoho, ve své práci uvažuji pouze FDM, tedy metodu zmíněnou v kapitole [Technologie 3D tisku].
 
-# Architektura aplikace
-Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple MVC.
-Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller. [15. 3. 2017 https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html]
+# Analýza a rešerše
+
+## Architektura aplikace
+Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple Model-View-Controller (zkráceně MVC) [15. 3. 2017 https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html].
+Přestože je MVC pro vývoj aplikací nejpopulárnější, rozhodl jsem před začátkem implementace prozkoumat i jiné existující architektury.
+Z alternativních architektur jsem nakonec zvolil Model-View-ViweModel, kterou porovnám s dopručeným MVC.
+V závislosti na výsledku provnání zvolím ideální architekturu pro svou aplikaci.
+
+### MVC
+Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 
 **Model** perzistentní objekty, které aplikace využívá k pro vnitřní logiku a prezentaci dat uživateli.
 Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
@@ -108,7 +115,7 @@ Díky přímému napojení controlleru na *View* se při testování chování c
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle podvrhnout mock objekty).
 Tento problém se snaží řešit architektura MVVM od společnosti Microsoft. [zdroj: appol]
 
-## MVVM
+### MVVM
 Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura MVVM.
 Tato architektura vychází ze zmíněného MVC a jejím základním úkolem je zjednodušit controller.
 Za tímto účelem se ke stávajícím třem vrstvám přidává View Model, který se stará o přípravu dat z Modelu pro zobrazení a také o perzistenci změn.
