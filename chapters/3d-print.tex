@@ -1,18 +1,18 @@
-\chapter{3D tisk}
+\chapter{3D tisk}\label{3d-tisk}
 
 V této kapitole stručně zmiňuji princip a technologii 3D tisku.
 Čtenáře uvedu také do stávajícího stavu z pohledu ovládání 3D tiskáren a využití mobilních aplikací k tomuto účelu.
 
-\subsection{Technologie 3D tisku}
+\section{Technologie 3D tisku}\label{3d-tisk-technologie}
 
 3D tisk je proces, při kterém lze z digitálního modelu vytvořit reálný objekt.
 Tyto objekty vznikají postup nanášením jednotlivých vrstev modelu na sebe ve vertikálním směru.
 Jedna z metod využívajících vrstvení materiálu se nazývá Fused deposition modeling (zkráceně FDM).
-Princip FDM spočívá v tavení plastu (případně jiných materiálů) pomocí tiskové hlavy, která následně nanáší taveninu ve vrstvách na sebe[1].
+Princip FDM spočívá v tavení plastu (případně jiných materiálů) pomocí tiskové hlavy, která následně nanáší taveninu ve vrstvách na sebe \cite{3d-print-fdm}.
 Takto vytvořené plastové objekty mají velkou výhodu v nízkých nákladech na výrobu.
-Jsou tedy ideálním prostředkem k výrobě prototypů nebo produkování omezeného množství výrobků \cite{3dprint-for-prototyping}.
+Jsou tedy ideálním prostředkem k výrobě prototypů nebo produkování omezeného množství výrobků \cite{3d-print-for-prototyping}.
 
-\subsection{OctoPrint - Ovládání 3D tiskárny}
+\section{OctoPrint - Ovládání 3D tiskárny}\label{3d-tisk-ovladani}
 
 Tisk lze obsloužit pomocí mnoha aplikačních rozhraní.
 Velmi oblíbeným nástrojem je OctoPrint, který nabízí ovládání pomocí webového prohlížeče.
@@ -20,20 +20,20 @@ Jedná se tedy o webové rozhraní, které reprezentuje uživateli příkazy tis
 Z prohlížeče je tak možné měnit základní vlastnosti jako např. teploty, průběh tisku či nastavení připojení k tiskárně.
 Bohužel je ale toto rozhraní zcela zaměřeno na použití z počítače.
 Ovládací prvky nejsou dostatečně veliké a manipulace s nimi přináší velmi špatnou uživatelskou zkušenost na mobilních zařízeních.
-Možné alternativy v kapitole [Analýza] Mobilní klienti.
+Možné alternativy v kapitole \textit{Analýza}.
 
 Kromě webového rozhraní nabízí OctoPrint také API pro aplikace třetích stran.
 Pro implementaci své aplikace využiji právě tohoto rozhraní.
 
-V době psaní práce je dostupná verze API 1.3, která oproti předchozí verzi nabízí nové funkce jako např. správu uživatelů či nastavení systému.
+V době psaní práce je dostupná verze API $1.3$, která oproti předchozí verzi nabízí nové funkce jako např. správu uživatelů či nastavení systému.
 Ty ale sám autor označuje za experimentální.
 Pro mobilní aplikaci navíc nejsou stěžejní.
-Z tohoto důvodu jsem se rozhodl využít starší verzi 1.2.15, která většinu funkcí označuje jako stabilní.
+Z tohoto důvodu jsem se rozhodl využít starší verzi $1.2.15$, která většinu funkcí označuje jako stabilní.
 
-\subsection{Definice pojmů}
+\section{Definice pojmů}\label{3d-tisk-definice-pojmu}
 
 Přestože se obvykle slovem tisk rozumí běžný papírový tisk pomocí inkoustové nebo laserové tiskárny,
 ve své práci tento druh tisku vůbec neuvažuji a pojmem tisk rozumím 3D tisk.
 Analogické předefinování si dovolím i u pojmů odvozených.
 
-Přestože metod tisku existuje mnoho, ve své práci uvažuji pouze FDM, tedy metodu zmíněnou v kapitole \textit{Technologie 3D tisku}.
+Ve své práci uvažuji jako metodu tisku pouze FDM zmíněnou v kapitole \textit{Technologie 3D tisku}.
