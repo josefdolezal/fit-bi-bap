@@ -90,10 +90,19 @@ Integrace je následně provedena jen v případě, že celý proces proběhl be
 Jak je zjevné, při této technice je zásadní vysoké pokrytí aplikace testy.
 
 Průběžné integrování je často velmi blízce vázáno na správu zdrojových kódů.
-Některé systémy jako GitHub či GitLab je dokonce možné nastavit tak, aby by změny byly přidány do hlavní větve až ve chvíli, kdy build projde bez komplikací. \cite{travis-ci-buildinf-pr}
+Některé systémy jako GitHub či GitLab je dokonce možné nastavit tak, aby by změny byly přidány do hlavní větve až ve chvíli, kdy build projde bez komplikací. \cite{travis-ci-building-pr}
 
 https://github.com
 https://about.gitlab.com
+
+Pro průběžnou integraci je na trhu dostupných mnoho řešení.
+Rozhodoval jsem se mezi použitím komerčních řešení \textit{Travis CI} a \textit{Circle CI}.
+První zmíněná možnost je v open source komunitě velmi populární a dalo by se říct, že je pro \textit{CI} téměř synonymem.
+Podle nezávislého průzkumu z roku 2016 využívá \textit{Travis CI} téměř pětinásobek uživatelů než ostatních poskytovatelů dohromady. \cite{oregonstate-ci-survey}
+
+Druhé řešení jsem chtěl vyzkoušet kvůli rostoucí popularitě. \cite{circleci-popularity}
+Bohužel je kompilace na operačním systému macOS pro open source projekty možná až po individuálním schválení. \cite{circleci-pricing}
+Z tohoto důvodu jsem nakonec zvolil první řešení, kde je kompilace na systému macOS pro studenty zdarma.
 
 \subsection{Statická analýza kódu}
 
