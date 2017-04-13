@@ -90,7 +90,7 @@ Integrace je následně provedena jen v případě, že celý proces proběhl be
 Jak je zjevné, při této technice je zásadní vysoké pokrytí aplikace testy.
 
 Průběžné integrování je často velmi blízce vázáno na správu zdrojových kódů.
-Některé systémy jako GitHub či GitLab je dokonce možné nastavit tak, aby by změny byly přidány do hlavní větve až ve chvíli, kdy build projde bez komplikací. \cite{travis-ci-build-pr}
+Některé systémy jako GitHub či GitLab je dokonce možné nastavit tak, aby by změny byly přidány do hlavní větve až ve chvíli, kdy build projde bez komplikací. \cite{travis-ci-buildinf-pr}
 
 https://github.com
 https://about.gitlab.com
@@ -115,3 +115,19 @@ Pokud nejsou v kódu závažné porušení směrnice, pokračuje se ke kompilaci
 V opačném případě nastane chyba a je nutné kód opravit a integraci pustit znovu.
 https://realm.io
 https://github.com/realm/SwiftLint
+
+\section{Průběžné doručování}
+
+Průběžné doručování (z anglického \textit{Continuous delivery}, zkráceně \textit{CD}) je způsob, kterým lze nasadit nové funkcionality, změny konfigurace či opravy chyb do produkčního prostředí.
+Cílem této praktiky je automatizovaně aplikovat opakované postupy potřebné k vydání aplikace.
+Tím lze minimalizovat množství chyb, které by vývojář jinak mohl při vydávání způsobit.
+Vývojáři stačí v tomto případě pouze doručování spusti, server zařídí aby aplikace byla správně nasazena.
+
+Kromě minimalize výskytu chyb tato technika snižuje čas vývoje.
+Díky automatizovanému vydávání mají vývojáři více času na samotný vývoj.
+Tím lze zaručit vyšší kvalitu kódu, nižší náklady na vývoj a také častější aktualizace software. \cite{continuousdelivery-what-is-ci}
+
+Přestože pro svou práci nemám reálné produkční prostředí, rozhodl jsem se \textit{CD} použít pro distribuci testovací verze aplikace.
+Díky tomu jsem mohl jednotlivé verze vydávat v průběhu vývoje velmi rychle a ověřit funkčnost aplikace na skutečných zařízeních.
+Vydání verze jsem nastavil na každé nahrání zdrojových kódů do repozitáře.
+Po statické analýze a kompilaci byla aplikace nahrána do prostředí Fabric, odkud si ji mohli registrovaní testeři stáhnout.
