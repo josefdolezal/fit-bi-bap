@@ -1,52 +1,46 @@
-% options:
-% thesis=B bachelor's thesis
-% thesis=M master's thesis
-% czech thesis in Czech language
-% slovak thesis in Slovak language
-% english thesis in English language
-% hidelinks remove colour boxes around hyperlinks
-
 \documentclass[thesis=B,czech]{FITthesis}[2012/06/26]
 
-\usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
+\usepackage[utf8]{inputenc}
 \usepackage{pdfpages}
-\usepackage{graphicx} %graphics files inclusion
-% \usepackage{amsmath} %advanced maths
-% \usepackage{amssymb} %additional math symbols
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{dirtree}
 
-\usepackage{dirtree} %directory tree visualisation
+\definecolor{bgcode}{rgb}{0.95,0.95,0.95}
 
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
 % \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
 % \makeglossaries
 
+\renewcommand \listingscaption{Ukázka kódu}
+\renewcommand \listoflistingscaption{Seznam ukázek kódu}
+
 \newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
 \newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% ODTUD DAL VSE ZMENTE
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\newcommand{\swiftcode}[3]{
+\begin{listing}[htbp]
+\caption{\label{#1}#2}
+\inputminted[linenos, bgcolor=bgcode]{swift}{#3}
+\end{listing}
+}
 
 \department{Katedra informačních technologií}
 \title{iOS aplikace k ovládání 3D tiskáren}
-\authorGN{Josef} %(křestní) jméno (jména) autora
-\authorFN{Doležal} %příjmení autora
-\authorWithDegrees{Josef Doležal} %jméno autora včetně současných akademických titulů
+\authorGN{Josef}
+\authorFN{Doležal}
+\authorWithDegrees{Josef Doležal}
 \supervisor{Ing. Miroslav Hrončok}
 \acknowledgements{\input{preambule/acknowledgements}}
 \abstractCS{\input{preambule/abstract_cs}}
 \abstractEN{\input{preambule/abstract_en}}
 \placeForDeclarationOfAuthenticity{V~Praze}
-\declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
+\declarationOfAuthenticityOption{4}
 \keywordsCS{\input{preambule/keywords_cs}}
 \keywordsEN{\input{preambule/keywords_cs}}
 \website{https://github.com/josefdolezal/fit-bi-bap}
 
 \begin{document}
-
-% \newacronym{CVUT}{{\v C}VUT}{{\v C}esk{\' e} vysok{\' e} u{\v c}en{\' i} technick{\' e} v Praze}
-% \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
   \input{chapters/introduction}
@@ -74,8 +68,6 @@
 % \end{description}
 
 \chapter{Obsah přiloženého CD}
-
-%upravte podle skutecnosti
 
 \begin{figure}
 	\dirtree{%
