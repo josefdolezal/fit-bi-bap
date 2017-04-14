@@ -83,7 +83,7 @@ Tento problém se snaží řešit architektura MVVM od společnosti Microsoft.
 Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura MVVM.
 Tato architektura vychází ze zmíněného MVC a jejím základním úkolem je zjednodušit Controller.
 
-\subsubsection{Popis architektury}
+\subsubsection{Popis architektury} \label{architektura-mvvm-popis}
 
 Za účelem zjednodušení Controlleru se ke stávajícím třem vrstvám přidává View Model, který se stará o přípravu dat z Modelu pro zobrazení a také o perzistenci změn.
 
@@ -109,7 +109,7 @@ Toto chování zachycuje obrázek \ref{architektura-mvvm}.
 	\caption[Architektura MVVM]{Architektura MVVM}\label{architektura-mvvm}
 \end{figure}
 
-\subsubsection{Modelový příklad použití}
+\subsubsection{Modelový příklad použití} \label{architektura-mvvm-priklad}
 
 Pro porovnání architektury s MVC lze opět využít scénář pro stažení dat. Pro tento scénář by se architektura MVVM chovala následovně:
 \begin{itemize}
@@ -121,7 +121,7 @@ Pro porovnání architektury s MVC lze opět využít scénář pro stažení da
   \item V případě chyby vytvoří view model chybový výstup, ten se pomocí controlleru propaguje do view.
 \end{itemize}
 
-\subsubsection{Shrnutí}
+\subsubsection{Shrnutí} \label{architektura-mvvm-shrnuti}
 
 Vrstvy mají následující klíčové vlastnosti:
 \begin{itemize}
@@ -152,3 +152,71 @@ Místo KVO se nyní standardně používají reaktivní rozšíření, které po
 Přestože mnou implementovaná aplikace není v ohledu na uživatelské scénáře nijak složitá, obsahuje mnoho obrazovek.
 Obrazovky jsou vysoce interaktivní a více se k jejich implementaci hodí reaktivní přístup.
 Z tohoto důvodu jsem jako architekturu vybral MVVM s použitím reaktivních rozšíření místo standardního MVC.
+
+\section{Synchronizace vláken aplikace} \label{analyza-synchronizace-vlaken}
+
+Mobilní aplikace se svou povahou značně liší od běžných webových nebo desktopových aplikací.
+Oproti zmíněným jsou často mnohem interaktivnější, tedy ovládané nejen běžnými vstupy, ale i vlastnostmi zařízení (GPS poloha, orientace zařízení, dostupnost periferií).
+Aby tyto vstupy nekazily uživatelský zážitek, jsou v systému implementovány asynchronně.
+
+Jako příklad lze vzít získávání polohy z družic.
+To provádí telefon na vlákně v pozadí.
+Tím je zaručené, že hlavní vlákno aplikace (které se mimo jiné stará o vykreslování) není blokované a s aplikací lze bez problému intereagovat.
+Jakmile jsou dostupné informace o poloze, aplikace zažádá systém o prostředky na hlavním vlákně a získanou polohu prezentuje uživateli.
+
+Tento přístup je v SDK poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
+Ne vždy je ale běžné, aby výsledek byl prezentovaný na hlavním vlákně.
+Takový princip je využit u síťových požadavků.
+
+Síťový požadavek se vykonává na vlákně v pozadí a na stejném vlákně je zpracována i odpověď ze vzdáleného serveru.
+Je-li potřeba odpověď zpracovat na hlavním vlákně, musí vývojář explicitně čas na hlavním vlákně vyžádat pomocí Grand Central Dispatch či vlákna synchronizovat jiným spůsobem.
+Od verze systému iOS 9 je navíc nemožné udělat síťový požadavek synchronně (blokovat vlákno, které požadavek vytvořilo až do konce zpracování) \cite{apple-whats-new-in-ios}.
+
+Otázkou tedy zůstává jak správně synchronizovat všechny vlákna, která potřebují zpracovat data na hlavním vlákně.
+
+Při analýze tohoto problému jsem se zaměřil na tři možná řešení.
+První dvě jsou implementovány přímo v dodávaném SDK, třetí možnost je knihovna od společnosti GitHub.
+
+\subsection{Grand Central Dispatch}
+
+Grand Central Dispatch (zkráceně GCD) je technologie vyvinutá společností Apple přinášející optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
+GCD je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
+
+Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \textit{DispatchQueue}.
+DispatchQueue je implementována jako \textit{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
+Do této fronty je možné vkládat jednotky práce, GCD se postará o to aby byly spuštěny na ve správném pořadí.
+V závislosti na konfiguraci je pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
+
+V základu je dostupná \textit{main} fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
+Pro synchronizaci vláken stačí požadované jednotky práce přidávat do správných front  \ref{code:create-dispatch-queue}.
+
+Je-li potřeba vytvořit vlastní frontu (z důvodu uvolnění času na hlavním vlákně), stačí specifikovat název fronty a její prioritu.
+Vytvoření nové fronty běžící v pozadí je vidět v ukázce \ref{code:create-dispatch-queue}.
+
+\swiftcode{code:create-dispatch-queue}{GCD: Vytvoření vlastní fronty}{assets/code/create-dispatch-queue.swift}
+
+\subsubsection{Quality of Service}
+
+Pro možnost rozlišení priorit front využívá Apple Quality of Service (zkráceně QoS).
+Díky QoS je možné určit, jakou prioritu bude mít danná fronta při rozdělování vláken.
+V současné době existují čtyři QoS priority \ref{apple-prioritize-work-with-qos}:
+
+\begin{description}
+  \item[User-interactive] Práce, se kterou uživatel přímo interaguje.
+  Tato fronta má nejvyšší prioritu, nejčastěji se v ní provádí překreslování uživatelského rozhranní či animace.
+  Jednotlivé úkoly z fronty jsou vykonané ihned.
+  \item[User-initiated] Práce, kterou zadal uživatel a vyžaduje okamžitý výsledek.
+  Nejčastěji se stará o akce, které nastanou po interakci s některým z ovládacích prvků (např. tlačítko).
+  \item[Utility] Práce, která vyžaduje více času pro své dokončení.
+  Typicky se jedná o síťové požadavky nebo načítání dat.
+  \item[Background] Práce s nízkou prioritou, kterou si nevyžádal uživatel.
+  Využívá se zejména pro dávkové mazání souborů, synchronizaci nebo indexování databáze.
+\end{description}
+
+Při vytváření front je důležité správně volit prioritu.
+Budou-li všechny fronty využívat jednu prioritu, může se stát, že systémová vlákna nebudou správně využita.
+To by vedlo ke snížení výkonu aplikace a špatné uživatelské zkušenosti.
+
+Přestože GCD je velmi zajímavá abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
+Mezi jednotkami práce nelze vyvářet závislosti či je řetězit.
+Tuto možnost ale nábízí \textit{Foundation} framework pomocí \textit{OperationQueue}.
