@@ -1,0 +1,126 @@
+\section{Synchronizace vláken aplikace} \label{analyza-synchronizace-vlaken}
+
+Mobilní aplikace se svou povahou značně liší od běžných webových nebo desktopových aplikací.
+Oproti zmíněným jsou často mnohem interaktivnější, tedy ovládané nejen běžnými vstupy, ale i vlastnostmi zařízení (GPS poloha, orientace zařízení, dostupnost periferií).
+Aby tyto vstupy nekazily uživatelský zážitek, jsou v systému implementovány asynchronně.
+
+Jako příklad lze vzít získávání polohy z družic.
+To provádí telefon na vlákně v pozadí.
+Tím je zaručené, že hlavní vlákno aplikace (které se mimo jiné stará o vykreslování) není blokované a s aplikací lze bez problému intereagovat.
+Jakmile jsou dostupné informace o poloze, aplikace zažádá systém o prostředky na hlavním vlákně a získanou polohu prezentuje uživateli.
+
+Tento přístup je v SDK poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
+Ne vždy je ale běžné, aby výsledek byl prezentovaný na hlavním vlákně.
+Takový princip je využit u síťových požadavků.
+
+Síťový požadavek se vykonává na vlákně v pozadí a na stejném vlákně je zpracována i odpověď ze vzdáleného serveru.
+Je-li potřeba odpověď zpracovat na hlavním vlákně, musí vývojář explicitně čas na hlavním vlákně vyžádat pomocí Grand Central Dispatch či vlákna synchronizovat jiným spůsobem.
+Od verze systému iOS 9 je navíc nemožné udělat síťový požadavek synchronně (blokovat vlákno, které požadavek vytvořilo až do konce zpracování) \cite{apple-whats-new-in-ios}.
+
+Otázkou tedy zůstává jak správně synchronizovat všechny vlákna, která potřebují zpracovat data na hlavním vlákně.
+
+Při analýze tohoto problému jsem se zaměřil na tři možná řešení.
+První dvě jsou implementovány přímo v dodávaném SDK, třetí možnost je knihovna od společnosti GitHub.
+
+\subsection{Grand Central Dispatch}
+
+Grand Central Dispatch (zkráceně GCD) je technologie vyvinutá společností Apple přinášející optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
+GCD je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
+
+Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \textit{DispatchQueue}.
+DispatchQueue je implementována jako \textit{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
+Do této fronty je možné vkládat jednotky práce, GCD se postará o to aby byly spuštěny na ve správném pořadí.
+V závislosti na konfiguraci je pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
+
+V základu je dostupná \textit{main} fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
+Pro synchronizaci vláken stačí požadované jednotky práce přidávat do správných front  \ref{code:create-dispatch-queue}.
+
+Je-li potřeba vytvořit vlastní frontu (z důvodu uvolnění času na hlavním vlákně), stačí specifikovat název fronty a její prioritu.
+Vytvoření nové fronty běžící v pozadí je vidět v ukázce \ref{code:create-dispatch-queue}.
+
+\swiftcode{code:create-dispatch-queue}{GCD: Vytvoření vlastní fronty}{assets/code/create-dispatch-queue.swift}
+
+Přidání do libovolné fronty..
+
+\subsubsection{Quality of Service}
+
+Pro možnost rozlišení priorit front využívá Apple Quality of Service (zkráceně QoS).
+Díky QoS je možné určit, jakou prioritu bude mít danná fronta při rozdělování vláken.
+V současné době existují čtyři QoS priority \ref{apple-prioritize-work-with-qos}:
+
+\begin{description}
+  \item[User-interactive] Práce, se kterou uživatel přímo interaguje.
+  Tato fronta má nejvyšší prioritu, nejčastěji se v ní provádí překreslování uživatelského rozhranní či animace.
+  Jednotlivé úkoly z fronty jsou vykonané ihned.
+  \item[User-initiated] Práce, kterou zadal uživatel a vyžaduje okamžitý výsledek.
+  Nejčastěji se stará o akce, které nastanou po interakci s některým z ovládacích prvků (např. tlačítko).
+  \item[Utility] Práce, která vyžaduje více času pro své dokončení.
+  Typicky se jedná o síťové požadavky nebo načítání dat.
+  \item[Background] Práce s nízkou prioritou, kterou si nevyžádal uživatel.
+  Využívá se zejména pro dávkové mazání souborů, synchronizaci nebo indexování databáze.
+\end{description}
+
+Při vytváření front je důležité správně volit prioritu.
+Budou-li všechny fronty využívat jednu prioritu, může se stát, že systémová vlákna nebudou správně využita.
+To by vedlo ke snížení výkonu aplikace a špatné uživatelské zkušenosti.
+
+Přestože GCD je velmi zajímavá abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
+Mezi jednotkami práce nelze vyvářet závislosti či je řetězit.
+Tuto možnost ale nábízí \textit{Foundation} framework pomocí \textit{NSOperationQueue}.
+
+\subsection{NSOperationQueue a NSOperation}
+
+NSOperationQueue a NSOperation je abstrakce nad metodou GCD zmíněnou víše.
+Toto API je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
+Hlavním rozdílem oproti GCD je vyloučení pojmu \textit{vlákno}.
+Jednotky práce nejsou nadále reprezentovány pomocí \textit{first class funkcí}, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
+
+\subsubsection{NSOperation}
+
+Pro reprezentaci jednotek práce se standardní funkce v GCD nejevily jako dostatečné.
+S představením NSOperationQueue, je ale nově možné nad opakovanými jednotkami abstrakci pomocí tříd.
+Toho lze docílit pomocí vytváření vlastních tříd dědících od NSOperation.
+
+NSOperation představuje samostatnou jednotku práce (operaci).
+Jedná se o abstraktní třídu zajišťující \textit{thread-safe} přístup ke správě stavu, priority a závislostí.
+
+Jako úkol lze chápat například jednotlivé síťové požadavdy, zpracování vstupů a uživatele a jejich perzistence nebo komplexní výpočty.
+Úkolem je možné označit ale i libovolnou strukturovanou jednotku práce, u které je potřeba udržovat stav nebo zpracovat její datový výstup.
+
+Oproti CGD má objektový přístup výhodu nejen v přehlednější strukturování, ale i v možnosti vytváření závislostí a správě stavu \cite{apple-operation-queues}.
+
+\begin{description}
+  \item[Závislosti] definují, jaké další operace musí být vykonány před tím, než bude daná operace spuštěna.
+  Přidat lze libovolný počet dalších operací, tím lze dosáhnout komplexního procesu za pomoci skládání menších bloků.
+  Jako příklad lze uvést síťovou komunikaci, kde každý požadavek závisí na ověření dostupnosti internetu (první operace) a na patřičném ověření uživatele (druhá operace).
+  Ke každému požadavku následně stačí přiřadit tyto dvě operace jako závislost, tím je zaručené že požadavek se pošle jen když je dostupné připojení k internetu a zároveň je uživatel ověřený.
+  \item[Správa stavu] umožňuje operaci pozastavit, spustit znovu nebo zrušit.
+  Oproti GCD, kde úkol, který se začal zpracovávat už nebylo možné zastavit, lze například do ovládání operací zapojit uživatele.
+\end{description}
+
+\subsubsection{NSOperationQueue}
+
+Obdobně jako GCD, je i zde potřeba určit kde a kdy se bude práce vykonávat.
+Pro tento účel slouží fronta NSOperationQueue.
+Tato fronta je implementována jako prioritní.
+Tedy v momentě kdy je vložena operace s vyšší prioritou, bude vykonána dříve než stávající operace s nízkou prioritou (pokud to její závislosti dovolí).
+Z tohoto odůvodu není zaručeno kdy se jednotlivé operace spustí.
+
+Základní vytvoření operace a vložení do fronty je vidět na ukázce \ref{code:operation-queue-demonstration}.
+
+\swiftcode{code:operation-queue-demonstration}{NSOperationQueue: Vytvoření fronty s operacemi}{assets/code/operation-queue-demonstration.swift}
+
+\subsubsection{Prioritizace úkolů}
+
+Z důvodu potřeby prioritizace některých úloh je možné jedntlivým operacím nastavit prioritu.
+V takovém případě se vždy jako první vykonají operace s vyšší prioritou, následně se přistupuje k těm s nižším.
+
+\subsubsection{Quality of Service}
+
+Jednou z nejsilněších stránek NSOperationQueue je abstrakce front nad vlákny (tedy celého GCD).
+V nastavení fronty lze zvolit stejně jako u GCD výchozí QoS.
+Všechny operace pak budou vyžívat právě tuto prioritu.
+Oproti GCD má však NSOperationQueue výhodu, že nepracuje pouze s jednou frontou.
+
+To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvořát více front.
+V závisloti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
