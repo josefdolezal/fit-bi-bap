@@ -14,10 +14,13 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
   \item[Model] reprezentuje perzistentní objekty, které aplikace využívá pro vnitřní logiku a prezentaci dat uživateli.
   Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
   Tato vrstva je často reprezentována databází, příkladem mohou být databáze CoreData, Realm nebo SQLite.
+  Ukázka \ref{code:mvc-model} prezentuje možnou podobu modelového objektu.
+  \swiftcode{code:mvc-model}{Modelový objekt v architektuře MVC}{assets/code/mvc-model.swift}
 
   \item[View] je datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
   Přestože se View standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
   Na platformě iOS tuto vrstvu reprezentuje framework UIKit vytvořený Applem.
+  Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci View.
 
   \item[Controller] je aplikační vrstva, která na základě vstupů z View aktualizuje a mění Model nebo překresluje View v případě, že zobrazovaná data už nejsou aktuální.
   Jedním z úkolů Controlleru je striktně zamezit přímé interakci mezi View a Modelem.
@@ -26,6 +29,7 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
   Při rozdělení do obrazovek platí pravidlo, že jeden controller obsluhuje jedno nebo více View.
   Ke korektnímu vykreslení View využívá libovoné množství modelových objektů.
   O jednu obrazovku se typicky stará právě jeden Controller, je ale možné jich použít více.
+  Zjednodušenou implementaci lze vidět v ukázce \ref{code:mvc-view-controller}.
 \end{description}
 
 \begin{figure}\centering
@@ -54,6 +58,8 @@ V MVC by se architektura chovala takto:
   \item Nastane-li během stahování chyba, controller vytváří nové view a chybu prezentuje uživateli.
 \end{itemize}
 
+\swiftcode{code:mvc-view}{View v architektuře MVC}{assets/code/mvc-view.swift}
+
 \subsubsection{Shrnutí}
 
 Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
@@ -63,6 +69,8 @@ Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
   \item View se stará o správné vykreslení předformátovaných dat,
   \item Controller se stará o ostatní logiku.
 \end{itemize}
+
+\swiftcode{code:mvc-view-controller}{ViewControlle architektuře MVC}{assets/code/mvc-view-controller.swift}
 
 Pro zmíněné notifikace nabízí Apple řešení pomocí Delegate pattern.
 Controller musí naimplementovat specifické rozhraní, čímž se stane delegátem.
@@ -103,7 +111,7 @@ Dále pak za odchycení uživatelských interakcí a jejich propagaci do View Mo
 Toto chování zachycuje obrázek \ref{architektura-mvvm}.
 
 \begin{figure}\centering
-	\includegraphics[width=0.5\textwidth]{assets/mvvm-architecture.png}
+	\includegraphics[width=0.7\textwidth]{assets/mvvm-architecture.png}
 	\caption[Architektura MVVM]{Architektura MVVM}\label{architektura-mvvm}
 \end{figure}
 

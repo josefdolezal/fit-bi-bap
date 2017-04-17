@@ -23,6 +23,9 @@
 		D2BA09381EA4E02200C97E08 /* create-dispatch-queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "create-dispatch-queue.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA09391EA4E02200C97E08 /* operation-queue-demonstration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "operation-queue-demonstration.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA093C1EA4E73500C97E08 /* bdd-dsl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "bdd-dsl.swift"; sourceTree = SOURCE_ROOT; };
+		D2BA093D1EA4EEC500C97E08 /* mvc-model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvc-model.swift"; sourceTree = SOURCE_ROOT; };
+		D2BA093E1EA4EF5F00C97E08 /* mvc-view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvc-view.swift"; sourceTree = SOURCE_ROOT; };
+		D2BA093F1EA50D7800C97E08 /* mvc-view-controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvc-view-controller.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,9 @@
 				D2BA09381EA4E02200C97E08 /* create-dispatch-queue.swift */,
 				D2BA09391EA4E02200C97E08 /* operation-queue-demonstration.swift */,
 				D2BA093C1EA4E73500C97E08 /* bdd-dsl.swift */,
+				D2BA093D1EA4EEC500C97E08 /* mvc-model.swift */,
+				D2BA093E1EA4EF5F00C97E08 /* mvc-view.swift */,
+				D2BA093F1EA50D7800C97E08 /* mvc-view-controller.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";
