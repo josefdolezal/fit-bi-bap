@@ -1,7 +1,7 @@
 language: python
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-lang-czechslovak texlive-generic-extra lmodern latexmk latex-xcolor
+  - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-lang-czechslovak texlive-generic-extra lmodern latexmk latex-xcolor etoolbox
 install:
   - pip install pygments
 script:
