@@ -53,7 +53,7 @@ Složitost a rozsah testů se odvíjí od počtu závazků objektu.
 Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny a sleduje se, jestli se objekt na základě změn chová podle očekávání. \cite{objcio-bdd}
 
 V reálném světě si lze jako objekt představit auto.
-Jako změnu vlastnosti můžeme lze použít vyprázdnění nádrže.
+Jako změnu vlastnosti můžeme lze použít vyčerpání nádrže.
 Očekávaným chováním auta následně je, že přestane být pojízdné a rozsvítí kontrolku řidiči.
 Auto projde testem chování, právě když při prázdné nádrži je nepojízdné a svítí kontrolka.
 
@@ -71,11 +71,12 @@ Následně se sestavují testy, které vyžadují úplné implementování vyža
 Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
 Testy jsou popisovány takzvaným DSL.
 To je jazyk který pomocí kombinace klíčových slov a textového popisu definuje jak se komponenta má v určitou chvíli chovat.
-Jakmile jsou napsané testy, přechází se k implementaci.
+Ukázka \ref{code:bdd-dsl} znázorňuje DSL v testovacím frameworku Quick.
+Jakmile jsou vytvořené testy, přechází se k implementaci.
 Při implementování se vybere test, kterým má aplikace projít a implementuje se pouze takový kód, který zaručí průchod tímto testem.
 Takto se postupuje, dokud objekt neprojde všemi testy. \cite{objcio-bdd}
 
-\textbf{SHOW PREVIEW DSL}
+\swiftcode{code:bdd-dsl}{Použití DSL pro definici testu}{assets/code/bdd-dsl.swift}
 
 \section{Průběžná integrace}
 
