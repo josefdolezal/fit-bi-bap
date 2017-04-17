@@ -10,6 +10,11 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 
 \subsubsection{Popis architektury}
 
+\begin{figure}\centering
+	\includegraphics[width=0.5\textwidth]{assets/mvc-architecture.png}
+	\caption[Architektura MVC]{Architektura MVC}\label{fig:architektura-mvc}
+\end{figure}
+
 \begin{description}
   \item[Model] reprezentuje perzistentní objekty, které aplikace využívá pro vnitřní logiku a prezentaci dat uživateli.
   Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
@@ -32,17 +37,7 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
   Zjednodušenou implementaci lze vidět v ukázce \ref{code:mvc-view-controller}.
 \end{description}
 
-\begin{figure}\centering
-	\includegraphics[width=0.5\textwidth]{assets/mvc-architecture.png}
-	\caption[Architektura MVC]{Architektura MVC}\label{fig:architektura-mvc}
-\end{figure}
-
 Z tohoto shrnutí vyplývá, že Controller je velmi blízce spjat s View. Toto propojení reprezentuje obrázek \ref{fig:massive-mvc}.
-
-\begin{figure}\centering
-	\includegraphics[width=0.5\textwidth]{assets/mvc-massive-view-controller.png}
-	\caption[Role Controlleru v MVC]{Controller spjatý s View}\label{fig:massive-mvc}
-\end{figure}
 
 \subsubsection{Modelový příklad použití}
 
@@ -79,10 +74,15 @@ Jako delegát se pak může zaregistrovat na notifikace obejktů, jejichž rozhr
 MVC je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
 Při tvorbě větších aplikací ale nemusí být vhodné.
 Controller se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
-Z tohoto důvodu se MVC často přezdívá \uv{Massive View Controller}.
+Z tohoto důvodu se MVC často přezdívá \uv{Massive View Controller} \ref{fig:massive-mvc}.
 Díky přímému napojení controlleru na View se při testování chování Controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky \uv{proklikat}.
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle podvrhnout mock objekty).
 Tento problém se snaží řešit architektura MVVM od společnosti Microsoft.
+
+\begin{figure}\centering
+	\includegraphics[width=0.5\textwidth]{assets/mvc-massive-view-controller.png}
+	\caption[Role Controlleru v MVC]{Controller spjatý s View}\label{fig:massive-mvc}
+\end{figure}
 
 \subsection{MVVM: Model-View-ViewModel}\label{analyza-mvvm}
 
