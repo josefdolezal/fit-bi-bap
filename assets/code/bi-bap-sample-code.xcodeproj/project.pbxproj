@@ -26,6 +26,8 @@
 		D2BA093D1EA4EEC500C97E08 /* mvc-model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvc-model.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA093E1EA4EF5F00C97E08 /* mvc-view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvc-view.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA093F1EA50D7800C97E08 /* mvc-view-controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvc-view-controller.swift"; sourceTree = SOURCE_ROOT; };
+		D2BA09401EA5185E00C97E08 /* mvvm-view-model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvvm-view-model.swift"; sourceTree = SOURCE_ROOT; };
+		D2BA09411EA5191800C97E08 /* mvvm-view-controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "mvvm-view-controller.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,8 @@
 				D2BA093D1EA4EEC500C97E08 /* mvc-model.swift */,
 				D2BA093E1EA4EF5F00C97E08 /* mvc-view.swift */,
 				D2BA093F1EA50D7800C97E08 /* mvc-view-controller.swift */,
+				D2BA09401EA5185E00C97E08 /* mvvm-view-model.swift */,
+				D2BA09411EA5191800C97E08 /* mvvm-view-controller.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";

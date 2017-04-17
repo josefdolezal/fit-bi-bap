@@ -103,7 +103,10 @@ Za účelem zjednodušení Controlleru se ke stávajícím třem vrstvám přid�
   Vstupem může být libovolná interakce uživatele:
   změna textu v textovém poli, stisknutí tlačítka, ale i fyzický pohyb telefonem (otočení obrazovky).
   Na základě vstupů spouští View Model svou vnitřní logiku a generuje výstupy.
+  Jednoduchou implementaci View Modelu bez použití vstupů lze vidět v ukázce \ref{code:mvvm-view-model}
 \end{description}
+
+\swiftcode{code:mvvm-view-model}{ViewModel v architektuře MVVM}{assets/code/mvvm-view-model.swift}
 
 Zodpovědnost Controlleru se zavedením View Modelu dramaticky snižuje.
 V ideálním případě je Controller zodpovědný pouze za správné sestavení View a napojení zfromátovaných výstupů na něj.
@@ -137,12 +140,15 @@ Vrstvy mají následující klíčové vlastnosti:
   \item View model načítá data modelu, na základě vstupů z controlleru nebo změny modelu generuje výstupy pro controller.
 \end{itemize}
 
-Oproti MVC je na tomto příkladu vidět snížení zodpovědnosti controlleru. Tato zodpovědnost se přesunula do View Modelu.
+Oproti MVC je na tomto příkladu vidět snížení zodpovědnosti Controlleru.
+Tato zodpovědnost se přesunula do View Modelu (viz. ukázka \ref{code:mvvm-view-controller}).
 Na první pohled nemusí být tato změna opodstatněná, protože logika aplikace nezmizela, jen se přesunula.
 Právě to ale umožnilo (nebo minimálně zjednodušilo) způsob, jakým lze logiku testovat.
 View Model generuje výstupy na základě vstupů, v testech tedy lze uživatelskou interakci podvrhnout a testovat pouze výstupy (není potřeba vytvářet View ani Controller).
 Dodatečně lze otestovat i uživatelské rozhraní.
 Protože logika aplikace je otestována pomocí testů View Modelu, uživatelské rozhraní už stačí otestovat např. shodou View s referenčním obrázkem.
+
+\swiftcode{code:mvvm-view-controller}{Controller v architektuře MVVM}{assets/code/mvvm-view-controller.swift}
 
 Při pohledu na notifikace je vidět, že přibyl typ, který nebyl v MVC potřeba.
 Jedná se o notifikace směrem z View Modelu ke Controlleru (View Model nemá referenci na Controller, nemůže ho notifikovat přímo).
