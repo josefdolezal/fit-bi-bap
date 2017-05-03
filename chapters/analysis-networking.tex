@@ -1,0 +1,56 @@
+\section{Síťování}\label{analyza-sitovani}
+
+Nedílnou součástí aplikace je také síťování, tedy komunikace s rozhraním OctoPrint pomocí REST API.
+Síťování je v mém řešení ztěžejní, protože aplikace komunikuje s tiskárnou vždy v reálném čase.
+Při analyzování síťové vrstvy jsem dospěl ke třem základním požadavkům:
+
+\begin{enumerate}
+    \item Jednotlivé enpointy musí být dobře strukturované.
+    \item Implementace musí být generická, aby bylo možné dosáhnout maximální znovupoužitelnosti.
+    \item Jednotlivé požadavky musí jít snadno řetězit bez ztráty informací či ignorování chyb.
+\end{enumerate}
+
+Mým požadavkům se nejvíce přiblížili čtyři možná řešení, které následně podrobně popíši.
+Řešení jsem analyzoval od těch nejvíce \textit{low-level}, které pracují pouze se standardními knihovnami až po implementace za využití externích knihoven.
+
+\subsection{URLSession}
+
+Jako první možnost pro analýzu jsem vybral základní knihovnu \textit{URLSession}, která je dostupná ve frameworku \textit{Foundation}.
+V tuto chvíli se jedná o API, které je nejvíce nízkoúrovňové, i tak ale nabízí vysokou flexibilitu.
+
+Spolu s \textit{URLSession} se pojí i mnoho dalších tříd, které jsou vzájmně závislé.
+
+\subsubsection{URLSessionConfiguration}
+
+Při vytváření nové instance NSURLSession je potřeba poskytnout konfiguraci.
+Tato konfigurace poskytuje základní nastavení pro politiky cachování požadavků, využívané protokoly, nastavení cookies a správu přihlašovacích údajů.
+Konfigurace je reprezentována třídou URLSessionConfiguration.
+
+Pro jednoduché aplikace je možné využít předpřipravenou konfiguraci, ta ale přistupuje ke všem požadavkům stejně což je nevhodné pro využití při komunikaci s více vzdálenými body.
+Pro svou implementaci bych tedy musel využít dynamické konfigurování v závislosti na aktuálně využívané tiskárně.
+V ukázce \ref{code:urlsessionconfiguration} je vidět možná implementace dynamické konfigurace.
+
+\swiftcode{code:urlsessionconfiguration}{Dynamické nastavení URLSession}{assets/code/urlsessionconfiguration.swift}
+
+\subsubsection{URLSessionTask}
+
+Pro samotnou reprezentaci požadavků se využívají podtřídy abstraktní třídy \textit{URLSessionTask}.
+Těmito podtřídami jsou \textit{URLSessionDataTask}, \textit{URLSessionUploadTask} a \textit{URLSessionDownloadTask}.
+Ty zprostředkovávají získávání dat (JSON, XML, \ldots) a stahování a nahrávání souborů.
+Pro vytvoření těchto tříd nabízí \textit{URLSession} předpřipravené metody.
+
+Samotné vytvoření požadavku pro stažení JSON objektu je vidět v ukázce \ref{code:urlsessionrequest}.
+
+\swiftcode{code:urlsessionrequest}{Vytvoření požadavku pomocí URLSession}{assets/code/urlsessionrequest.swift}
+
+\subsubsection{Shrnutí}
+
+Přestože \textit{URLSession} nabízí velmi komplexní řešení síťových požadavků byla by implementace velmi náročná.
+V současné době nabízí na řetězení požadavků pouze \textit{completion blok}, který ale není pro řetězení mnoha požadavků vhodný (časté opakování kódu, zanořování metod).
+
+Strukturování endpointů v základu také není řešené, bylo by tedy potřeba vytvořit novou abstraktní vrstvu.
+Z tohoto důvodu jsem se rozhodl přistoupit ke zanalyzování knihoven třetích stran.
+
+\subsection{Alamofire}
+
+
