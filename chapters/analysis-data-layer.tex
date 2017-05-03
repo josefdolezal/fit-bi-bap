@@ -1,0 +1,10 @@
+\section{Datová vrstva}\label{analyza-datova-vrstva}
+
+Pro uložení nastavení tiskáren je důležité, aby aplikace mohla ukládat data na disk.
+Většina ostatních dat není potřeba ukládat, protože je velmi pravděpodobné, že při dalším spuštění aplikace už by data nebyla aktuální.
+I přesto jsem se rozhodl veškerá data, která aplikace získá z tiskárny uložit lokálně.
+Lokální uložiště následně bude sloužit jako \textit{source of truth}, tedy kdykoliv vznikne v aplikaci nekonzistence, data se obnoví z lokálního uložiště.
+
+Pro lokální uložiště jsem vybral dvě technologie, které porovnám a následně jednu implementuji.
+První technologií jsou \textit{Core Data}, technologie vyvinutá společností Apple běžně používaná na platformách iOS a macOS.
+Druhou technologií je Realm Mobile Database, open source knihovna třetí strany.
