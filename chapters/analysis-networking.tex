@@ -53,4 +53,45 @@ Z tohoto důvodu jsem se rozhodl přistoupit ke zanalyzování knihoven třetíc
 
 \subsection{Alamofire}
 
+Jako první knihovnu třetích stran jsem se rozhodl zanalyzovat populární Alamofire \cite{github-alamofire}.
+Jedná se o síťovací knihovnu, naprogramovanou s využitím \textit{URLSession}.
+Alamofire nabízí oproti \textit{URLSession} moderní API využívající sílu jazyka Swift, formátování požadavků (JSON, URL, \ldots) a také validaci odpovědí serveru.
 
+Alamofire navíc nabízí velmi jednoduchý a intuitivní způsob strukturování endpointů pomocí \textit{Routeru}.
+Další velkou výhodou je vysoká znovupoužitelnost.
+Pomocí vlastních pravidel pro serializování odpovědí serveru je možné vytvořit generické požadavky, jejichž odpovědi nebudou prostý text ale už platný Swift objekt.
+Takto serializované objekty lze následně uložit do databáze či používat bez zanesení chyby za běhu aplikace (díky typové kontrole během kompilace).
+
+Pro samotné požadavky využívají \textit{top-level} metody, které sdílí společné nastavení sezení (z anglického \textit{session}).
+
+\subsubsection{Router}
+
+Pro rozsáhlejší projekty poskytuje Alamofire velmi elegantní způsob strukturování endpointů.
+V terminilogii Alamofire se objektu, který endpointy struktuje říká Router.
+Zpravidla se jedná výčtový typ (\textit{enum}), kde jednotlivé endpointy jsou reprezentovány pomocí výčtů.
+
+Tyto výčty lze pak předat do Alamofire a tím vytvořit požadavek na server.
+Ukázková implementace Router objektu je vidět v ukázce \ref{code:alamofire-router}.
+
+\swiftcode{code:alamofire-router}{Ukázková implementace Router objektu}{assets/code/alamofire-router.swift}
+
+\subsubsection{SessionManager}
+
+Přestože standardně používané \textit{top-level} metody jsou běžné naprosto dostačující, pro mé řešení jsou nevhodné z důvodu sdílení společného nastavení i pro různé vzdálené body (tiskárny).
+
+Z tohoto důvodu je v Alamofire dostupná třída \textit{SessionManager}, jejíž instance mohou využívat různé nastavení.
+\textit{SessionManager} dále nabízí obdobné API jako \textit{top-level} funkce pro vytváření požadavků.
+
+Příklad vytvoření požadavku s nakonfigurovaným \textit{SessionManager} objektem je uveden v ukázce \ref{code:alamofire-sessionmanager}.
+
+\swiftcode{code:alamofire-sessionmanager}{Vytvoření požadavku pomocí Alamofire}{assets/code/alamofire-sessionmanager.swift}
+
+\subsubsection{Shrnutí}
+
+Alamofire je velmi rozsáhlou knihovnou pro síťové požadavky.
+Již v základu obsahuje abstraktní vrstvu nad \textit{URLSession}, kterou bych ve své implementaci musel také napsat.
+Pomocí Router objektu lze velmi přehledně a čitelně zapouzdřit jednotlivé endpointy.
+Vlastní serializace odpovědí serveru pak umožňuje vysokou znovupoužitelnost bez opakování kódu.
+
+Pro zpracování je nicméně opět dostupný pouze \textit{completion blok}.
+Řetězení požadavků zůstává prakticky stejné jako u \textit{URLSession}.
