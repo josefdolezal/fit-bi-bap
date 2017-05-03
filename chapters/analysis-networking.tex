@@ -10,7 +10,7 @@ Při analyzování síťové vrstvy jsem dospěl ke třem základním požadavk�
     \item Jednotlivé požadavky musí jít snadno řetězit bez ztráty informací či ignorování chyb.
 \end{enumerate}
 
-Mým požadavkům se nejvíce přiblížili čtyři možná řešení, které následně podrobně popíši.
+Mým požadavkům se nejvíce přiblížili tři možná řešení, které následně podrobně popíši.
 Řešení jsem analyzoval od těch nejvíce \textit{low-level}, které pracují pouze se standardními knihovnami až po implementace za využití externích knihoven.
 
 \subsection{URLSession}
@@ -95,3 +95,74 @@ Vlastní serializace odpovědí serveru pak umožňuje vysokou znovupoužitelnos
 
 Pro zpracování je nicméně opět dostupný pouze \textit{completion blok}.
 Řetězení požadavků zůstává prakticky stejné jako u \textit{URLSession}.
+
+\subsection{Moya}
+
+Jako poslední možné řešení síťových požadavků jsem zvážil open source knihovnu Moya \cite{github-moya}.
+
+Moya je abstraktní vrstva na víše zmíněnou Alamofire.
+Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy URL adres a parametrů a dalšího nastavení.
+
+Druhou výhodou je zapouzdřování endpointů do tkzv. \textit{Provider} objektů.
+Na rozdíl od Router objektu zapouzdřuje Provider pouze endpointy se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
+Během kompilace tak lze ověřit, že požadavky, které vyžadují oprávnění jsou vytváří stejný Provider.
+
+\medskip
+
+Velmi užitečný je i zcela jiný přístup k vytváření požadavků.
+Moya vytváří požadavek ve třech fázích.
+Nejprve nechá uživatele vytvořit \textit{Target}, ten se následně mapuje na \textit{Endpoint} z kterého teprve Provider vytvoří samotný požadavek.
+
+\subsubsection{Target}
+
+Prvním krokem vytváření požadavku je Target.
+Target reprezentuje akci, která se má vykonat na vybraném vzdáleném API.
+Typicky implementovaný jako enum a poskytuje vysokoúrovňové API pro využití ve zbytku aplikace.
+Implementace targetu je vidět v ukázce \ref{code:moya-target}.
+
+\swiftcode{code:moya-target}{Moya - Implementace Target objektu}{assets/code/moya-target.swift}
+
+\subsubsection{Endpoint}
+
+Endpoint je interní struktura reprezentující koncový bod, která je využita k sestavení požadavku.
+Hlavním cílem této struktury je možnost modifikovat způsob, jakým budou požadavky vytvořeny.
+Pomocí Endpoint objektu lze např. přidávat autorizační token či některé požadavky rušit, opozdit atp.
+
+\subsubsection{Provider}
+
+Při použití Moyi se veškeré požadavky odesílají skrz Provider.
+Provider je generický objekt, který operuje na objektem Target.
+Tím se v době kompilace dosáhne kontroly kompatibility Provider s Target objektem.
+
+Provider nabízí rozhraní pro modifikaci vytvoření Endpointu i pro modifikaci požadavku.
+Vytvoření požadavku je vidět v ukázce \ref{code:moya-provider}.
+
+\swiftcode{code:moya-provider}{Moya - vytvoření požadavku}{assets/code/moya-provider.swift}
+
+\subsubsection{Reaktivní rozšíření}
+
+Moya v základu nabízí rozšíření pro použití s reaktivními knihovnami.
+Díky tomu lze velmi dobře integrovat s architekturou MVVM, konkrétně do vrstvy View Model.
+Usnadňuje tím také možnost řetězení požadavků pomocí flatMap operátoru jak je vidět v ukázce \ref{code:moya-reactive-extensions}.
+
+\swiftcode{code:moya-reactive-extensions}{Moya - Řetězení požadavků}{assets/code/moya-reactive-extensions.swift}
+
+\subsubsection{Testování}
+
+Jednou z největších výhod Moyi je možnost testování.
+V Target objektu je možné definovat, jaká data má požadavek vrátit v době kdy se aplikace testuje.
+Tím Moya zaručí, že testy nebudou selhávat v případě kdy nebude dostupná síť.
+
+Pro případ testování chování aplikace v momentě kdy je síť nedostupná nebo kdy požadavky selžou je možné opět využít úpravy Endpoint objektu.
+
+\subsubsection{Shrnutí}
+
+Moya je knihovna pro vytvoření abstrakce nad síťovou vrstvou.
+Tato nová vrstva se stává jediným spojením aplikace s internetem.
+
+Obsahuje totožné funkce jako knihovna Alamofire, kterou ve své implementaci využívá.
+Oproti Alamofire navíc nabízí striktní oddělení Endpoint a Terget objektů.
+
+Tím umožňuje požadavky automaticky mockovat při testování.
+
+Díky reaktivním rozšířením lze navíc velmi dobře integrovat s architekturou MVVM.

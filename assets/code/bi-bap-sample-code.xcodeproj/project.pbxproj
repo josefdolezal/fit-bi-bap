@@ -23,6 +23,9 @@
 		D22D70811EB9DE91002C4A42 /* urlsessionrequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = urlsessionrequest.swift; sourceTree = SOURCE_ROOT; };
 		D22D70861EB9FCB4002C4A42 /* alamofire-router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "alamofire-router.swift"; sourceTree = SOURCE_ROOT; };
 		D22D70881EBA005D002C4A42 /* alamofire-sessionmanager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "alamofire-sessionmanager.swift"; sourceTree = SOURCE_ROOT; };
+		D22D70AA1EBA1D0D002C4A42 /* moya-target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "moya-target.swift"; sourceTree = SOURCE_ROOT; };
+		D22D70AC1EBA2463002C4A42 /* moya-provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "moya-provider.swift"; sourceTree = SOURCE_ROOT; };
+		D22D70AE1EBA2D1B002C4A42 /* moya-reactive-extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "moya-reactive-extensions.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA092E1EA4DF8B00C97E08 /* bi-bap-sample-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "bi-bap-sample-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2BA09381EA4E02200C97E08 /* create-dispatch-queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "create-dispatch-queue.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA09391EA4E02200C97E08 /* operation-queue-demonstration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "operation-queue-demonstration.swift"; sourceTree = SOURCE_ROOT; };
@@ -76,6 +79,9 @@
 				D22D70811EB9DE91002C4A42 /* urlsessionrequest.swift */,
 				D22D70861EB9FCB4002C4A42 /* alamofire-router.swift */,
 				D22D70881EBA005D002C4A42 /* alamofire-sessionmanager.swift */,
+				D22D70AA1EBA1D0D002C4A42 /* moya-target.swift */,
+				D22D70AC1EBA2463002C4A42 /* moya-provider.swift */,
+				D22D70AE1EBA2D1B002C4A42 /* moya-reactive-extensions.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";
