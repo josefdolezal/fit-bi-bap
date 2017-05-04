@@ -5,3 +5,16 @@ Pomocí správce závislostí je možné jednoduše udržovat knihovny aktuáln�
 Při analyzování nástrojů na správu závislostí jsem se zabýval dvěma nejpoužívanějšími \cite{shashikantjagtap-swift-dependency-management}.
 Prvním nástrojem jsou \textit{CocoaPods} \cite{cocoapods-about}, open source nástroj řízený komunitou.
 Druhým nástrojem je \textit{Carthage} \cite{github-carthage}, vytvořený společností GitHub a nyní vedený jako open source.
+
+\subsection{CocoaPods}
+
+CocoaPods je nástroj s rozhraním pro příkazovou řádku, který umožňuje spravovat závislosti pro Xcode projekty.
+Základem jsou takzvané \textit{Pods}, tedy balíčky závislostí.
+Tyto balíčky může uživatel integrovat do svého projektu pomocí souboru \textit{Podfile}, do kterého vypíše seznam seznam závislostí.
+CocoaPods následně závislosti stáhne a vytvoří pracovní \textit{workspace}, do kterého závislosti nalinkuje.
+Pro následné programování pak uživatel využívá nový workspace místo původního souboru projektu.
+
+Nevýhoda tohoto přístupu je, že jsou staženy přímo zdrojové kódy závislostí a ty jsou připojeny k projektu.
+Z tohoto důvodu se při kompilaci může stát, že se kompilují soubory nejen aplikace, ale i všech závislostí.
+Tím se zvyšuje čas potřebný ke zkompilování aplikace.
+To má za následek snížení rychlosti vývoje.
