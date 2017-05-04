@@ -18,3 +18,18 @@ Nevýhoda tohoto přístupu je, že jsou staženy přímo zdrojové kódy závis
 Z tohoto důvodu se při kompilaci může stát, že se kompilují soubory nejen aplikace, ale i všech závislostí.
 Tím se zvyšuje čas potřebný ke zkompilování aplikace.
 To má za následek snížení rychlosti vývoje.
+
+\subsection{Carthage}
+
+Druhým analyzovaným nástrojem je Carthage.
+Obdobně jako Cocoapods nabízí rozhraní příkazové řádky.
+Hlavním je rozdílem je způsob integrace.
+Carthage žádným způsobem není integrován do projektu jako takového.
+Jedinou funkcí tohoto správce závislostí je stáhnout a zkompilovat zdrojové kódy požadovaných závislostí.
+Uživatel následně musí sám knihovny do projektu naimportovat.
+
+Pro urychlení kompilace mohou správci knihoven předkompilovat knihovny do binární formy, ta se následně pouze stáhne.
+Předkompilované knihovny ale musí být napsané ve stejné verzi Swiftu jako používá aplikace sama, v opačném případě nepůjde knihovny slinkovat ani zkompilovat aplikaci.
+Takový případ není v lokálním vývoji velkou komplikací, může ale narušit funkcionalitu integračního procesu na vzdáleném serveru.
+I to je ale situace, která se vyskytne pouze v době vydání nové verze nástroje Xcode.
+To bývá zpravidla jen několikrát ročně.
