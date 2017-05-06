@@ -114,3 +114,21 @@ Tento koncový bod se nalézá na \inlinestr{api/connection} a jako metodu je nu
 V těle požadavku musí být explicitně zadaný příkaz \textit{connect} a také port pro připojení.
 Hodnota portu musí být jedna z uvedených v seznamu portů.
 Seznam portů je možné získat z nastavení připojení.
+
+\subsection{Správa log souborů}
+
+Užitečnou funkcí OctoPrint je zobrazování logů.
+OctoPrint seskupuje logy ze svého používání spolu s logy svých služeb (např. ze \textit{slicovacích nástrojů}).
+
+\subsubsection*{Seznam logů}
+
+Jednou z poskytovaných funkcí je seznam logů.
+V seznamu je obsaženy metadata souboru a jeho umístění na souborovém systému.
+Seznam je dostupný z přístupového bodu \inlinestr{api/logs}.
+
+OctoPrint nenabízí samostatný endpoint pro detail logu, pro zobrazení obsahu je tedy nutné soubor stáhnout a teprve následně zobrazit.
+
+\subsubsection*{Smazání logového souboru}
+
+Z důvodu zvětšujícího se počtu souborů nabízí OctoPrint možnost manuálně mazat logy.
+Mazání je možné pomocí endpointu \inlinestr{api/logs/[filename]} metodou \textit{DELETE}.
