@@ -20,3 +20,27 @@ Jedná se ale o jediný endpoint, který nemá žádné vedlejší efekty.
 Zároveň neexistuje žádný endpoint umožňující samostatně ověřit platnost tokenu.
 
 Vzhledem k výše uvedenému je tato funkcionalita vhodná pro simulaci přihlašování k tiskárně.
+
+\subsection{Správa souborového systému}
+
+Jednou ze skupin funkcionalit REST API je správa souborového systému.
+Pomocí API lze nejen obsah systému číst, ale také s ním manipulovat.
+Jednotlivé endpointy jsou zanalyzovány níže.
+
+\subsubsection*{Seznam souborů}
+
+OctoPrint umožňuje vypsat seznam uložených souborů.
+Tento endpoint je dostupný na \inlinestr{api/files}.
+
+V současnou chvíli mohou na soborový systém být uloženy pouze tisknutelné soubory (s příponou .gcode) nebo modelové soubory (s příponou .stl).
+
+Uloženy mohou být přímo na zařízení kde je OctoPrint nainstalovaný (označované jako lokální) nebo na paměťovou kartu.
+Výše zmíněná funkce stáhne seznam všech souborů bez ohledu na jejich lokace.
+Příznak lokace je v odpovědi uveden u každého souboru zvlášť.
+
+Lze ale stáhnout soubory z obou lokalit samostatně.
+Pro stažení seznamu lokálních souborů existuje koncový bod \inlinestr{api/files/local}.
+Seznam ouborů uložených na paměťové kartě je možné stáhnout z \inlinestr{api/files/sdcard}.
+
+O souborech jsou dostupná jejich metadata (název, velikost, datum změny).
+GCode může navíc obsahovat analýzu tisku (předpokládaná doba tisku, spotřeba filamentu a statistiky tisknutí).
