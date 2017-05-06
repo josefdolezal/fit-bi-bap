@@ -57,3 +57,11 @@ Soubor se odesílá v těle požadavku kde je zároveň uveden jeho název.
 V případě vzniku konfliktu názvů bude stávající soubor nahrazen novým.
 
 Systém iOS neobsahuje sdílený souborový systém, soubory lze nahrávat buď pouze z aplikace nebo lze využít cloudových služeb \cite{apple-file-system-basics}.
+
+\subsubsection*{Informace o konkrétním souboru}
+
+Aby bylo možné aktualizovat informace o jednotlivých souborech, umožňuje OctoPrint využít koncový bod \inlinestr{api/files/[location]/[filename]}.
+Takový požadavek zajistí stažení aktuálních informací o souboru v lokaci \textit{[location]} s názvem \textit{[filename]}.
+
+Strukturou se odpověď nelyší od položky souboru v seznamu souborů.
+Požadavek lze ale využít v momentě, kdy se z klientské aplikace se souborem v tiskárně manipuluje pro udržení konzistence.
