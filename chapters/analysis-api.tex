@@ -115,6 +115,26 @@ V těle požadavku musí být explicitně zadaný příkaz \textit{connect} a ta
 Hodnota portu musí být jedna z uvedených v seznamu portů.
 Seznam portů je možné získat z nastavení připojení.
 
+\subsection{Aktuální tisk}
+
+Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
+Uživatel může jednoduše zkontrolovat, že tisk probíhá v pořádku, případně jak dlouho bude tisk ještě trvat.
+
+\subsubsection*{Informace o aktuálním tisku}
+
+Informace o aktuálním tisku jsou dostupné pomocí koncového bodu \inlinestr{api/job}.
+Odpověď od serveru obsahuje metadata tisknutého souboru, odhad zbývajícího času a spotřebu materiálu.
+Dále lze získat také informace o průběhu, tedy kolik procent je hotovo a jak dlouho se soubor tiskne.
+
+\subsubsection*{Ovládání aktuálního tisku}
+
+Ovládání tisku obsahuje mnoho konfigurací.
+Pro mobilní aplikaci jsem zvolil možnost konfigurace pro zrušení tisku.
+Pro zrušení aktuálního tisku je dostupný endpoint \inlinestr{api/job} s metodou \textit{POST}.
+Do těla požadavku je nutné explicitně vložit příkaz pro zrušení tisku.
+
+\cite{octoprint-docs-job}
+
 \subsection{Správa log souborů}
 
 Užitečnou funkcí OctoPrint je zobrazování logů.
