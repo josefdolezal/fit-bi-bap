@@ -94,3 +94,15 @@ Přestože tato informace není ztěžejní pro mobilní aplikaci, odpověď ser
 
 Seznam portů lze využít pro výzvu uživatele v momentě o připojení tiskárny.
 To může nastat v momentě kdy uživatel chce s tiskárnou pracovat v době kdy žádná tiskárna připojena není.
+
+\subsubsection*{Příkaz připojení tiskárny}
+
+Podobně jako v sekci o manipulaci souborů, i tento endpoint nabízí mnoho konfigurací.
+Pro mobilní aplikaci ale nedávají z důvodu komplikovaného nastavení velký smysl.
+
+Zajímavou konfigurací je ale možnost připojit tiskárnu.
+Tento koncový bod se nalézá na \inlinestr{api/connection} a jako metodu je nutné využít \textit{POST}.
+
+V těle požadavku musí být explicitně zadaný příkaz \textit{connect} a také port pro připojení.
+Hodnota portu musí být jedna z uvedených v seznamu portů.
+Seznam portů je možné získat z nastavení připojení.
