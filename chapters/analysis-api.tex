@@ -44,3 +44,16 @@ Seznam ouborů uložených na paměťové kartě je možné stáhnout z \inlines
 
 O souborech jsou dostupná jejich metadata (název, velikost, datum změny).
 GCode může navíc obsahovat analýzu tisku (předpokládaná doba tisku, spotřeba filamentu a statistiky tisknutí).
+
+Struktura odpovědí je pro všechny tři požadavky stejná, liší se pouze obsah seznamu v závislosti na vybrané lokalitě.
+
+\subsubsection*{Nahrávání souborů}
+
+Pomocí API je možné nejen číst informace o existujících souborech, ale také nahrávat nové.
+Pro nahrávání slouží endpointy \inlinestr{api/files/local} a \inlinestr{api/files/sdcard}.
+Podle zvoleného koncového bodu se soubor uloží buď přímo na zařízení nebo na paměťovou kartu.
+
+Soubor se odesílá v těle požadavku kde je zároveň uveden jeho název.
+V případě vzniku konfliktu názvů bude stávající soubor nahrazen novým.
+
+Systém iOS neobsahuje sdílený souborový systém, soubory lze nahrávat buď pouze z aplikace nebo lze využít cloudových služeb \cite{apple-file-system-basics}.
