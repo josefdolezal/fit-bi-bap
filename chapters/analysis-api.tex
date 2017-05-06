@@ -8,3 +8,15 @@ Z důvodu bezpečnosti musí být každý požadavek na tiskárnu autorizovaný.
 To OctoPrint zajišťuje pomocí ověřovacích \textit{tokenů}.
 Token je náhodně vygenerovaná posloupnost znaků jednoznačně spjatá s účtem uživatele.
 Pokud v požadavku je uveden platný token, předpokládá se, že požadavek vytvořil uživatel jehož účet je s token svázaný.
+
+\subsection{Verze API a ověřování}
+
+První analyzovanou funkcionalitou je verze API.
+Tento endpoint je dostupný na \inlinestr{api/version}.
+V případě platného přístupového tokenu vrátí textovou reprezentaci verze API, v opačném případě odpovídající stavový kód.
+
+Ve své implementaci jsem se rozhodl uživatele nezatěžovat využívanými verzemi.
+Jedná se ale o jediný endpoint, který nemá žádné vedlejší efekty.
+Zároveň neexistuje žádný endpoint umožňující samostatně ověřit platnost tokenu.
+
+Vzhledem k výše uvedenému je tato funkcionalita vhodná pro simulaci přihlašování k tiskárně.
