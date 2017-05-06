@@ -1,0 +1,10 @@
+\section{OctoPrint API}
+
+V implementační části práce se zabývám vytvořením mobilní aplikace pro OctoPrint.
+Pro pro olvádání tiskárny využiji REST API, které OctoPrint v základu nabízí.
+V dalších sekcích se budu podrobně zabývat analýzou jednotlivých funkcionalit implementovaných v mém řešení.
+
+Z důvodu bezpečnosti musí být každý požadavek na tiskárnu autorizovaný.
+To OctoPrint zajišťuje pomocí ověřovacích \textit{tokenů}.
+Token je náhodně vygenerovaná posloupnost znaků jednoznačně spjatá s účtem uživatele.
+Pokud v požadavku je uveden platný token, předpokládá se, že požadavek vytvořil uživatel jehož účet je s token svázaný.
