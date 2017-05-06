@@ -9,6 +9,14 @@ To OctoPrint zajišťuje pomocí ověřovacích \textit{tokenů}.
 Token je náhodně vygenerovaná posloupnost znaků jednoznačně spjatá s účtem uživatele.
 Pokud v požadavku je uveden platný token, předpokládá se, že požadavek vytvořil uživatel jehož účet je s token svázaný.
 
+V analýze jsem vycházel z oficiální dokumentace aplikace OctoPrint \cite{octoprint-docs}.
+Ukázka popisu funkcionality z dokumentace je vidět v obrázku \ref{fig:octoprint-docs}.
+
+\begin{figure}\centering
+	\includegraphics[width=\textwidth]{assets/analysis-octoprintapi-web.png}
+	\caption{Oficiální dokumentace OctoPrint}\label{fig:octoprint-docs}
+\end{figure}
+
 \subsection{Verze API a ověřování}
 
 První analyzovanou funkcionalitou je verze API.
