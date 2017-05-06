@@ -42,7 +42,7 @@ Vytvoření nové fronty běžící v pozadí je vidět v ukázce \ref{code:crea
 
 Přidání do libovolné fronty..
 
-\subsubsection{Quality of Service}
+\subsubsection*{Quality of Service}
 
 Pro možnost rozlišení priorit front využívá Apple Quality of Service (zkráceně QoS).
 Díky QoS je možné určit, jakou prioritu bude mít danná fronta při rozdělování vláken.
@@ -75,7 +75,7 @@ Toto API je od verze systému iOS 4 implementováno právě pomocí GCD, nabíz�
 Hlavním rozdílem oproti GCD je vyloučení pojmu \textit{vlákno}.
 Jednotky práce nejsou nadále reprezentovány pomocí \textit{first class funkcí}, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
 
-\subsubsection{NSOperation}
+\subsubsection*{NSOperation}
 
 Pro reprezentaci jednotek práce se standardní funkce v GCD nejevily jako dostatečné.
 S představením NSOperationQueue, je ale nově možné nad opakovanými jednotkami abstrakci pomocí tříd.
@@ -98,7 +98,7 @@ Oproti CGD má objektový přístup výhodu nejen v přehlednější strukturov�
   Oproti GCD, kde úkol, který se začal zpracovávat už nebylo možné zastavit, lze například do ovládání operací zapojit uživatele.
 \end{description}
 
-\subsubsection{NSOperationQueue}
+\subsubsection*{NSOperationQueue}
 
 Obdobně jako GCD, je i zde potřeba určit kde a kdy se bude práce vykonávat.
 Pro tento účel slouží fronta NSOperationQueue.
@@ -110,12 +110,12 @@ Základní vytvoření operace a vložení do fronty je vidět na ukázce \ref{c
 
 \swiftcode{code:operation-queue-demonstration}{NSOperationQueue: Vytvoření fronty s operacemi}{assets/code/operation-queue-demonstration.swift}
 
-\subsubsection{Prioritizace úkolů}
+\subsubsection*{Prioritizace úkolů}
 
 Z důvodu potřeby prioritizace některých úloh je možné jedntlivým operacím nastavit prioritu.
 V takovém případě se vždy jako první vykonají operace s vyšší prioritou, následně se přistupuje k těm s nižším.
 
-\subsubsection{Quality of Service}
+\subsubsection*{Quality of Service}
 
 Jednou z nejsilněších stránek NSOperationQueue je abstrakce front nad vlákny (tedy celého GCD).
 V nastavení fronty lze zvolit stejně jako u GCD výchozí QoS.

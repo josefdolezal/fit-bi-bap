@@ -8,7 +8,7 @@ V závislosti na výsledku porovnání zvolím ideální architekturu pro svou a
 \subsection{MVC: Model-View-Controller}\label{analyza-mvc}
 Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 
-\subsubsection{Popis architektury}
+\subsubsection*{Popis architektury}
 
 \begin{figure}\centering
 	\includegraphics[width=0.5\textwidth]{assets/mvc-architecture.png}
@@ -39,7 +39,7 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 
 Z tohoto shrnutí vyplývá, že Controller je velmi blízce spjat s View. Toto propojení reprezentuje obrázek \ref{fig:massive-mvc}.
 
-\subsubsection{Modelový příklad použití}
+\subsubsection*{Modelový příklad použití}
 
 Pro možné porovnání architektury jsem připravil scénář stažení libovolných dat na základě požadavku uživatele.
 V MVC by se architektura chovala takto:
@@ -55,7 +55,7 @@ V MVC by se architektura chovala takto:
 
 \swiftcode{code:mvc-view}{View v architektuře MVC}{assets/code/mvc-view.swift}
 
-\subsubsection{Shrnutí}
+\subsubsection*{Shrnutí}
 
 Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
 
@@ -89,7 +89,7 @@ Tento problém se snaží řešit architektura MVVM od společnosti Microsoft.
 Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura MVVM.
 Tato architektura vychází ze zmíněného MVC a jejím základním úkolem je zjednodušit Controller.
 
-\subsubsection{Popis architektury} \label{architektura-mvvm-popis}
+\subsubsection*{Popis architektury} \label{architektura-mvvm-popis}
 
 Za účelem zjednodušení Controlleru se ke stávajícím třem vrstvám přidává View Model, který se stará o přípravu dat z Modelu pro zobrazení a také o perzistenci změn.
 
@@ -118,7 +118,7 @@ Toto chování zachycuje obrázek \ref{architektura-mvvm}.
 	\caption[Architektura MVVM]{Architektura MVVM}\label{architektura-mvvm}
 \end{figure}
 
-\subsubsection{Modelový příklad použití} \label{architektura-mvvm-priklad}
+\subsubsection*{Modelový příklad použití} \label{architektura-mvvm-priklad}
 
 Pro porovnání architektury s MVC lze opět využít scénář pro stažení dat. Pro tento scénář by se architektura MVVM chovala následovně:
 \begin{itemize}
@@ -130,7 +130,7 @@ Pro porovnání architektury s MVC lze opět využít scénář pro stažení da
   \item V případě chyby vytvoří view model chybový výstup, ten se pomocí controlleru propaguje do view.
 \end{itemize}
 
-\subsubsection{Shrnutí} \label{architektura-mvvm-shrnuti}
+\subsubsection*{Shrnutí} \label{architektura-mvvm-shrnuti}
 
 Vrstvy mají následující klíčové vlastnosti:
 \begin{itemize}

@@ -28,7 +28,7 @@ Realm je modelová technologie vytvořená pro využití v mobilních zařízen�
 Oproti běžným databázím Realm nevyužívá ORM a nekopíruje data z databáze.
 V Realm aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvodu jakmile jsou data jednou aktualizovány, změna se automaticky propisuje všude, kde jsou data využívána (reaktivní přístup) \cite{realm-overview}.
 
-\subsubsection{Modelové objekty}
+\subsubsection*{Modelové objekty}
 
 Realm je založen na modelových objektech.
 Ty se definují v jazyku, ve kterém je aplikace programována (v mém případě Swift).
@@ -38,20 +38,20 @@ Jedinou podmínkou při vytváření objektu je nutnost dědit od třídy \texti
 
 \swiftcode{code:realm-object}{Modelový objekt v technologii Realm}{assets/code/realm-object.swift}
 
-\subsubsection{Relace}
+\subsubsection*{Relace}
 
 Realm implementačně sice není relační databází, nabízí ale podobné API pro relace mezi objekty.
 Objekty mohou být v relacích \textit{many-to-many}, \textit{one-to-many}, \textit{ono-to-one} ale i \textit{many-to-one}.
 Na základě těchto vlastností je následně možné vytvářet databázové dotazy.
 
-\subsubsection{Transakce}
+\subsubsection*{Transakce}
 
 Z důvodu zajištění konzistence dat v aplikaci je nutné modelové objekty upravovat v transakcích \cite{realm-swift}.
 Realm neodděluje standardní \textit{CRUD} operace, místo toho je zavedena \textit{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
 
 \swiftcode{code:realm-write}{Transakce v technologii Realm}{assets/code/realm-write.swift}
 
-\subsubsection{Notifikace}
+\subsubsection*{Notifikace}
 
 Velkou výhodou této technologie jsou notifikace.
 Realm umožňuje notifikovat o změnách objektů v databázi.
