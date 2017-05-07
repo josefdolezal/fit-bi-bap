@@ -136,6 +136,22 @@ Dále lze v odpovědi nalézt informace o celkové připravenosti tiskárny.
 
 Tento endpoint je vhodný pro obrazovku s přehledem stavu tiskárny.
 
+\subsubsection*{Ovládání trysky}
+
+Ovládání trysky je nastavitelný endpoint přístupný na \inlinestr{api/printer/tool}.
+Každý požadavek na tento koncový bod musí být odeslaný metodou \textit{POST}.
+
+Z důvodu zjednodušení uživatelského rozhraní jsem se rozhodl analyzovat nastavení pro tavení filamentu.
+Toto nastavení vyžaduje explicitně zadat příkaz pro tavení a množství filamentu, které má být nataveno.
+
+Tato funkce je ideální pro zkombinování s ovládáním tiskové hlavy.
+
+\subsubsection*{Aktuální stav trysky}
+
+Pro kontrolu správného průběhu tisku je důležité sledovat teplotu trysky.
+OctoPrint nabízí z tohoto důvodu endpoint \inlinestr{api/printer/tool}.
+V odpovědi se nachází informace o akuální teplotě.
+
 \subsection{Aktuální tisk}
 
 Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
