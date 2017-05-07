@@ -50,3 +50,21 @@ K synchronizaci vláken jsem nemohl využít ReactiveSwift a aplikace byla zatí
 Z tohoto důvodu jsem se rozhodl využít knihovny Moya, která nabízí reaktivní rozšíření a je kompatibilní s ReactiveSwift.
 
 Veškeré síťové požadavky nakonec využívají knihovnu Moya, s jejíž implementací chyby s vlákny vymizely.
+
+\subsection{Grafické prvky}
+
+Pro ilustrace a ikony v aplikaci jsem se rozhodl využít framework Iconic.
+Oproti zmíněnému Assets catalog v mém řešení výkon aplikace nezhoršuje, naopak poskytuje velmi snadným způsobem desítky ikon v jediném fontovém souboru.
+
+Jako grafický font jsem vybral FontAwesome verze 4.7 \cite{fontawesome-web}.
+Grafický font jsem využil pro ikony záložek na obrazovce detailu tiskárny ale také pro ikony, které nejsou běžně v systému dostupné.
+
+Protože pomocí grafického fontu není možné vytvořit ikonu aplikaci, využil jsem také Assets catalog.
+Využit je ale právě pro ikonu aplikace, ostatní potřebné ilustrace poskytuje Iconic.
+
+Iconic v současné době není podporován správcem závislostí, který jsem si zvolil.
+Z tohoto důvodu jsem potřebné soubory pomocí frameworku vygeneroval zvlášť a následně je do projektu vložil.
+
+Současně jsem také nabídl autorovi frameworku pomoc s podporou pro jiné cesty distribuce.
+Během implementace této práce se nám ale nepodařilo možnosti distribuce rozšířit.
+Více informací o tomto tématu je dostupné na stránce projektu \cite{github-iconic-brew}.
