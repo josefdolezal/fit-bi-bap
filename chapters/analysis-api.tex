@@ -164,6 +164,19 @@ Endpoint je dostupný na \inlinestr{api/printer/bed}.
 
 Tyto informace je možné zobrazit na přehledu stavu tiskárny.
 
+\subsubsection*{Ovládání paměťové karty}
+
+Aby bylo možné manuálně spravovat stav paměťové karty, nabízí OctoPrint koncový bod \inlinestr{api/printer/sd}
+Pomocí této funkce lze paměťovou kartu připojit, odpojit nebo vynutit načtení dat.
+
+Jednotlivé konfigurace je nutné v požadavku explicitně uvést.
+Každý požadavek musí být metodou \textit{POST}.
+
+\subsubsection*{Aktuální stav paměťové karty}
+
+Pro možnost informovat uživatele o akutálním stavu paměťové karty je dostpuný koncový bod \inlinestr{api/printer/sd}.
+Odpověď vrací booleovskou hodnotu indikující je-li karta připravena či ne.
+
 \subsection{Aktuální tisk}
 
 Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
