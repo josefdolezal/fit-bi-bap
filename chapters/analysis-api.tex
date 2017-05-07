@@ -177,6 +177,19 @@ Každý požadavek musí být metodou \textit{POST}.
 Pro možnost informovat uživatele o akutálním stavu paměťové karty je dostpuný koncový bod \inlinestr{api/printer/sd}.
 Odpověď vrací booleovskou hodnotu indikující je-li karta připravena či ne.
 
+\subsection{Tiskové profily}
+
+OctoPrint umožňuje spravovat tiskové profily, pomocí nichž lze definovat fyzické vlastnosti tiskárny.
+Mezi tyto vlastnosti patří informace o podložce, maximální rychlost tiskové hlavy či obsah tiskového profilu.
+
+Tiskové profily nejsou v mé implementaci stěžejní funkcí, rozhodl jsem se proto i analýzu nepokrývat podrobně.
+API poskytuje standardní \textit{CRUD} rozhraní pro správu profilů.
+Je tedy možné profily vytvářet, číst, aktualizovat a mazat.
+Rozhraní jsou dostupná na \inlinestr{api/printerprofiles}.
+Jednotlivým požadavkům pak odpovídají HTTP metody podle CRUD standardu.
+
+Více informací je možné získat z oficiální dokumentace \cite{octoprint-docs-printer-profiles}, i ta je ale na toto téma velmi skromná.
+
 \subsection{Aktuální tisk}
 
 Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
