@@ -37,3 +37,16 @@ Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře MVVM
 Pomocí operátorů nad signály lze formátovat vlastnosti modelových objektů (přidání jednotek, standardizace čísel, zástupné texty).
 Takto naformátované signály zaručí, že kdykoliv se aktualizuje modelový objekt, jeho vlastnosti budou správně naformátovány.
 ViewController tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na modelu aplikovány.
+
+\subsection{Síťová vrstva}
+
+Síťovou vrstvu jsem se zpočátku rozhodl implementovat knihovnou Alamofire.
+Důvodem byla snazší implementace a integrace do aplikace.
+Protože nemá Alamofire striktně danou strukturu koncových bodů, bylo jednoduché implementovat dynamickou URL tiskárny.
+
+Chybějící podpora reaktivního programování ale velmi brzy negativně zasáhla běh aplikace.
+K synchronizaci vláken jsem nemohl využít ReactiveSwift a aplikace byla zatížena množstvím chyb vznikajících při vykonávání síťových požadavků a následné serializaci dat.
+
+Z tohoto důvodu jsem se rozhodl využít knihovny Moya, která nabízí reaktivní rozšíření a je kompatibilní s ReactiveSwift.
+
+Veškeré síťové požadavky nakonec využívají knihovnu Moya, s jejíž implementací chyby s vlákny vymizely.
