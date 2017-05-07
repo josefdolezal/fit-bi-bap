@@ -127,6 +127,15 @@ Ve verzi API \vapi jsou rozpoznávány následující příkazy následujícím 
 	\item[Paměťová karta] Dovoluje manipulovat s přijením paměťové karty v momentě, kdy je dostupná.
 \end{description}
 
+\subsubsection*{Aktuální stav tiskárny}
+
+Prvním analyzovaným koncovým bodem této skupiny je aktuální stav tiskárny.
+Ten je dostupný na \inlinestr{api/printer}.
+Odpověď obsahuje informace o teplotách podložky a tryskové hlavy.
+Dále lze v odpovědi nalézt informace o celkové připravenosti tiskárny.
+
+Tento endpoint je vhodný pro obrazovku s přehledem stavu tiskárny.
+
 \subsection{Aktuální tisk}
 
 Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
