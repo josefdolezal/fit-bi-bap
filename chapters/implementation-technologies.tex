@@ -21,3 +21,19 @@ Neméně podstatným argumentem je čitelnost kódu.
 Vrstva View Controller obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
 ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob jakým daná část aplikace chová.
 Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
+
+\subsection{Synchronizace vláken}
+
+Pro synchronizaci vláken jsem se rozhodl použít knihovny ReactiveCocoa a ReactiveSwift, tedy reaktivní přístup.
+Díky těmto knihovnám lze jednoduše tvořit závislosti asynchronních operací.
+
+S využitím knihovny ReactiveCocoa od verze 5.0 lze navíc využít tkzv. \textit{UI bindings}.
+Ty zaručují, že hodnoty signálů jsou vždy zpracovány na hlavním vlákně a to i v momentě, kdy jsou odeslány z vlákna v pozadí.
+ReactiveSwift pak zaručuje konzistency dat mezi vlákny.
+Dohromady tak tyto knihovny zamezují vzniku \textit{race condition} za běhu aplikace.
+Více o těchto knihovnách lze zjistit z oficiální dokumentace \cite{github-reactiveswift} a \cite{github-reactivecocoa}.
+
+Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře MVVM.
+Pomocí operátorů nad signály lze formátovat vlastnosti modelových objektů (přidání jednotek, standardizace čísel, zástupné texty).
+Takto naformátované signály zaručí, že kdykoliv se aktualizuje modelový objekt, jeho vlastnosti budou správně naformátovány.
+ViewController tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na modelu aplikovány.
