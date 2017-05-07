@@ -115,6 +115,18 @@ V těle požadavku musí být explicitně zadaný příkaz \textit{connect} a ta
 Hodnota portu musí být jedna z uvedených v seznamu portů.
 Seznam portů je možné získat z nastavení připojení.
 
+\subsection{Ovládání tiskárny}
+
+Ovládání tiskárny je docíleno pomocí příkazů jednotlivým částem tiskárny.
+Ve verzi API \vapi jsou rozpoznávány následující příkazy následujícím částem:
+
+\begin{description}
+	\item[Tisková hlava] Umožňuje pohybovat tiskovou hlavou tiskárny po všech třech osách.
+	\item[Tryska] Umožňuje nastavení teplot trysky.
+	\item[Podložka] Umožňuje nastavení teplot podložky.
+	\item[Paměťová karta] Dovoluje manipulovat s přijením paměťové karty v momentě, kdy je dostupná.
+\end{description}
+
 \subsection{Aktuální tisk}
 
 Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
