@@ -236,3 +236,14 @@ OctoPrint nenabízí samostatný endpoint pro detail logu, pro zobrazení obsahu
 
 Z důvodu zvětšujícího se počtu souborů nabízí OctoPrint možnost manuálně mazat logy.
 Mazání je možné pomocí endpointu \inlinestr{api/logs/[filename]} metodou \textit{DELETE}.
+
+\subsection{Správa slicing profilů}
+
+Obdobně jako u tiskových profilů nejsou slicing profily stěžejní funkcí.
+Vzhledem k jejich složité konfigurace by jejich tvoření z mobilní aplikace mohlo působit špatný uživatelský zážitek.
+Z tohoto důvodu jsem neprováděl podrobnou analýzu této funkcionality.
+
+OctoPrint nabízí koncový \inlinestr{api/slicing}, na kterém jsou dostupné CRUD operace.
+Manipulace je tedy možná pomocí dalších funkcí z nichž každá operuje s odpovídající HTTP metodou.
+
+Podrobné informace k jednotlivým funkcím jsou dostupné v oficiální dokumentaci \cite{octoprint-docs-slicing}.
