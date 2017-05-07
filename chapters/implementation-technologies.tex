@@ -4,3 +4,20 @@ V této části se postupně zabývám jednotlivými body analýzy a rozebírám
 Jedním z hlavních kritérií při konečném rozhodování byla slučitelnost jednotlivých částí.
 Vzhledem k rozsahu implementace jsem si musel být jistý, že jednotlivé části budou fungovat správně v celé aplikaci.
 Rozhodujícím faktorem tedy nebyla popularita jednotlivých řešení ale spíše jejich flexibilita.
+
+\subsection{Architektura aplikace}
+
+Nejdůležitějším rozhodnutím bylo správné vybrání architektury.
+Špatný výběr architektury by mohl mít dopad na celkovou funkčnost aplikace či znemožnit implementaci některých z vyžadovaných funkcí.
+
+Po podrobném analyzování obou zmíněných architektur jsem se rozhodl využít MVVM.
+Přestože MVVM není v současné době tak rozšířené, nabízí spoustu vlastností, které standardní MVC nemá.
+
+Silným argumentem je testování.
+V architektuře MVVM lze jednotlivé části otestovat samostatně.
+K otestování logiky aplikace navíc není potřeba vizuální vrstva aplikace.
+
+Neméně podstatným argumentem je čitelnost kódu.
+Vrstva View Controller obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
+ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob jakým daná část aplikace chová.
+Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
