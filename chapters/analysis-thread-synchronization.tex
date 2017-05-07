@@ -46,7 +46,7 @@ Přidání do libovolné fronty..
 
 Pro možnost rozlišení priorit front využívá Apple Quality of Service (zkráceně QoS).
 Díky QoS je možné určit, jakou prioritu bude mít danná fronta při rozdělování vláken.
-V současné době existují čtyři QoS priority \ref{apple-prioritize-work-with-qos}:
+V současné době existují čtyři QoS priority \cite{apple-prioritize-work-with-qos}:
 
 \begin{description}
   \item[User-interactive] Práce, se kterou uživatel přímo interaguje.
@@ -124,3 +124,5 @@ Oproti GCD má však NSOperationQueue výhodu, že nepracuje pouze s jednou fron
 
 To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvořát více front.
 V závisloti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
+
+\subsection{Reaktivní programování}\label{vlakna-rac}
