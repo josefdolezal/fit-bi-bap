@@ -152,6 +152,18 @@ Pro kontrolu správného průběhu tisku je důležité sledovat teplotu trysky.
 OctoPrint nabízí z tohoto důvodu endpoint \inlinestr{api/printer/tool}.
 V odpovědi se nachází informace o akuální teplotě.
 
+\subsubsection*{Ovládání podložky}
+
+Podobně jako u trysky je možné konfigurovat teplotu i u podložku.
+Koncový bod se nachází na \inlinestr{api/printer/bed}, požadavek je nutné vytvořit metodou \textit{POST}.
+
+\subsubsection*{Aktuální stav podložky}
+
+OctoPrint nabízí také informace o aktuální teplotě podložky.
+Endpoint je dostupný na \inlinestr{api/printer/bed}.
+
+Tyto informace je možné zobrazit na přehledu stavu tiskárny.
+
 \subsection{Aktuální tisk}
 
 Jednou z nejzajímavějších funkcí OctoPrint pro mobilní aplikaci je aktuální tisk.
