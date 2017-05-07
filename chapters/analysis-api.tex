@@ -196,6 +196,16 @@ Pro zrušení aktuálního tisku je dostupný endpoint \inlinestr{api/job} s met
 Do těla požadavku je nutné explicitně vložit příkaz pro zrušení tisku.
 Více informací o konfiguracích je dostupné v dokumentaci \cite{octoprint-docs-job}.
 
+\subsubsection*{Vlastní příkaz tiskárně}
+
+Protože OctoPrint nepokrývá veškeré funkce tiskárny samostatnými konocovými body, je dostupný endpoint pro odeslání vlsatního příkazu tiskárně v jazyce GCode.
+
+Tento koncový bod je dostupný na \inlinestr{api/printer/command}.
+Vlastní příkaz se vkládá do těla požadavku.
+Požadavek je nutné vytvořit metodou \textit{POST}.
+
+Tato funkcionalita je vhodná pro vytvoření obrazovky s vlastní terminálovým emulátorem.
+
 \subsection{Správa log souborů}
 
 Užitečnou funkcí OctoPrint je zobrazování logů.
