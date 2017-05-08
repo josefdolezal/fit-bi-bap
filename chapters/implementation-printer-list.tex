@@ -15,3 +15,14 @@ Rozhodl jsem se tedy zavést novou třídu pokrývající společnou logiku a v�
 
 Tato základní třída se stará o barevné sjednocení obrazovek, zobrazování chyb a nastavení View pro prázdné obrazovky.
 Jednotlivé obrazovky pak využívají třídy dědící z BaseCollectionView.
+
+\subsubsection*{Sekce seznamu}
+
+Seznam tiskáren je rozdělen na dvě základní sekce.
+Pomocí rozdělení do samostatných sekcí jsem dosáhl vytvoření nezávislých řádkových indexů pro každou sekci.
+ViewModel pro Controller poskytuje počet řádků pro každou ze sekcí samostatně.
+Při vytváření seznamu stačí tedy ověřit pro jakou sekci se záznam v seznamu vytváří a následně ViewModel požádat o data s konkrátním řádkovým indexem číslovaným od nuly.
+
+V případě jedné sekce by bylo nutné vzájmně porovnávat aktuální číslo řádku s počtem uložených tiskáren a tiskáren nalezených.
+To požaduje komplexní výpočet a dává prostor mmoha chybám.
+
