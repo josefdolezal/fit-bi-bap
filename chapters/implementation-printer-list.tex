@@ -26,3 +26,21 @@ Při vytváření seznamu stačí tedy ověřit pro jakou sekci se záznam v sez
 V případě jedné sekce by bylo nutné vzájmně porovnávat aktuální číslo řádku s počtem uložených tiskáren a tiskáren nalezených.
 To požaduje komplexní výpočet a dává prostor mmoha chybám.
 
+\subsubsection*{Uložené tiskárny}
+
+První sekce zobrazuje tiskárny načtené z lokální databáze.
+Při sestavování seznamu si pomocí \textit{delegate pattern} CollectionView nejdříve vyžádá počet prvků pro tuto sekci.
+Controller tedy využije výstup ViewModelu a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
+Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-rows}.
+
+\swiftcode{code:printer-list-number-of-rows}{Konfigurace počtu tiskáren v seznamu}{assets/code/printer-list-number-of-rows.swift}
+
+V momentě kdy CollectionView ví kolik prvků bude zobrazovat, začne vyžadovat jednotlivé položky seznamu.
+K tomu je opět využit delegate pattern.
+Pro správné dodržení MVVM architektury nesmí Controller využívat modelové objekty.
+Pro každou buňku je tedy potřeba vytvořit ViewModel, který ji bude obsluhovat.
+Controller si pro řádkový index vyžádá od svého ViewModelu nový ViewModel buňky a ten jí.
+Buňka se následně sama z ViewModelu nakonfiguruje.
+Vyžádání ViewModelu buňky zachycuje ukázka \ref{code:printer-list-cell-viewmodel}.
+
+\swiftcode{code:printer-list-cell-viewmodel}{Vytváření buňky v seznamu}{assets/code/printer-list-cell-viewmodel.swift}
