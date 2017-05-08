@@ -103,3 +103,11 @@ Až do ukončí tohoto flow je seznam tiskáren neaktivní.
 Pokud uživatel tiskárnu úspěšně přidá, seznam je automaticky aktualizovaný díky push-based strategii.
 
 \swiftcode{code:printer-list-coordinator-flow}{Průběh zobrazení nové obrazovky}{assets/code/printer-list-coordinator-flow.swift}
+
+\subsection{Detail tiskárny}
+
+Pro interakci s tiskárnou je nutné otevřít její detail.
+Ten uživatel otevře vybráním uložené tiskárny ze seznamu.
+
+Průběh je velmi podobný výběru tiskárny.
+Opět je nutné zpropagovat uživatelskou iterakci z View do Coordinatoru pomocí Controlleru a ViewModelu.
