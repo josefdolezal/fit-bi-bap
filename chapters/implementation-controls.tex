@@ -1,0 +1,25 @@
+\section{Ovládání tiskové hlavy}
+
+Při implementaci ovládání jsem se inspiroval rozhraním OctoPrint, které je znázorněno na obrázku \ref{fig:octoprint-controls}.
+Pohyb hlavy je možný po všech osách.
+Aby bylo uživatelské rozhraní intuitivní, sjednotil jsem osy $x$ a $y$ do ovladače pro jednu ruku a osu $z$ do ovladače pro druhou.
+
+\image{fig:octoprint-controls}{Ovládání tiskové hlavy v prostředí OctoPrint}{assets/implementation-octoprint-controls.png}
+
+Rozhraní je tvořeno pomocí tlačítek, kde každá osa má jedno tlačítko pro pohyb v kladném a jedno pro pohyb v záporném směru.
+Dále každý z ovladačů obsahuje tlačítko \uv{Domů}, které zavede hlavu 
+
+\subsection{Pohyb hlavy}
+
+Jelikož jsou prvky tvořeny tlačítky, je pohyb implementovaný pomocí požadavků pro každou interakci zvlášť.
+Controller pro každý stisk vytvoří vstup ViewModelu, ten následně vytváří požadavky na tiskárnu.
+
+Požadavek pro posun hlavy je implementovaný genericky parametrizovaný množinou os a směrem.
+Aby UI nebylo zbytečně komplikované, rozhodl jsem uživateli neumožnit explicitně zvolit o jakou vzdálenost se má hlava posunout.
+Každý požadavek tedy posune hlavu po dané ose o 10 mm vpřed nebo vzad.
+
+Každý uživatelský vstup je namapovaný na právě jeden vstup ViewModelu.
+Tím jsem dosáhl jednoduchého rozhraní ViewModelu a odstranil potřebu využití složitých řídících konstrukcí (switch konstrukce či řetězené podmínky).
+Implementace je znázorněna v ukázce \ref{code:printer-controls-request}.
+
+\swiftcode{code:printer-controls-request}{Implementace pohybu tiskové hlavy}{assets/code/printer-controls-request.swift}
