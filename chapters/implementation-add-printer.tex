@@ -3,3 +3,21 @@
 Obrazovka přidání tiskárny slouží pro případ, kdy uživatel chce ovládat novou tiskárnu a nenalezl ji v seznamu síťových tiskáren.
 Pro úspěšné přidání tiskárny je nutné zadat její název, URL či IP adresu a přístupový token.
 Volitelně je možné také přidat URL adresu na které se vyskytuje video stream z web kamery natáčející průběh tisku.
+
+\subsection{Validace formuláře}
+
+Jako u každé aplikace, která přijímá uživatelské vstupy i v mé implementaci je nutné ověřit platnost zadaných údajů.
+Jelikož se jedná o logiku, je validace umístěna ve ViewModelu.
+Text zadaný uživatelem se při každé změně odešle ViewModelu, který všechny vstupy zvaliduje.
+Na základě platnosti kombinace vstupů vyšle ViewModel boolean hodnotu Controlleru.
+Controller pomocí UI bindigs sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
+
+Je-li formulář platný, tlačítko je povolené.
+V opačném případě je zablokované a nelze stisknutím spustit jeho interakci.
+
+Hodnoty formuláře jsou validované pomocí operací nad signály.
+Signály vstupů jsou nejprve zkombinovány a následně map operátorem převedeny na booleanovskou hodnotu.
+Použití validace nad signály je vidět v ukázce \ref{code:add-printer-validation}.
+
+\swiftcode{code:add-printer-validation}{Validace formuláře pomocí signálů}{assets/code/add-printer-validation.swift}
+
