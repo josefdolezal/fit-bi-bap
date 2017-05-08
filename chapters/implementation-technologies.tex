@@ -68,3 +68,24 @@ Z tohoto důvodu jsem potřebné soubory pomocí frameworku vygeneroval zvláš�
 Současně jsem také nabídl autorovi frameworku pomoc s podporou pro jiné cesty distribuce.
 Během implementace této práce se nám ale nepodařilo možnosti distribuce rozšířit.
 Více informací o tomto tématu je dostupné na stránce projektu \cite{github-iconic-brew}.
+
+\subsection{Správa závislostí}
+
+Při výběru správce závislostí jsem své nároky směřoval především na ovlivnění kompilace aplikace.
+V konečném důsledku pracují oba zanalyzované nástroje podobně, mají ale rozdílný přístup k linkování knihoven.
+
+Přestože nastavení CocoaPods je mnohem snazší, z mého pozorování vyplynulo, že negativně ovlivňuje čas kompilace.
+To je způsobeno častou kompilací jednotlivých knihoven a to i v případě, že jejich zdrojový kód nebyl upraven.
+Dále jsem vypozoroval, že prostředí Xcode je s CocoaPods méně stabilní, přestává fungovat našeptávání a zvýrazňování syntaxe.
+
+Z těchto důvodů jsem zvolil Carthage.
+Počáteční nastavení bylo nepatrně složitější z důvodu ručního integrování knihoven do projektu.
+Integrují se ale předem zkompilované knihovny, čas jednotlivých buildů aplikace se tedy nezvyšuje.
+Linkování zkompilovaných knihoven má pravděpodobně za následek lepší integraci s Xcode.
+Za dobu psaní práce se stalo jen výjimečně, že by se Xcode nečekaně ukončil.
+Zlepšilo se také zvýrazňování syntaxe.
+To fungovalo během psaní celé práce bez problému.
+
+Výměnou za zlepšené fungování při lokálním vývoji byly problémy při kompilaci na CI serveru.
+Nekompatibilita zkompilovaných knihoven s verzí Swift jazyka použitým při vývoji aplikace způsobila, že více než dvě třetiny kompilací na serveru selhalo.
+Přehled jednotlivých buildů je vidět na \cite{travis-octophone-builds}.
