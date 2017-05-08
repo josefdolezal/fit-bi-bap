@@ -6,3 +6,12 @@ V případě, že již uživatel aplikace dříve používal, zobrazí se v sezn
 Na dalších místech jsou pak tiskárny dostupné na stejné síti, které aplikace automaticky nalezla.
 
 Pokud aplikace požadovanou tiskárnu nenalezla, je ze seznamu tiskáren možné přejít na obrazovku pro manuální přidání tiskárny.
+
+\subsection{Implementace seznamu}
+
+Abych dosáhl uživatelského rozhraní kompatibilního se zařízeními iPhone i iPad, rozhodl jsem se seznam implementovat pomocí CollectionView.
+Z analýzy vyplynulo, že velmi podobné seznamy budou dostupné na většině obrazovek.
+Rozhodl jsem se tedy zavést novou třídu pokrývající společnou logiku a výchozí nastavení nazvanou BaseCollectionView.
+
+Tato základní třída se stará o barevné sjednocení obrazovek, zobrazování chyb a nastavení View pro prázdné obrazovky.
+Jednotlivé obrazovky pak využívají třídy dědící z BaseCollectionView.
