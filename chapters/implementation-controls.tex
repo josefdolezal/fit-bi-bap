@@ -23,3 +23,11 @@ Tím jsem dosáhl jednoduchého rozhraní ViewModelu a odstranil potřebu využi
 Implementace je znázorněna v ukázce \ref{code:printer-controls-request}.
 
 \swiftcode{code:printer-controls-request}{Implementace pohybu tiskové hlavy}{assets/code/printer-controls-request.swift}
+
+\subsection{Ovládání trysky}
+
+Z důvodu možnosti čištění trysky jsem přidal na tuto obrazovku tlačítko pro manuální tavení filamentu.
+Obdobně jako u pohybu tiskové hlavy ani zde jsem neumožnil uživateli zvolit množství.
+Při uživatelské interakci (stisku tlačítka \uv{Čistit}) aplikace vždy nechá roztavit 5 mm.
+
+Implementace tohoto požadavku se velmi blízce podobá požadavkům na pohyb tiskové hlavy.
