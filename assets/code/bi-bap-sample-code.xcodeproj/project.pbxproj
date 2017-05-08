@@ -22,6 +22,7 @@
 		D209F2E11EC097A10060BC32 /* printer-list-number-of-rows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-number-of-rows.swift"; sourceTree = SOURCE_ROOT; };
 		D209F2E21EC09DB60060BC32 /* printer-list-cell-viewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-cell-viewmodel.swift"; sourceTree = SOURCE_ROOT; };
 		D209F2E31EC0B7B90060BC32 /* printer-list-ui-binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-ui-binding.swift"; sourceTree = SOURCE_ROOT; };
+		D209F2E41EC0C2340060BC32 /* printer-list-coordinator-flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-coordinator-flow.swift"; sourceTree = SOURCE_ROOT; };
 		D2104F6C1EBB370B0071EF6B /* iconic-fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iconic-fonts.swift"; sourceTree = SOURCE_ROOT; };
 		D22D707E1EB9D899002C4A42 /* urlsessionconfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urlsessionconfiguration.swift; sourceTree = SOURCE_ROOT; };
 		D22D70811EB9DE91002C4A42 /* urlsessionrequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = urlsessionrequest.swift; sourceTree = SOURCE_ROOT; };
@@ -94,6 +95,7 @@
 				D209F2E11EC097A10060BC32 /* printer-list-number-of-rows.swift */,
 				D209F2E21EC09DB60060BC32 /* printer-list-cell-viewmodel.swift */,
 				D209F2E31EC0B7B90060BC32 /* printer-list-ui-binding.swift */,
+				D209F2E41EC0C2340060BC32 /* printer-list-coordinator-flow.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";

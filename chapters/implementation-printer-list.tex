@@ -83,3 +83,23 @@ Výsledkem je, že uživatel vidí na obrazovce vždy aktuální data.
 Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pomocí UI bingins.
 
 \swiftcode{code:printer-list-ui-binding}{Překreslení CollectionView pomocí UI bindings}{assets/code/printer-list-ui-binding.swift}
+
+\subsection{Přidání tiskárny}
+
+V momentě kdy nebude požadavaná tiskárna automaticky nalezena a zároveň ji uživatel dříve nepřidal, je možné tiskárnu přidat ručně.
+Přidání tiskárny se odehrává na nové obrazovce.
+Na tu se uživatel dostane stisknutím tlačítka \uv{+} na obrazovce se seznamem tiskáren.
+
+Pro vytvoření obrazovky je potřeba nový Controller a k němu odpovídající ViewModel.
+Za zprostředkování nové obrazovky zodpovídá Coordinator zmíněný v sekci \ref{technologie-architektura}.
+
+Controller seznamu tiskáren vytvoří vstup pro svůj ViewModel, ten na základě vstupu notifikuje Coordinator o uživatelské interakci.
+Coordinator má předem definováno jakým způsobem na interakce reagovat.
+Průběh je vidět v ukázce \ref{code:printer-list-coordinator-flow}.
+
+Na základě notifikace Coordinator vytvoří potřebné objekty k sestavení obrazovky a ovrazovku prezentuje uživateli.
+Až do ukončí tohoto flow je seznam tiskáren neaktivní.
+
+Pokud uživatel tiskárnu úspěšně přidá, seznam je automaticky aktualizovaný díky push-based strategii.
+
+\swiftcode{code:printer-list-coordinator-flow}{Průběh zobrazení nové obrazovky}{assets/code/printer-list-coordinator-flow.swift}
