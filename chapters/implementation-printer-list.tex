@@ -44,3 +44,15 @@ Buňka se následně sama z ViewModelu nakonfiguruje.
 Vyžádání ViewModelu buňky zachycuje ukázka \ref{code:printer-list-cell-viewmodel}.
 
 \swiftcode{code:printer-list-cell-viewmodel}{Vytváření buňky v seznamu}{assets/code/printer-list-cell-viewmodel.swift}
+
+\subsubsection*{Síťové tiskárny}
+
+Tato část názorně ukazuje sílu MVVM architektury.
+Přesto, že logika stojící za vyhledáním síťových tiskáren není triviální, ViewController zůstává velmi krátký a dobře čitelný.
+
+Z pohledu Controlleru totiž logika není podstatná, důležité jsou výstupy z ní.
+ViewModel pro seznam tiskáren jsem proto navrh tak, aby poskytoval obdobné rozhraní jako poskytuje pro uložené tiskárny.
+
+Pro zobrazení druhé sekce seznamu stačí CollectionView předat informaci o počtu síťových tiskáren a buňkám předat odpovídající ViewModely.
+Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
+Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a ViewModely je možné získat metodou \textit{networkPrinterCellViewModel}.
