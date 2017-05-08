@@ -56,3 +56,30 @@ ViewModel pro seznam tiskáren jsem proto navrh tak, aby poskytoval obdobné roz
 Pro zobrazení druhé sekce seznamu stačí CollectionView předat informaci o počtu síťových tiskáren a buňkám předat odpovídající ViewModely.
 Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
 Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a ViewModely je možné získat metodou \textit{networkPrinterCellViewModel}.
+
+\subsection{Automatické aktualizace}
+
+Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \textit{push-based}.
+Tato strategie uvádí, že při změně dat jejich vlastník (např. ViewModel) upozorní své odběratele (Controller).
+Každý odběratel se sám rozhodne, jakým způsobem informaci využít.
+V mé konkrétní implementaci lze vidět rozdíl od \textit{pull-based} strategie v automatických aktualizacích.
+
+Strategie \textit{pull-based} spočívá v tom, že data jsou dostupná na požádání.
+To znamená, že změní-li se data (např. bude-li nalezena nová síťová tiskárna), odběratel si je explictině musí vyžádat.
+Zde vzniká otázka, jak často se dotazovat, zda změna proběhala či nikoli.
+
+Odpověď se odvíjí konkrétního využití.
+Některé data není potřeba po načtení aktualizovat vůbec, jiná naopak prvidelně s krátkými intervaly.
+
+\bigskip
+
+Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z ViewModelu do Controlleru.
+Controller sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající View.
+
+Za pomoci UI bindings frameworku ReactiveCocoa jsem napojil signál změn na metodu překreslení seznamu.
+Controller tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle ViewModel signál a tabulka se překreslí.
+Pro překreslení se využívá stejný postup jako při iniciálním načtení, nehrozí proto problém s čátečnou nekonzistencí.
+Výsledkem je, že uživatel vidí na obrazovce vždy aktuální data.
+Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pomocí UI bingins.
+
+\swiftcode{code:printer-list-ui-binding}{Překreslení CollectionView pomocí UI bindings}{assets/code/printer-list-ui-binding.swift}
