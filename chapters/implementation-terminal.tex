@@ -2,3 +2,19 @@
 
 Abych uživateli umožnil vytvořit libovolný příkaz tiskárně, vytvořil jsem obrazovku připomínající terminálové rozhraní.
 Obrazovka se skládá z historie příkazů a vstupu pro nový příkaz.
+
+\subsection{Vytvoření příkazu}
+
+Jakmile uživatel napíše příkaz a stiskne tlačítko \uv{Odeslat}, vytvoří ViewModel na základě vstupu novou položku v lokální databázi.
+Příkaz je v databázi vytvořen s příznakem \uv{Zpracováván}.
+Na základě vložení ViewModel upozorní Controller, že v historii příkazů proběhla změna a Controller překreslí seznam.
+
+V rámci dodržení architektury MVVM jsem pro každou položku seznamu vytvořil další ViewModel.
+ViewModel položky seznamu se stará o to, aby byl příkaz proveden.
+Ve chvíli vytvoření položky v seznamu ViewModel prozkoumá objekt příkazu.
+Má-li příznak \uv{Zpracováván}, vytvoří požadavek na tiskárnu o provedení příkazu.
+Na základě odpovědi je nastaven nový příznak.
+V případě úspěchu \uv{Zpracován}, v opačném případě \uv{Chyba}.
+
+ViewModel o výsledku informuje položku seznamu (View).
+Pokud je výsledkem chyba, View se červeně podbarví aby uživateli naznačilo, že příkaz selhal.
