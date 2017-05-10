@@ -21,3 +21,25 @@ Pokud se uživatel rozhodne tiskárnu připojit, může k tomu využít tlačít
 To zařídí otevření nové obrazovky.
 Na nové obrazovce může uživatel ze seznamu dostupných portů vybrat, k jaké tiskárně se má OctoPrint připojit.
 Běžně tento seznam bude obsahovat právě jednu položku, protože každou tiskárnu obsluhuje právě jedna instance OctoPrint.
+
+\subsection{Aktuální tisk}
+
+V momentě kdy je tiskárna v pořádku připojena k OctoPrint rozhraní, zobrazuje aplikace informace o jejím stavu.
+Součástí těchto informací jsou teploty podložky a trysky, aktuální tisk a video stream.
+
+Protože všechny tyto informace nejsou dostupné z jediného koncového bodu, aplikace požadavky řetězí.
+Postupně jsou volány požadavky pro aktuální stav tiskárny, aktuální tisk, informace o trysce a informace o podložce.
+Implementace řetězení je vidět v ukázce \ref{code:detail-requests-chain}.
+
+\swiftcode{code:detail-requests-chain}{Řetězení požadavků v Moya}{assets/code/detail-requests-chain.swift}
+
+Řetězení pomocí reaktivního přístupu přináší možnost chyby řešit pomocí \textit{railway} strategie.
+Tedy řetězení probíhá po \uv{úspěšné koleji} až do výskytu první chyby.
+Chyba slouží jako výhybka z této koleje a dále pokračuje po \uv{chybné koleji}.
+Tento přístup umožňuje nezabývat se v jednotlivých požadavcích chybami.
+Jakmile se v jednom požadavku vyskytne chyba, další požadavky se nevykonají.
+Chybu tedy stačí ošetřit na jednom místě.
+Více informací o této strategii je dostupné na \cite{fsharp-railway-strategy}.
+
+Video stream aktuální tisku tisku je implementovaný pomocí pravidelného stahování obrázku tisknutí.
+Aby aplikace nezatěžovala zbytečně síťové rozhraní, obrázek stahuje nejdříve pět vteřin po poslední aktualizaci.
