@@ -1,0 +1,8 @@
+\section{Správa souborového systému}
+
+Druhou obrazovkou detailu tiskárny je správa souborů.
+Uživatel vidí seznam souborů a může je třídit.
+
+Při příchodu na obrazovku se vyšle požadavek na OctoPrint pro stažení souborů.
+ViewModel opět dbá pouze na data uložená v lokální databázi.
+Jakmile tedy přijde odpověď na požadavek, data se uloží do databáze a informace se pomocí signálu propaguje do Controlleru.
