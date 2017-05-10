@@ -19,3 +19,22 @@ Jakmile se rozhodne uživatel změnit filtr, vytvoří svou interakcí vstup do 
 Tímto jsem zajistil, že nevznikne nekonzistence při aktualizaci souborů.
 Tedy vždy jsou zobrazeny právě ty soubory, které uživatel zvolil.
 Žádné nechybí ani nepřebývají ani v době, kdy se seznam znovu stáhne z OctoPrint.
+
+\subsection{Nahrávání souborů}
+
+Nahrávání souborů k tisku je z mého pohledu důležitou funkcí této aplikace.
+Systém iOS je ale bohužel uzavřený a nedovoluje uživateli přistupovat k souborovému systému \cite{imobile-access-fs}.
+Umožňuje ale otevírat soubory z jiných aplikací.
+Tyto aplikace musí funkci poskytování soubory explicitně povolit.
+
+Při implementaci této funkce stačilo v nastavení projektu zvolit jaký typ souborů aplikace umí otevřít.
+Systém se následně postará o zobrazení dialogu uživateli a provede ho výběrem souboru.
+Jakmile uživatel soubor vybere, systém ho předá aplikaci.
+
+\image{ref:implementation-utis}{Nastavení projektu pro otevírání souborů}{assets/implementation-utis.png}
+
+\bigskip{}
+
+Po výběru se předá umístění souboru do ViewModel vrstvy, která pomocí knihovny Moya soubor do tiskárny nahraje.
+
+Standardně má uživatel jako jediné dostupné uložiště iCloud implementovaný přímo v systému, používá-li ale některé z cloudových uložišť může soubor nahrát přímo z nich.
