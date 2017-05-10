@@ -6,3 +6,16 @@ Uživatel vidí seznam souborů a může je třídit.
 Při příchodu na obrazovku se vyšle požadavek na OctoPrint pro stažení souborů.
 ViewModel opět dbá pouze na data uložená v lokální databázi.
 Jakmile tedy přijde odpověď na požadavek, data se uloží do databáze a informace se pomocí signálu propaguje do Controlleru.
+
+\subsection{Filtrování}
+
+Ve ViewModelu jsem připravil tři filtry, ty představují \uv{vše}, \uv{soubory na tiskárně} a \uv{soubory na paměťové kartě}.
+Implemetace filtrů je vidět v ukázce \ref{code:files-filters}.
+Výchozí filtr zobrazuje soubory dostupné jak v paměti tiskárny tak na paměťové kartě.
+Jakmile se rozhodne uživatel změnit filtr, vytvoří svou interakcí vstup do ViewModelu kde se jen změní aktivní filtr a zpět se upozorní Controller.
+
+\swiftcode{code:files-filters}{Filtry souborů}{assets/code/files-filters.swift}
+
+Tímto jsem zajistil, že nevznikne nekonzistence při aktualizaci souborů.
+Tedy vždy jsou zobrazeny právě ty soubory, které uživatel zvolil.
+Žádné nechybí ani nepřebývají ani v době, kdy se seznam znovu stáhne z OctoPrint.

@@ -19,6 +19,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D200056F1EC36BFA007D72B1 /* files-filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "files-filters.swift"; sourceTree = SOURCE_ROOT; };
 		D209F2E11EC097A10060BC32 /* printer-list-number-of-rows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-number-of-rows.swift"; sourceTree = SOURCE_ROOT; };
 		D209F2E21EC09DB60060BC32 /* printer-list-cell-viewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-cell-viewmodel.swift"; sourceTree = SOURCE_ROOT; };
 		D209F2E31EC0B7B90060BC32 /* printer-list-ui-binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "printer-list-ui-binding.swift"; sourceTree = SOURCE_ROOT; };
@@ -102,6 +103,7 @@
 				D2299D401EC0ECBA00C14F80 /* add-printer-validation.swift */,
 				D2299D411EC0F87E00C14F80 /* add-printer-login-request.swift */,
 				D2299D431EC111CF00C14F80 /* printer-controls-request.swift */,
+				D200056F1EC36BFA007D72B1 /* files-filters.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";
