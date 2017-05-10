@@ -57,6 +57,49 @@ Pro zobrazení druhé sekce seznamu stačí CollectionView předat informaci o p
 Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
 Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a ViewModely je možné získat metodou \textit{networkPrinterCellViewModel}.
 
+\subsection{Automatické nalezení tiskáren}
+
+Pro zlepšení uživatelského zážitku jsem se snažil minimalizovat nutnost konfigurace aplikace.
+Jako uživatelsky nejméně přívětivé se jeví přidávání aplikace.
+Uživatel musí zjistit IP nebo URL adresu OctoPrintu, jeho port a přístupový token.
+
+Z tohoto důvodu je v aplikaci dostupné automatické hledání tiskáren.
+V případě, že je zařízení s nainstalovanou aplikací připojeno ke stejné síti jako tiskárna, je možné ji nechat nalézt automaticky.
+
+Síťové tiskárny jsou v aplikaci jako druhá část seznamu tiskáren.
+K jejich načtení a aktualizaci nemusí uživatel provádět žádnou akci, stačí aplikaci zapnout.
+
+Aplikace pomocí technologie \textit{Bonjour} prozkoumá lokální síť a uživateli zobrazí dostupná zařízení.
+Rozhodne-li se uživatel přidat síťovou tiskárnu, jejím výběrem otevře obrazovku pro přihlášení.
+Na obrazovce jsou předvyplněné údaje, které aplikace o tiskárně zjistila.
+Konkrétně se jedná o její síťový název a adresu s portem.
+Pro dokončení přidání stačí pouze zadat přístupový.
+
+\subsubsection*{Technologie Bonjour}
+
+Bonjour je balík síťových technologií od firmy Apple.
+Pomocí \textit{mDNS} (zajišťuje převod hostname zařízení na IP adresu) umí Bonjour na lokální síti nalézt počítače, tiskárny a jiná zařízení.
+Na systémech iOS a macOS jsou tyto nástroje předinstalovány, na jiné platformy je potřeba je doinstalovat.
+Více informací k Bonjour je dostupné na stránkách Apple \cite{apple-bonjour}.
+
+\subsubsection*{Reaktivní rozšíření}
+
+Standardní knihiovna nabízí pro práci s Bonjour třídy \textit{NetService} a \textit{NetServiceBrowser}, které využívají delegate pattern \cite{apple-netservicebrowser}.
+Tento přístup mi nevyhovoval, protože vnesl mnoho kódu do ViewModel objektu a zhoršil tím jeho přehlednost a čitelnost.
+Kód byl navíc přímo vázaný na logiku jedné obrazovky což znemožňovalo jeho znovuvyužitelnost.
+
+Rozhodl jsem vytvořit novou třídu \textit{Bonjour}, která místo delegate pattern nabízí reaktivní přístup.
+Třída je implementována jako \textit{Singleton} \cite{thatthinginswift-singletons} poskytující pouze metodu \textit{searchServices}.
+
+Tato metoda spustí vyhledávání síťových zařízení (které je asynchronní) a vrátí signál, na kterém budou jako hodnoty posílány \textit{BonjourService}, tedy objekty reprezentující tiskárny.
+Uvnitř třídy se nejprve proběhne nalezení všech dostupných hostname (názvů síťových zařízení).
+Ve chvíli kdy systém ohlásí, že prohledal celou síť, spustí se překlad hostname na IP adresu.
+
+Systém projde po jednom nalezená zařízení a pokusí se zjistit jeho IP adresu.
+Pokud je překlad úspěšný, zařízení se přidá do pole nalezených tiskáren a celé pole se odešle signálem.
+
+Díky reaktivnímu přístupu tak Controller dostane informaci o novém prvku, který je nutné zobrazit a překreslí seznam.
+
 \subsection{Automatické aktualizace}
 
 Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \textit{push-based}.
