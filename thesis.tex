@@ -7,6 +7,7 @@
 \usepackage{dirtree}
 
 \definecolor{bgcode}{rgb}{0.95,0.95,0.95}
+\definecolor{dangerred}{rgb}{0.91,0.13,0.16}
 
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
@@ -19,6 +20,10 @@
 \newcommand{\inlinestr}[1]{\colorbox{bgcode}{\textit{#1}}}
 
 \newcommand{\vapi}{1.2.15 }
+
+\newcommand{\todo}[1]{
+	{\Large \color{dangerred} \textbf{TODO:} #1 \par}
+}
 
 % Shorcut for Swift code listings
 \newcommand{\swiftcode}[3]{
