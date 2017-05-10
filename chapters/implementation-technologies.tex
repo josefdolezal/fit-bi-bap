@@ -22,6 +22,8 @@ Vrstva View Controller obsahuje mnohem méně kódu a lze se v něm snáze orien
 ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob jakým daná část aplikace chová.
 Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
 
+\todo{Konkrétní implementace MVVM a Coordinatoru}
+
 \subsection{Synchronizace vláken}
 
 Pro synchronizaci vláken jsem se rozhodl použít knihovny ReactiveCocoa a ReactiveSwift, tedy reaktivní přístup.
@@ -50,6 +52,10 @@ K synchronizaci vláken jsem nemohl využít ReactiveSwift a aplikace byla zatí
 Z tohoto důvodu jsem se rozhodl využít knihovny Moya, která nabízí reaktivní rozšíření a je kompatibilní s ReactiveSwift.
 
 Veškeré síťové požadavky nakonec využívají knihovnu Moya, s jejíž implementací chyby s vlákny vymizely.
+
+\todo{Popis DynamicProvideru a StaticProvideru}
+
+\todo{Realm a reaktivní rozšíření}
 
 \subsection{Grafické prvky}
 
