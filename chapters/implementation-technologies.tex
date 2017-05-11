@@ -110,7 +110,15 @@ Tu jí ale může poskytnout v konstruktutoru Dynamic provider spolu s TargetPar
 
 Tím jsem dosáhl stejného rozhraní pro požadavky jako má nadtřída, jediným rozdílem je možnost dodat URL až při běhu aplikace.
 
-\todo{Popis DynamicProvideru a StaticProvideru}
+\subsubsection*{Síťové požadavky mimo OctoPrint}
+
+Pro umožnění zobrazení video streamu jsem opět potřeboval dynamickou URL, ale tentokrát pro každý požadavek (uživatel zadává pouze URL, nejsou žádné koncové body).
+Tato implementace nebyla složitá, využil jsem standardních tříd knihovny Moya.
+Vytvořil jsem nový objekt spravující koncové body a v něm pouze jeden bod \textit{get}.
+Ten pro zkonstruování využaduje koncovou URL a chová se tedy velmi podobně jako kdyby URL byla známá už v čase kompilace.
+
+Při využití je ale nutné pro každý požadavek explicitně URL zadat.
+To je krok který v DynamicProvider není nutný.
 
 \todo{Realm a reaktivní rozšíření}
 
