@@ -17,7 +17,7 @@ Síťový požadavek se vykonává na vlákně v pozadí a na stejném vlákně 
 Je-li potřeba odpověď zpracovat na hlavním vlákně, musí vývojář explicitně čas na hlavním vlákně vyžádat pomocí Grand Central Dispatch či vlákna synchronizovat jiným spůsobem.
 Od verze systému iOS 9 je navíc nemožné udělat síťový požadavek synchronně (blokovat vlákno, které požadavek vytvořilo až do konce zpracování) \cite{apple-whats-new-in-ios}.
 
-Otázkou tedy zůstává jak správně synchronizovat všechny vlákna, která potřebují zpracovat data na hlavním vlákně.
+Otázkou tedy zůstává jak správně synchronizovat všechny úkoly, které potřebují zpracovat data na jednom společném vlákně.
 
 Při analýze tohoto problému jsem se zaměřil na tři možná řešení.
 První dvě jsou implementovány přímo v dodávaném \acrshort{sdk}, třetí možnost je knihovna od společnosti GitHub.
@@ -29,18 +29,16 @@ Grand Central Dispatch (zkráceně \acrshort{gcd}) je technologie vyvinutá spol
 
 Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \textit{DispatchQueue}.
 DispatchQueue je implementována jako \textit{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
-Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to aby byly spuštěny na ve správném pořadí.
-V závislosti na konfiguraci je pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
+Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to aby byly spuštěny ve správném pořadí.
+V závislosti na konfiguraci pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
 
 V základu je dostupná \textit{main} fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
-Pro synchronizaci vláken stačí požadované jednotky práce přidávat do správných front  \ref{code:create-dispatch-queue}.
+Pro synchronizaci vláken stačí požadované jednotky práce přidávat do správných front.
 
 Je-li potřeba vytvořit vlastní frontu (z důvodu uvolnění času na hlavním vlákně), stačí specifikovat název fronty a její prioritu.
 Vytvoření nové fronty běžící v pozadí je vidět v ukázce \ref{code:create-dispatch-queue}.
 
 \swiftcode{code:create-dispatch-queue}{GCD: Vytvoření vlastní fronty}{assets/code/create-dispatch-queue.swift}
-
-Přidání do libovolné fronty..
 
 \subsubsection*{Quality of Service}
 
@@ -70,7 +68,7 @@ Tuto možnost ale nábízí \textit{Foundation} framework pomocí \textit{NSOper
 
 \subsection{NSOperationQueue a NSOperation}
 
-NSOperationQueue a NSOperation je abstrakce nad metodou \acrshort{gcd} zmíněnou víše.
+NSOperationQueue a NSOperation je abstrakce nad metodou \acrshort{gcd} zmíněnou výše.
 Toto \acrshort{api} je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
 Hlavním rozdílem oproti \acrshort{gcd} je vyloučení pojmu \textit{vlákno}.
 Jednotky práce nejsou nadále reprezentovány pomocí \textit{first class funkcí}, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
@@ -78,7 +76,7 @@ Jednotky práce nejsou nadále reprezentovány pomocí \textit{first class funkc
 \subsubsection*{NSOperation}
 
 Pro reprezentaci jednotek práce se standardní funkce v \acrshort{gcd} nejevily jako dostatečné.
-S představením NSOperationQueue, je ale nově možné nad opakovanými jednotkami abstrakci pomocí tříd.
+S představením NSOperationQueue, je ale nově možné nad opakovanými jednotkami práce zakomponovat abstrakci pomocí tříd.
 Toho lze docílit pomocí vytváření vlastních tříd dědících od NSOperation.
 
 NSOperation představuje samostatnou jednotku práce (operaci).
@@ -112,8 +110,8 @@ Základní vytvoření operace a vložení do fronty je vidět na ukázce \ref{c
 
 \subsubsection*{Prioritizace úkolů}
 
-Z důvodu potřeby prioritizace některých úloh je možné jedntlivým operacím nastavit prioritu.
-V takovém případě se vždy jako první vykonají operace s vyšší prioritou, následně se přistupuje k těm s nižším.
+Z důvodu potřeby prioritizace některých úloh je možné jednotlivým operacím nastavit prioritu.
+V takovém případě se vždy jako první vykonají operace s vyšší prioritou, následně se přistupuje k těm s nižší.
 
 \subsubsection*{Quality of Service}
 
@@ -122,8 +120,8 @@ V nastavení fronty lze zvolit stejně jako u \acrshort{gcd} výchozí QoS.
 Všechny operace pak budou vyžívat právě tuto prioritu.
 Oproti \acrshort{gcd} má však NSOperationQueue výhodu, že nepracuje pouze s jednou frontou.
 
-To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvořát více front.
-V závisloti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
+To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvářet více front.
+V závislosti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
 
 \subsection{Reaktivní programování}\label{vlakna-rac}
 
@@ -153,7 +151,7 @@ V aplikaci pak není nutné využívat pull-based přístup pro získání dat.
 Jakmile jsou totiž nová data dostupná, zpropagují se na patřičná místa podle předem namodelovaného procesu.
 Vytvoření signálu je vidět v ukázce \ref{code:rac-signal}.
 
-\swiftcode{code:rac-signal}{Vytoření signálu v ReactiveCocoa}{assets/code/rac-signal.swift}
+\swiftcode{code:rac-signal}{Vytvoření signálu v ReactiveCocoa}{assets/code/rac-signal.swift}
 
 \subsubsection*{Hot a Cold signály}
 
@@ -166,9 +164,9 @@ Pokud se Observer zaregistruje pozdě, hodnotu nikdy neobdrží.
 U síťového požadavku by se mohlo stát, že přijde odpověď od serveru, ale nebude zpracována.
 Tento typ se tedy využívá v částech programu, kde absence některých hodnot nezpůsobí nekonzistenci.
 
-Druhým typem signálu je Cold signál reprezntovaný třídou \textit{SignalProducer}.
-Tato třída odesílá hodnoty až ve chvíli, kdy se o hodnoty nějaký Observer přihlásí
-Tomuto Observeru navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy jak je vidět v ukázce \ref{code:rac-signalproducer}.
+Druhým typem signálu je Cold signál reprezentovaný třídou \textit{SignalProducer}.
+Tato třída odesílá hodnoty až ve chvíli, kdy se o ně nějaký Observer přihlásí.
+Tomuto Observeru navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy dříve jak je vidět v ukázce \ref{code:rac-signalproducer}.
 To je ideální přístup pro manipulaci s daty či síťové požadavky.
 
 \swiftcode{code:rac-signalproducer}{Vytvoření Cold signálu}{assets/code/rac-signalproducer.swift}
@@ -176,7 +174,7 @@ To je ideální přístup pro manipulaci s daty či síťové požadavky.
 \subsubsection*{Operátory nad signály}
 
 Protože signály jsou konstantní a jejich hodnotu nelze editovat, nabízí ReactiveCocoa operátory nad signály.
-Pomocí těchto operátorů je možné vytvořit nový signál stejného typu, jehož hodnota vychází z původní hodnoty libovolou úpravou.
+Pomocí těchto operátorů je možné vytvořit nový signál stejného typu, jehož hodnota vychází z původní hodnoty libovolnou úpravou.
 
 Tyto operátory přejímají názvy z teorie funkcionálního programování.
 Dostupné jsou tedy operátory \textit{map}, \textit{filter}, \textit{reduce} a další.
@@ -187,7 +185,7 @@ Pomocí rozšíření tříd dostupných v jazyku Swift je také možné dělat 
 
 Pomocí signálů lze jednoduše zařídit synchronizaci vláken.
 K tomu jsou dostupné knihovní funkce \textit{flatMap}, \textit{combineLatest}, \textit{merge} a další.
-Signály mohou vzniknout na různých vláknech, knihovna se ale stará o to, aby k signálů bylo přistupováno vždy právě z jednoho vlákna.
+Signály mohou vzniknout na různých vláknech, knihovna se ale stará o to, aby k signálům bylo přistupováno vždy právě z jednoho vlákna.
 Každý Observer si také může zvolit, na jakém vlákně mu budou hodnoty předávány.
 
-Více ke knihovně RactiveCocoa a jejím využití v reaktivním programování je na její GitHub stránce \cite{github-reactivecocoa}.
+Více informací ke knihovně RactiveCocoa a jejímu využití v reaktivním programování je dostupné na její GitHub stránce \cite{github-reactivecocoa}.

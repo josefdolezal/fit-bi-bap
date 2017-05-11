@@ -6,7 +6,7 @@ V této kapitole stručně zmiňuji princip a technologii 3D tisku.
 \section{Technologie 3D tisku}\label{3d-tisk-technologie}
 
 3D tisk je proces, při kterém lze z digitálního modelu vytvořit reálný objekt.
-Tyto objekty vznikají postup nanášením jednotlivých vrstev modelu na sebe ve vertikálním směru.
+Tyto objekty vznikají postupným nanášením jednotlivých vrstev modelu na sebe ve vertikálním směru.
 Jedna z metod využívajících vrstvení materiálu se nazývá Fused deposition modeling (zkráceně \acrshort{fdm}).
 Princip \acrshort{fdm} spočívá v tavení plastu (případně jiných materiálů) pomocí tiskové hlavy, která následně nanáší taveninu ve vrstvách na sebe \cite{3d-print-fdm}.
 Takto vytvořené plastové objekty mají velkou výhodu v nízkých nákladech na výrobu.
@@ -20,7 +20,6 @@ Jedná se tedy o webové rozhraní, které reprezentuje uživateli příkazy tis
 Z prohlížeče je tak možné měnit základní vlastnosti jako např. teploty, průběh tisku či nastavení připojení k tiskárně.
 Bohužel je ale toto rozhraní zcela zaměřeno na použití z počítače.
 Ovládací prvky nejsou dostatečně veliké a manipulace s nimi přináší velmi špatnou uživatelskou zkušenost na mobilních zařízeních.
-Možné alternativy v kapitole \textit{Analýza}.
 
 Kromě webového rozhraní nabízí OctoPrint také \acrshort{api} pro aplikace třetích stran.
 Pro implementaci své aplikace využiji právě tohoto rozhraní.
@@ -30,10 +29,10 @@ Ty ale sám autor označuje za experimentální.
 Pro mobilní aplikaci navíc nejsou stěžejní.
 Z tohoto důvodu jsem se rozhodl využít starší verzi $1.2.15$, která většinu funkcí označuje jako stabilní.
 
-\section{Definice pojmů}\label{3d-tisk-definice-pojmu}
+\section{Definice pojmu tisk}\label{3d-tisk-definice-pojmu}
 
 Přestože se obvykle slovem tisk rozumí běžný papírový tisk pomocí inkoustové nebo laserové tiskárny,
-ve své práci tento druh tisku vůbec neuvažuji a pojmem tisk rozumím 3D tisk.
+ve své práci tento druh tisku vůbec neuvažuji a pojmem tisk rozumím vždy 3D tisk.
 Analogické předefinování si dovolím i u pojmů odvozených.
 
-Ve své práci uvažuji jako metodu tisku pouze \acrshort{fdm} zmíněnou v kapitole \textit{Technologie 3D tisku}.
+Ve své práci uvažuji jako metodu tisku pouze \acrshort{fdm} zmíněnou v části \ref{3d-tisk-technologie} o technologiích tisku.

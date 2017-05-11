@@ -1,7 +1,7 @@
 \section{Síťování}\label{analyza-sitovani}
 
 Nedílnou součástí aplikace je také síťování, tedy komunikace s rozhraním OctoPrint pomocí \acrshort{rest} API.
-Síťování je v mém řešení ztěžejní, protože aplikace komunikuje s tiskárnou vždy v reálném čase.
+Síťování je v mém řešení stěžejní, protože aplikace komunikuje s tiskárnou vždy v reálném čase.
 Při analyzování síťové vrstvy jsem dospěl ke třem základním požadavkům:
 
 \begin{enumerate}
@@ -10,7 +10,7 @@ Při analyzování síťové vrstvy jsem dospěl ke třem základním požadavk�
     \item Jednotlivé požadavky musí jít snadno řetězit bez ztráty informací či ignorování chyb.
 \end{enumerate}
 
-Mým požadavkům se nejvíce přiblížili tři možná řešení, které následně podrobně popíši.
+Mým požadavkům se nejvíce přiblížila tři možná řešení, které následně podrobně popíši.
 Řešení jsem analyzoval od těch nejvíce \textit{low-level}, které pracují pouze se standardními knihovnami až po implementace za využití externích knihoven.
 
 \subsection{URLSession}
@@ -23,8 +23,7 @@ Spolu s \textit{URLSession} se pojí i mnoho dalších tříd, které jsou vzáj
 \subsubsection*{URLSessionConfiguration}
 
 Při vytváření nové instance NSURLSession je potřeba poskytnout konfiguraci.
-Tato konfigurace poskytuje základní nastavení pro politiky cachování požadavků, využívané protokoly, nastavení cookies a správu přihlašovacích údajů.
-Konfigurace je reprezentována třídou URLSessionConfiguration.
+Tato konfigurace popisuje základní nastavení pro politiky cachování požadavků, využívané protokoly, nastavení cookies a správu přihlašovacích údajů.
 
 Pro jednoduché aplikace je možné využít předpřipravenou konfiguraci, ta ale přistupuje ke všem požadavkům stejně což je nevhodné pro využití při komunikaci s více vzdálenými body.
 Pro svou implementaci bych tedy musel využít dynamické konfigurování v závislosti na aktuálně využívané tiskárně.
@@ -100,12 +99,12 @@ Pro zpracování je nicméně opět dostupný pouze \textit{completion blok}.
 
 Jako poslední možné řešení síťových požadavků jsem zvážil open source knihovnu Moya \cite{github-moya}.
 
-Moya je abstraktní vrstva na víše zmíněnou Alamofire.
-Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy \acrshort{url} adres a parametrů a dalšího nastavení.
+Moya je abstraktní vrstva nad výše zmíněným Alamofire.
+Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy \acrshort{url} adres, parametrů požadavku a dalšího nastavení.
 
 Druhou výhodou je zapouzdřování endpointů do tkzv. \textit{Provider} objektů.
 Na rozdíl od Router objektu zapouzdřuje Provider pouze endpointy se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
-Během kompilace tak lze ověřit, že požadavky, které vyžadují oprávnění jsou vytváří stejný Provider.
+Během kompilace tak lze ověřit, že požadavky, které vyžadují oprávnění vytváří stejný Provider.
 
 \medskip
 
@@ -120,7 +119,7 @@ Target reprezentuje akci, která se má vykonat na vybraném vzdáleném API.
 Typicky implementovaný jako enum a poskytuje vysokoúrovňové \acrshort{api} pro využití ve zbytku aplikace.
 Implementace targetu je vidět v ukázce \ref{code:moya-target}.
 
-\swiftcode{code:moya-target}{Moya - Implementace Target objektu}{assets/code/moya-target.swift}
+\swiftcode{code:moya-target}{Moya -- Implementace Target objektu}{assets/code/moya-target.swift}
 
 \subsubsection*{Endpoint}
 
@@ -137,15 +136,15 @@ Tím se v době kompilace dosáhne kontroly kompatibility Provider s Target obje
 Provider nabízí rozhraní pro modifikaci vytvoření Endpointu i pro modifikaci požadavku.
 Vytvoření požadavku je vidět v ukázce \ref{code:moya-provider}.
 
-\swiftcode{code:moya-provider}{Moya - vytvoření požadavku}{assets/code/moya-provider.swift}
+\swiftcode{code:moya-provider}{Moya -- vytvoření požadavku}{assets/code/moya-provider.swift}
 
 \subsubsection*{Reaktivní rozšíření}
 
 Moya v základu nabízí rozšíření pro použití s reaktivními knihovnami.
-Díky tomu lze velmi dobře integrovat s architekturou \acrshort{mvvm}, konkrétně do vrstvy View Model.
+Díky tomu lze velmi dobře integrovat s architekturou \acrshort{mvvm}, konkrétně do vrstvy ViewModel.
 Usnadňuje tím také možnost řetězení požadavků pomocí flatMap operátoru jak je vidět v ukázce \ref{code:moya-reactive-extensions}.
 
-\swiftcode{code:moya-reactive-extensions}{Moya - Řetězení požadavků}{assets/code/moya-reactive-extensions.swift}
+\swiftcode{code:moya-reactive-extensions}{Moya -- Řetězení požadavků}{assets/code/moya-reactive-extensions.swift}
 
 \subsubsection*{Testování}
 
@@ -153,7 +152,7 @@ Jednou z největších výhod Moyi je možnost testování.
 V Target objektu je možné definovat, jaká data má požadavek vrátit v době kdy se aplikace testuje.
 Tím Moya zaručí, že testy nebudou selhávat v případě kdy nebude dostupná síť.
 
-Pro případ testování chování aplikace v momentě kdy je síť nedostupná nebo kdy požadavky selžou je možné opět využít úpravy Endpoint objektu.
+Pro případ testování chování aplikace v momentě kdy je síť nedostupná nebo kdy požadavky selžou je možné opět využít úpravy Endpoint objektu (tedy i takovou situaci lze nasimulovat).
 
 \subsubsection*{Shrnutí}
 

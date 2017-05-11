@@ -98,9 +98,9 @@ Seznam dostupných portů poskytuje sám OctoPrint.
 \subsubsection*{Nastavení připojení}
 
 Pomocí koncového bodu \inlinestr{api/connection} lze zjistit akuální nastavení připojení k tiskárně.
-Přestože tato informace není ztěžejní pro mobilní aplikaci, odpověď serveru na tento požadavek obsahuje seznam portů.
+Přestože tato informace není stěžejní pro mobilní aplikaci, odpověď serveru na tento požadavek obsahuje seznam portů.
 
-Seznam portů lze využít pro výzvu uživatele v momentě o připojení tiskárny.
+Seznam portů lze využít pro výzvu uživatele k připojení tiskárny.
 To může nastat v momentě kdy uživatel chce s tiskárnou pracovat v době kdy žádná tiskárna připojena není.
 
 \subsubsection*{Příkaz připojení tiskárny}
@@ -124,14 +124,14 @@ Ve verzi \acrshort{api} \vapi{} jsou rozpoznávány následující příkazy ná
 	\item[Tisková hlava] Umožňuje pohybovat tiskovou hlavou tiskárny po všech třech osách.
 	\item[Tryska] Umožňuje nastavení teplot trysky.
 	\item[Podložka] Umožňuje nastavení teplot podložky.
-	\item[Paměťová karta] Dovoluje manipulovat s přijením paměťové karty v momentě, kdy je dostupná.
+	\item[Paměťová karta] Dovoluje manipulovat s připojením paměťové karty v momentě, kdy je dostupná.
 \end{description}
 
 \subsubsection*{Aktuální stav tiskárny}
 
 Prvním analyzovaným koncovým bodem této skupiny je aktuální stav tiskárny.
 Ten je dostupný na \inlinestr{api/printer}.
-Odpověď obsahuje informace o teplotách podložky a tryskové hlavy.
+Odpověď obsahuje informace o teplotách podložky a trysky.
 Dále lze v odpovědi nalézt informace o celkové připravenosti tiskárny.
 
 Tento endpoint je vhodný pro obrazovku s přehledem stavu tiskárny.
@@ -154,7 +154,7 @@ V odpovědi se nachází informace o akuální teplotě.
 
 \subsubsection*{Ovládání podložky}
 
-Podobně jako u trysky je možné konfigurovat teplotu i u podložku.
+Podobně jako u trysky je možné konfigurovat teplotu i u podložky.
 Koncový bod se nachází na \inlinestr{api/printer/bed}, požadavek je nutné vytvořit metodou \textit{POST}.
 
 \subsubsection*{Aktuální stav podložky}
@@ -174,7 +174,7 @@ Každý požadavek musí být metodou \textit{POST}.
 
 \subsubsection*{Aktuální stav paměťové karty}
 
-Pro možnost informovat uživatele o akutálním stavu paměťové karty je dostpuný koncový bod \inlinestr{api/printer/sd}.
+Pro možnost informovat uživatele o akutálním stavu paměťové karty je dostupný koncový bod \inlinestr{api/printer/sd}.
 Odpověď vrací booleovskou hodnotu indikující je-li karta připravena či ne.
 
 \subsection{Tiskové profily}
@@ -211,7 +211,7 @@ Více informací o konfiguracích je dostupné v dokumentaci \cite{octoprint-doc
 
 \subsubsection*{Vlastní příkaz tiskárně}
 
-Protože OctoPrint nepokrývá veškeré funkce tiskárny samostatnými konocovými body, je dostupný endpoint pro odeslání vlsatního příkazu tiskárně v jazyce GCode.
+Protože OctoPrint nepokrývá veškeré funkce tiskárny samostatnými konocovými body, je dostupný endpoint pro odeslání vlastního příkazu tiskárně v jazyce GCode.
 
 Tento koncový bod je dostupný na \inlinestr{api/printer/command}.
 Vlastní příkaz se vkládá do těla požadavku.
@@ -227,7 +227,7 @@ OctoPrint seskupuje logy ze svého používání spolu s logy svých služeb (na
 \subsubsection*{Seznam logů}
 
 Jednou z poskytovaných funkcí je seznam logů.
-V seznamu je obsaženy metadata souboru a jeho umístění na souborovém systému.
+V seznamu jsou obsaženy metadata souboru a jeho umístění na souborovém systému.
 Seznam je dostupný z přístupového bodu \inlinestr{api/logs}.
 
 OctoPrint nenabízí samostatný endpoint pro detail logu, pro zobrazení obsahu je tedy nutné soubor stáhnout a teprve následně zobrazit.
@@ -240,7 +240,7 @@ Mazání je možné pomocí endpointu \inlinestr{api/logs/[filename]} metodou \t
 \subsection{Správa slicing profilů}
 
 Obdobně jako u tiskových profilů nejsou slicing profily stěžejní funkcí.
-Vzhledem k jejich složité konfigurace by jejich tvoření z mobilní aplikace mohlo působit špatný uživatelský zážitek.
+Vzhledem k jejich složité konfiguraci by jejich tvoření z mobilní aplikace mohlo způsobit špatný uživatelský zážitek.
 Z tohoto důvodu jsem neprováděl podrobnou analýzu této funkcionality.
 
 OctoPrint nabízí koncový \inlinestr{api/slicing}, na kterém jsou dostupné CRUD operace.
