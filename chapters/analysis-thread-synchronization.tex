@@ -129,9 +129,29 @@ V závisloti na této vlastnosti je dále možné definovat, kolik operací mů�
 
 Reaktivní programování získává poslední dobou velký zájem vývojářů \cite{oneagency-rx}.
 Jedná se o programování založené na reakci na uživatelské vstupy.
-Nejčastěji je tento princip spojován s prograváním uživatelského rozhraní, protože je implementováno asynchronně a neblokuje tedy hlavní vlákno aplikace.
+Nejčastěji je tento princip spojován s programováním uživatelského rozhraní, protože je implementováno asynchronně a neblokuje tedy hlavní vlákno aplikace.
 
-Myšlenka reaktivního programování je nepřistupovat k datům jako stálým hodnotám, ale jako proudu (streamu) hodnot v konkrétní čas.
+Myšlenka reaktivního programování je nepřistupovat k datům jako stálým hodnotám, ale jako k proudu (streamu) hodnot v konkrétní čas.
 Implementací existuje více, např. Promise \cite{slaks-promise}, Callback \cite{yld-callback} či funkcionálně reaktivní programování.
 V analýze jsem zabýval pouze funkcionálně reaktivním programováním, konkrétně imlementací v knihovně \textit{ReactiveCocoa}.
+
+\subsubsection*{Funkcionálně reaktivní programování -- FRP}
+
+Funkcionálně reaktivní programování označuje stream hodnot jako signál.
+Z teorie funkcionálního programování se k signálům přistupuje jako ke konstantám.
+Jednou vytvořený signál nelze měnit ani ho ovlivnit vedlejšími účinky.
+Je-li potřeba signál změnit, je nutné vytvořit nový signál a ten používat místo původního.
+
+Signál může reprezentovat libovolnou událost v aplikaci: stisknutí tlačítka, síťový požadavek, změny hardware.
+Hodnota je v signálu dostupná pouze ve chvíli, kdy je signálem poslána a doručena objektům, které se zaregistrovali o její příjem.
+Těmto objektům se v terminologi ReactiveCocoa říká \textit{Observer}.
+Signály tedy nepodporují přímý přístup k hodnotám.
+
+Přestože se absence přímého přístupu může zdát jako velké negativum, v praxi to není žádný problém.
+Místo standardního přístupu k hodnotám se využívá kombinování, řetězení a přetváření signálů.
+V aplikaci pak není nutné využívat pull-based přístup pro získání dat.
+Jakmile jsou totiž nová data dostupná, zpropagují se na patřičná místa podle předem namodelovaného procesu.
+Vytvoření signálu je vidět v ukázce \ref{code:rac-signal}.
+
+\swiftcode{code:rac-signal}{Vytoření signálu v ReactiveCocoa}{assets/code/rac-signal.swift}
 
