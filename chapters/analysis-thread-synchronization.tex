@@ -155,3 +155,20 @@ Vytvoření signálu je vidět v ukázce \ref{code:rac-signal}.
 
 \swiftcode{code:rac-signal}{Vytoření signálu v ReactiveCocoa}{assets/code/rac-signal.swift}
 
+\subsubsection*{Hot a Cold signály}
+
+Z ukázky \ref{code:rac-signal} je vidět, že hodoty prochází signálem okamžitě.
+Zde nastává problém ve chvíli, kdy se Observer o přijímání hodnot zaregistruje až po té, co nějaké hodnoty už signálem proběhly.
+V ReactiveCocoa jsou proto dva typy signálů.
+
+Hot signál reprezentovaný třídou Signal odesílá hodnoty okamžitě a neudržuje jejich historii.
+Pokud se Observer zaregistruje pozdě, hodnotu nikdy neobdrží.
+U síťového požadavku by se mohlo stát, že přijde odpověď od serveru, ale nebude zpracována.
+Tento typ se tedy využívá v částech programu, kde absence některých hodnot nezpůsobí nekonzistenci.
+
+Druhým typem signálu je Cold signál reprezntovaný třídou \textit{SignalProducer}.
+Tato třída odesílá hodnoty až ve chvíli, kdy se o hodnoty nějaký Observer přihlásí
+Tomuto Observeru navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy jak je vidět v ukázce \ref{code:rac-signalproducer}.
+To je ideální přístup pro manipulaci s daty či síťové požadavky.
+
+\swiftcode{code:rac-signalproducer}{Vytvoření Cold signálu}{assets/code/rac-signalproducer.swift}
