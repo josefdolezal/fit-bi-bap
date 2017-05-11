@@ -1,0 +1,14 @@
+\section{Testy uživatelského rozhraní}\label{testovani-ui}
+
+Testování uživatelského rozhraní si klade za cíl ověřit správné sestavení komponent grafického rozhraní.
+Pomocí interakce s komponentami se také zkoumá, jakým způsobem komponenty reagují.
+Na rozdíl od testů chování přistupují tyto testy k aplikaci jako k celku a zacházejí s ní obdobně jako by s ní zacházel uživatel. Tyto testy tedy nemají přístup k vnitřní implementaci aplikace.
+Jelikož nevyžadují během chodu zásah člověka (test \textit{nahrazuje} jeho přítomnost), mohou být pouštěny automaticky.
+Standardně se tedy pouští při implementaci každé nové funkce, mnohdy až několikrát denně. \cite{apple-ui-testing}
+
+Protože tyto testy z jsou v mém případě pouze nadstavbou nad \textit{testy chování} vysvětlené níže, rozhodl jsem se je implementovat pomocí referenčních obrázků.
+Testy tedy pro každý podstatný krok scénáře obsahují referenční obrázek, jak by obrazovka měla v danou chvíli vypadat.
+Pokud se vzhled s referenčním obrázkem shoduje, test projde.
+Nevýhodou tohoto přístupu je nutnost přegenerování referenčních obrázků v momentě, kdy se vzhled obrazovky (úmyslně) změní byť o jediný obrazový bod.
+Podstatnou výhodou tohoto přístupu je ale nezávislost na implementaci.
+Pokud se implementace změní, s velkou pravděpodobností to výsledky testů neovlivní.

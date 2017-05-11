@@ -1,0 +1,42 @@
+\section{Průběžná integrace}
+
+Průběžná integrace (z anglického \textit{Continous integration}, zkráceně \textit{CI}) je praktika vývoje software, při které členové týmu integrují svou práci mnohdy až několikrát denně.
+Každá integrace je automaticky ověřena kompilací na buildovacím serveru a spuštěním testů.
+Tato technika si klade za cíl odhalid integrační chyby aplikace co nejdříve je to možné.
+To má za následek snížení časové náročnosti implemetace nových funkcí bez rizika narušení funkcionalit původní aplikace.
+
+Nové funckionality se běžně skládají z nového kódu, upraveného produkčního kódu a upravených testů.
+V momentě kdy vývojář označí funkcionalitu za kompletní, odešle své změny na vzdálený buildovací server, kde se aplikace zkompiluje a otestuje.
+Integrace je následně provedena jen v případě, že celý proces proběhl bez chyby.
+Jak je zjevné, při této technice je zásadní vysoké pokrytí aplikace testy.
+
+Průběžné integrování je často velmi blízce vázáno na správu zdrojových kódů.
+Některé systémy jako GitHub či GitLab je dokonce možné nastavit tak, aby by změny byly přidány do hlavní větve až ve chvíli, kdy build projde bez komplikací. \cite{travis-ci-building-pr}
+
+Pro průběžnou integraci je na trhu dostupných mnoho řešení.
+Rozhodoval jsem se mezi použitím komerčních řešení \textit{Travis CI} a \textit{Circle CI}.
+První zmíněná možnost je v open source komunitě velmi populární a dalo by se říct, že je pro \textit{CI} téměř synonymem.
+Podle nezávislého průzkumu z roku 2016 využívá \textit{Travis CI} téměř pětinásobek uživatelů než ostatních poskytovatelů dohromady. \cite{oregonstate-ci-survey}
+
+Druhé řešení jsem chtěl vyzkoušet kvůli rostoucí popularitě. \cite{circleci-popularity}
+Bohužel je kompilace na operačním systému macOS pro open source projekty možná až po individuálním schválení. \cite{circleci-pricing}
+Z tohoto důvodu jsem nakonec zvolil první řešení, kde je kompilace na systému macOS pro studenty zdarma.
+
+\subsection{Statická analýza kódu}
+
+Spolu s roustoucím týmem a rostoucím zdrojovým kódem se často zavádí směrnice programování.
+Tyto směrnice udávají jakým způsobem je kód formátovaný.
+Při dodržování těchto směrnic se kód stává konzistentním a dobře čitelným, to má za následek zrychlení vývoje a zvyšuje udržitelnost kódu.
+Aby nebylo nutné analyzovat kód ručně, existují nástroje které analýzu automatizují.
+
+Pro zajištění konzistence jsem použil nástroj SwiftLint od společnosti Realm.
+SwiftLint je nástroj obsahující sadu pravidel pro statickou analýzu kódu.
+Mimo jiné kontroluje správné zarovnání kódu, délky řádků či názvy proměnných.
+V době psaní práce obsahuje tento nástroj dohromady téměř osmdesát pravidel.
+Ve své implemetaci jsem se rozhodl vynechat dvě pravidla, které jsem nepovažoval za stěžejní a jejich dodržování by z mého pohledu vedlo ke snížení čitelnosti.
+Kromě těchto dvou pravidel jsem využil i možnost vypnout pravidla pro určité části kódu.
+Nejčastěji se jednalo o pravidla na kontrolu délky metod.
+
+Tuto analýzu zajišťuje buildovací server před začátkem kompilace.
+Pokud nejsou v kódu závažné porušení směrnice, pokračuje se ke kompilaci.
+V opačném případě nastane chyba a je nutné kód opravit a integraci pustit znovu.

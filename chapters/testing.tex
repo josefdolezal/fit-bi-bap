@@ -10,138 +10,17 @@ Testováním software se rozumí postupy a procesy, pomocí kterých lze měřit
 Opakovaným aplikováním těchto postupů lze v softwaru nalézt chyby, nedostatky nebo chybějící vlastnosti oproti dodané specifikaci.
 Výsledky testování následně vypovídají o kvalitě softwaru a o míře splnění specifikace. \cite{software-testing-definition}
 
-V této práci jsem využil tří typů testů.
-Prvním typem jsou uživatelské testy, zkoumající chování uživatelů při používání aplikace.
-Druhým typem jsou testy uživatelského rozhraní, které zjišťují, zda vlivem změn ve vzhledu aplikace nebyla omezena některá z vyžadovaných funkcionalit.
-Posledním technika testování, kterou jsem využil jsou testy chování aplikace.
-Ty ověřují zda aplikace na sadu vstupů produkuje odpovídající výstupy.
+V této práci jsem využil dva typů testů.
+Jako první techniku testování jsem zvolil testování chování (z anglického \textit{behavior tests}).
+Ty ověřují zda aplikace na sadu vstupů vrací odpovídající výstupy.
+Další technikou jsou testy uživatelského rozhraní.
+Ty zjišťují, zda během vývoje nových funkcionalit nedošlo k poškození stávajícího uživatelského rozhraní.
 V následujícím shrnutí se těmto technikám věnuji podrobněji.
 
-\section{Uživatelské testy}\label{testovani-ux}
+\input{chapters/testing-behavior-tests}
 
-Tento typ testů ke zjišťování problémů s návrhem vzhledu aplikace.
-Na výsledcích těchto testů lze sledovat, jaké části aplikace jsou uživatelům nesrozumitelné či zda se v aplikaci orientují.
-Obsahem testů jsou předpřipravené scénáře pokrývající vybrané funkce aplikace. \cite{dobry-web-ux-testing}
+\input{chapters/testing-ui-tests}
 
-Tyto testy se provádějí na vzorku vybraných uživatelů z cílové skupiny.
-Uživatelé během testů prochází aplikaci a mají za úkol naplnit zadanané scénáře.
-Během testů se podrobně sleduje, jakým způsobem uživatelé reagují a jak úspěšní jsou při plnění úkolů.
-Vzhledem k vysoké časové (mnohdy také finanční) náročnosti se tyto testy provádějí obvykle pouze jednou a to v začátcích projektu. \cite{h1-ux-testing}
+\input{chapters/testing-ci}
 
-Ve své práci jsem prováděl testování na malé skupině uživatelů 3D tiskáren.
-Na základě pozorování jsem následně změnil...\textbf{TODO}
-
-\section{Testy uživatelského rozhraní}\label{testovani-ui}
-
-Testování uživatelského rozhraní si klade za cíl ověřit správné sestavení komponent grafického rozhraní.
-Pomocí interakce s komponentami se také zkoumá, jakým způsobem komponenty reagují.
-Na rozdíl od testů chování přistupují tyto testy k aplikaci jako k celku a zacházejí s ní obdobně jako by s ní zacházel uživatel. Tyto testy tedy nemají přístup k vnitřní implementaci aplikace.
-Jelikož nevyžadují během chodu zásah člověka (test \textit{nahrazuje} jeho přítomnost), mohou být pouštěny automaticky.
-Standardně se tedy pouští při implementaci každé nové funkce, mnohdy až několikrát denně. \cite{apple-ui-testing}
-
-Protože tyto testy z jsou v mém případě pouze nadstavbou nad \textit{testy chování} vysvětlené níže, rozhodl jsem se je implementovat pomocí referenčních obrázků.
-Testy tedy pro každý podstatný krok scénáře obsahují referenční obrázek, jak by obrazovka měla v danou chvíli vypadat.
-Pokud se vzhled s referenčním obrázkem shoduje, test projde.
-Nevýhodou tohoto přístupu je nutnost přegenerování referenčních obrázků v momentě, kdy se vzhled obrazovky (úmyslně) změní byť o jediný obrazový bod.
-Podstatnou výhodou tohoto přístupu je ale nezávislost na implementaci.
-Pokud se implementace změní, s velkou pravděpodobností to výsledky testů neovlivní.
-
-\section{Testy chování}\label{testovani-bdd}
-
-Chování jednotlivých modulů aplikace se testuje pomocí zkoumání plnění svých závazků.
-Testované objekty mají definované své rozhraní a závisloti, tím jsou deklarovány i závazky objektu, které musí splnit.
-Závazky určují, jakým způsobem by měl objekt působit na zbylé části aplikace a jaké schopnosti a funkce má.
-Ze schopností a funkcí lze odvodit jakým způsobem se má objekt chovat.
-Testovaným objektem může být libovolný modul aplikace.
-Složitost a rozsah testů se odvíjí od počtu závazků objektu.
-Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny a sleduje se, jestli se objekt na základě změn chová podle očekávání. \cite{objcio-bdd}
-
-V reálném světě si lze jako objekt představit auto.
-Jako změnu vlastnosti můžeme lze použít vyčerpání nádrže.
-Očekávaným chováním auta následně je, že přestane být pojízdné a rozsvítí kontrolku řidiči.
-Auto projde testem chování, právě když při prázdné nádrži je nepojízdné a svítí kontrolka.
-
-Tento princip testování využívám pro testování View Modelu a Modelu (viz. kapitola MVVM: Model-View-ViewModel).
-Díky otestování dostatečného rozsahu logiky aplikace, lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
-View vrstvu následně není samostatně nutné testovat, protože z testů View Modelu je jisté, že data jsou správně připravena k zobrazení.
-Testy pomocí porovnání skutečného vzhledu s očekávaným (zmíněno v testech uživatelského rozhraní) jsou tedy dostačující.
-
-Obdobně jako testy rozhraní i tyto testy se pouštějí při vývoji až několikrát denně.
-Slouží také jako dobrý ukazatel kvality aplikace a dokáží určit její rozsah.
-
-S pojmem \textit{testování chování} je velmi blízce spjat \textit{vývoj řízený testováním chování} (z anglického Behavior Driven Development, zkráceně BDD).
-V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
-Následně se sestavují testy, které vyžadují úplné implementování vyžadovaného chování.
-Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
-Testy jsou popisovány takzvaným DSL.
-To je jazyk který pomocí kombinace klíčových slov a textového popisu definuje jak se komponenta má v určitou chvíli chovat.
-Ukázka \ref{code:bdd-dsl} znázorňuje DSL v testovacím frameworku Quick.
-Jakmile jsou vytvořené testy, přechází se k implementaci.
-Při implementování se vybere test, kterým má aplikace projít a implementuje se pouze takový kód, který zaručí průchod tímto testem.
-Takto se postupuje, dokud objekt neprojde všemi testy. \cite{objcio-bdd}
-
-\swiftcode{code:bdd-dsl}{Použití DSL pro definici testu}{assets/code/bdd-dsl.swift}
-
-\section{Průběžná integrace}
-
-Průběžná integrace (z anglického \textit{Continous integration}, zkráceně \textit{CI}) je praktika vývoje software, při které členové týmu integrují svou práci mnohdy až několikrát denně.
-Každá integrace je automaticky ověřena kompilací na buildovacím serveru a spuštěním testů.
-Tato technika si klade za cíl odhalid integrační chyby aplikace co nejdříve je to možné.
-To má za následek snížení časové náročnosti implemetace nových funkcí bez rizika narušení funkcionalit původní aplikace.
-
-Nové funckionality se běžně skládají z nového kódu, upraveného produkčního kódu a upravených testů.
-V momentě kdy vývojář označí funkcionalitu za kompletní, odešle své změny na vzdálený buildovací server, kde se aplikace zkompiluje a otestuje.
-Integrace je následně provedena jen v případě, že celý proces proběhl bez chyby.
-Jak je zjevné, při této technice je zásadní vysoké pokrytí aplikace testy.
-
-Průběžné integrování je často velmi blízce vázáno na správu zdrojových kódů.
-Některé systémy jako GitHub či GitLab je dokonce možné nastavit tak, aby by změny byly přidány do hlavní větve až ve chvíli, kdy build projde bez komplikací. \cite{travis-ci-building-pr}
-
-https://github.com
-https://about.gitlab.com
-
-Pro průběžnou integraci je na trhu dostupných mnoho řešení.
-Rozhodoval jsem se mezi použitím komerčních řešení \textit{Travis CI} a \textit{Circle CI}.
-První zmíněná možnost je v open source komunitě velmi populární a dalo by se říct, že je pro \textit{CI} téměř synonymem.
-Podle nezávislého průzkumu z roku 2016 využívá \textit{Travis CI} téměř pětinásobek uživatelů než ostatních poskytovatelů dohromady. \cite{oregonstate-ci-survey}
-
-Druhé řešení jsem chtěl vyzkoušet kvůli rostoucí popularitě. \cite{circleci-popularity}
-Bohužel je kompilace na operačním systému macOS pro open source projekty možná až po individuálním schválení. \cite{circleci-pricing}
-Z tohoto důvodu jsem nakonec zvolil první řešení, kde je kompilace na systému macOS pro studenty zdarma.
-
-\subsection{Statická analýza kódu}
-
-Spolu s roustoucím týmem a rostoucím zdrojovým kódem se často zavádí směrnice programování.
-Tyto směrnice udávají jakým způsobem je kód formátovaný.
-Při dodržování těchto směrnic se kód stává konzistentním a dobře čitelným, to má za následek zrychlení vývoje a zvyšuje udržitelnost kódu.
-Aby nebylo nutné analyzovat kód ručně, existují nástroje které analýzu automatizují.
-
-Pro zajištění konzistence jsem použil nástroj SwiftLint od společnosti Realm.
-SwiftLint je nástroj obsahující sadu pravidel pro statickou analýzu kódu.
-Mimo jiné kontroluje správné zarovnání kódu, délky řádků či názvy proměnných.
-V době psaní práce obsahuje tento nástroj dohromady téměř osmdesát pravidel.
-Ve své implemetaci jsem se rozhodl vynechat dvě pravidla, které jsem nepovažoval za stěžejní a jejich dodržování by z mého pohledu vedlo ke snížení čitelnosti.
-Kromě těchto dvou pravidel jsem využil i možnost vypnout pravidla pro určité části kódu.
-Nejčastěji se jednalo o pravidla na kontrolu délky metod.
-
-Tuto analýzu zajišťuje buildovací server před začátkem kompilace.
-Pokud nejsou v kódu závažné porušení směrnice, pokračuje se ke kompilaci.
-V opačném případě nastane chyba a je nutné kód opravit a integraci pustit znovu.
-https://realm.io
-https://github.com/realm/SwiftLint
-
-\section{Průběžné doručování}
-
-Průběžné doručování (z anglického \textit{Continuous delivery}, zkráceně \textit{CD}) je způsob, kterým lze nasadit nové funkcionality, změny konfigurace či opravy chyb do produkčního prostředí.
-Cílem této praktiky je automatizovaně aplikovat opakované postupy potřebné k vydání aplikace.
-Tím lze minimalizovat množství chyb, které by vývojář jinak mohl při vydávání způsobit.
-Vývojáři stačí v tomto případě pouze doručování spusti, server zařídí aby aplikace byla správně nasazena.
-
-Kromě minimalize výskytu chyb tato technika snižuje čas vývoje.
-Díky automatizovanému vydávání mají vývojáři více času na samotný vývoj.
-Tím lze zaručit vyšší kvalitu kódu, nižší náklady na vývoj a také častější aktualizace software. \cite{continuousdelivery-what-is-ci}
-
-Přestože pro svou práci nemám reálné produkční prostředí, rozhodl jsem se \textit{CD} použít pro distribuci testovací verze aplikace.
-Díky tomu jsem mohl jednotlivé verze vydávat v průběhu vývoje velmi rychle a ověřit funkčnost aplikace na skutečných zařízeních.
-Vydání verze jsem nastavil na každé nahrání zdrojových kódů do repozitáře.
-Po statické analýze a kompilaci byla aplikace nahrána do prostředí Fabric, odkud si ji mohli registrovaní testeři stáhnout.
+\input{chapters/testing-cd}

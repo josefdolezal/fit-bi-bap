@@ -1,0 +1,35 @@
+\section{Testy chování}\label{testovani-bdd}
+
+Chování jednotlivých modulů aplikace se testuje pomocí zkoumání plnění svých závazků.
+Testované objekty mají definované své rozhraní a závisloti, tím jsou deklarovány i závazky objektu, které musí splnit.
+Závazky určují, jakým způsobem by měl objekt působit na zbylé části aplikace a jaké schopnosti a funkce má.
+Ze schopností a funkcí lze odvodit jakým způsobem se má objekt chovat.
+Testovaným objektem může být libovolný modul aplikace.
+Složitost a rozsah testů se odvíjí od počtu závazků objektu.
+Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny a sleduje se, jestli se objekt na základě změn chová podle očekávání. \cite{objcio-bdd}
+
+V reálném světě si lze jako objekt představit auto.
+Jako změnu vlastnosti můžeme lze použít vyčerpání nádrže.
+Očekávaným chováním auta následně je, že přestane být pojízdné a rozsvítí kontrolku řidiči.
+Auto projde testem chování, právě když při prázdné nádrži je nepojízdné a svítí kontrolka.
+
+Tento princip testování využívám pro testování View Modelu a Modelu (viz. kapitola MVVM: Model-View-ViewModel).
+Díky otestování dostatečného rozsahu logiky aplikace, lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
+View vrstvu následně není samostatně nutné testovat, protože z testů View Modelu je jisté, že data jsou správně připravena k zobrazení.
+Testy pomocí porovnání skutečného vzhledu s očekávaným (zmíněno v testech uživatelského rozhraní) jsou tedy dostačující.
+
+Obdobně jako testy rozhraní i tyto testy se pouštějí při vývoji až několikrát denně.
+Slouží také jako dobrý ukazatel kvality aplikace a dokáží určit její rozsah.
+
+S pojmem \textit{testování chování} je velmi blízce spjat \textit{vývoj řízený testováním chování} (z anglického Behavior Driven Development, zkráceně BDD).
+V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
+Následně se sestavují testy, které vyžadují úplné implementování vyžadovaného chování.
+Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
+Testy jsou popisovány takzvaným DSL.
+To je jazyk který pomocí kombinace klíčových slov a textového popisu definuje jak se komponenta má v určitou chvíli chovat.
+Ukázka \ref{code:bdd-dsl} znázorňuje DSL v testovacím frameworku Quick.
+Jakmile jsou vytvořené testy, přechází se k implementaci.
+Při implementování se vybere test, kterým má aplikace projít a implementuje se pouze takový kód, který zaručí průchod tímto testem.
+Takto se postupuje, dokud objekt neprojde všemi testy. \cite{objcio-bdd}
+
+\swiftcode{code:bdd-dsl}{Použití DSL pro definici testu}{assets/code/bdd-dsl.swift}
