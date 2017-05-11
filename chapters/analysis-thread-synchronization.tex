@@ -127,4 +127,11 @@ V závisloti na této vlastnosti je dále možné definovat, kolik operací mů�
 
 \subsection{Reaktivní programování}\label{vlakna-rac}
 
-\todo{Sekce reaktivní programování}
+Reaktivní programování získává poslední dobou velký zájem vývojářů \cite{oneagency-rx}.
+Jedná se o programování založené na reakci na uživatelské vstupy.
+Nejčastěji je tento princip spojován s prograváním uživatelského rozhraní, protože je implementováno asynchronně a neblokuje tedy hlavní vlákno aplikace.
+
+Myšlenka reaktivního programování je nepřistupovat k datům jako stálým hodnotám, ale jako proudu (streamu) hodnot v konkrétní čas.
+Implementací existuje více, např. Promise \cite{slaks-promise}, Callback \cite{yld-callback} či funkcionálně reaktivní programování.
+V analýze jsem zabýval pouze funkcionálně reaktivním programováním, konkrétně imlementací v knihovně \textit{ReactiveCocoa}.
+
