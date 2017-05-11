@@ -120,7 +120,23 @@ Ten pro zkonstruování využaduje koncovou URL a chová se tedy velmi podobně 
 Při využití je ale nutné pro každý požadavek explicitně URL zadat.
 To je krok který v DynamicProvider není nutný.
 
-\todo{Realm a reaktivní rozšíření}
+\subsection{Datová vrstva}
+
+Jak vyplývá z části \ref{analyza-datova-vrstva} kde popisuji datovou vrstvu, rozhodl jsem se využít knihovnu Realm.
+Díky jejím reaktivním rozšíření se skvěle hodí nejen k architektuře, ale i síťové vrstvě.
+
+Při implementaci jsem dospěl k závěru, že standardní cestou využití Realmu opakuji spoustu kódu.
+Vytvořil jsem proto rozšíření pro ReactiveCocoa a její Cold signál.
+
+Pro SignalProducer, který jako hodnotu nese Realm objekt jsem přidal dvě metody.
+První z nich, \textit{fetch(collectionOf:)} umožňuje z databáze načíst kolekci.
+Druhou metodou je \textit{fetch(classType:, forPrimaryKey:)} vybere z databáze prvek podle primárního klíče.
+Využití metod je vidět v ukázce \ref{code:realm-extensions}.
+
+\swiftcode{code:realm-extensions}{Reaktivní rozšíření pro Realm}{assets/code/realm-extensions.swift}
+
+Díky těmto rozšířením jsem odstranil spoustu duplicitního kódu, navíc jsem sjednotil rozhraní využívaných knihoven.
+Mohl jsem díky tomu synchronizovat vlákna síťových volání a datové vrstvy pomocí ReactiveCocoa.
 
 \subsection{Grafické prvky}
 

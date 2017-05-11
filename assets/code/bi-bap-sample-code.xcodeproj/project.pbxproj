@@ -37,6 +37,7 @@
 		D22D70AE1EBA2D1B002C4A42 /* moya-reactive-extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "moya-reactive-extensions.swift"; sourceTree = SOURCE_ROOT; };
 		D22D70B01EBA7F0E002C4A42 /* realm-object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "realm-object.swift"; sourceTree = SOURCE_ROOT; };
 		D22D70B21EBA81C1002C4A42 /* realm-write.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "realm-write.swift"; sourceTree = SOURCE_ROOT; };
+		D23CF0341EC4B063008F30F3 /* realm-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "realm-extensions.swift"; sourceTree = SOURCE_ROOT; };
 		D256A3651EC4640400DE3B6D /* rac-signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rac-signal.swift"; sourceTree = SOURCE_ROOT; };
 		D256A3661EC469E200DE3B6D /* rac-signalproducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rac-signalproducer.swift"; sourceTree = SOURCE_ROOT; };
 		D256A3671EC4868C00DE3B6D /* viewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewmodel.swift; sourceTree = SOURCE_ROOT; };
@@ -112,6 +113,7 @@
 				D256A3651EC4640400DE3B6D /* rac-signal.swift */,
 				D256A3661EC469E200DE3B6D /* rac-signalproducer.swift */,
 				D256A3671EC4868C00DE3B6D /* viewmodel.swift */,
+				D23CF0341EC4B063008F30F3 /* realm-extensions.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";
