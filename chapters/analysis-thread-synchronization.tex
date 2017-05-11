@@ -182,3 +182,12 @@ Tyto operátory přejímají názvy z teorie funkcionálního programování.
 Dostupné jsou tedy operátory \textit{map}, \textit{filter}, \textit{reduce} a další.
 
 Pomocí rozšíření tříd dostupných v jazyku Swift je také možné dělat vlastní operátory.
+
+\subsubsection*{Synchronizace vláken}
+
+Pomocí signálů lze jednoduše zařídit synchronizaci vláken.
+K tomu jsou dostupné knihovní funkce \textit{flatMap}, \textit{combineLatest}, \textit{merge} a další.
+Signály mohou vzniknout na různých vláknech, knihovna se ale stará o to, aby k signálů bylo přistupováno vždy právě z jednoho vlákna.
+Každý Observer si také může zvolit, na jakém vlákně mu budou hodnoty předávány.
+
+Více ke knihovně RactiveCocoa a jejím využití v reaktivním programování je na její GitHub stránce \cite{github-reactivecocoa}.
