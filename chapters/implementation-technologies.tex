@@ -95,6 +95,21 @@ Z tohoto důvodu jsem se rozhodl využít knihovny Moya, která nabízí reaktiv
 
 Veškeré síťové požadavky nakonec využívají knihovnu Moya, s jejíž implementací chyby s vlákny vymizely.
 
+\subsubsection*{Implementace Provider objektu}
+
+Při implementaci jsem se neobešel se standardními objekty, které jsou běžné potřebné.
+Provider objekt předimplementovaný v knihovně předpokládá, že adresa vzdáleného serveru je známá již během kompilace a neumožňuje ji zadat za běhu programu.
+Z tohoto důvodu jsem také nemohl využít standardní definici koncových bodů pomocí TargetType protokolu, který URL vyžaduje staticky.
+
+Rozhodl jsem vytvořit podtřídu \textit{DynamicProvider}, která v konstruktoru přijme URL serveru.
+Místo využití protokolu TargetType jsem vytvořil nový protokol TargetPart, který má stejné rozhraní, jen nevyžaduje URL serveru.
+
+Má implementace Provider objektu využívá tento nový protokol pro vytvoření požadavku.
+Abych mohl využít třídu, od které můj objekt DynamicTarget dědí, musel jsem ještě vytvořit strukturu DynamicTarget, která implementuje rozhraní TargetType a využaduje tedy URL serveru.
+Tu jí ale může poskytnout v konstruktutoru Dynamic provider spolu s TargetPart koncovým bodem.
+
+Tím jsem dosáhl stejného rozhraní pro požadavky jako má nadtřída, jediným rozdílem je možnost dodat URL až při běhu aplikace.
+
 \todo{Popis DynamicProvideru a StaticProvideru}
 
 \todo{Realm a reaktivní rozšíření}
