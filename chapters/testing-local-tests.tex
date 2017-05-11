@@ -1,0 +1,19 @@
+\section{Lokální testování}
+
+Protože aplikace komunikuje výhradně s tiskárnou musí být tiskárna dostupná i během vývoje.
+Abych nemusel tiskárnu pořizovat, využil jsem možnost vytvořit virtuální tiskárnu.
+
+S využitím technologie Docker jsem vytvořil kontejner s nainstalovanou aplikací OctoPrint.
+Pomocí konfiguračního souboru jsem povolil vytvoření virtuální tiskárny.
+
+OctoPrint byl takto spuštěný lokálně na mém počítači.
+Po připojení OctoPrint k virtuálnímu portu tiskárny jsem mohl vyvíjet aplikaci i bez nutnosti vlastnit tiskárnu.
+
+V ukázce \ref{code:docker} demonstruji spuštění kontejneru s virtuální tiskárnou z příkazové řádky svého počítače.
+
+\begin{listing}[htbp]
+\caption{\label{code:docker}Spuštění virtuální tiskárny pomocí Docker}
+\begin{minted}[linenos, bgcolor=bgcode]{bash}
+docker run -p"3200:5000" josefdolezal/virtuprint-docker 
+\end{minted}
+\end{listing}
