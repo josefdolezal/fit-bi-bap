@@ -172,3 +172,13 @@ Tomuto Observeru navíc budou odeslány postupně všechny hodnoty, které byly 
 To je ideální přístup pro manipulaci s daty či síťové požadavky.
 
 \swiftcode{code:rac-signalproducer}{Vytvoření Cold signálu}{assets/code/rac-signalproducer.swift}
+
+\subsubsection*{Operátory nad signály}
+
+Protože signály jsou konstantní a jejich hodnotu nelze editovat, nabízí ReactiveCocoa operátory nad signály.
+Pomocí těchto operátorů je možné vytvořit nový signál stejného typu, jehož hodnota vychází z původní hodnoty libovolou úpravou.
+
+Tyto operátory přejímají názvy z teorie funkcionálního programování.
+Dostupné jsou tedy operátory \textit{map}, \textit{filter}, \textit{reduce} a další.
+
+Pomocí rozšíření tříd dostupných v jazyku Swift je také možné dělat vlastní operátory.
