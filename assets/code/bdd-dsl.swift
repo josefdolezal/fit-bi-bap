@@ -1,27 +1,27 @@
-import Foundation
-import Quick
 import Nimble
+import Quick
 
-class CarSpec: QuickSpec {
+class PrinterListViewModelTests: QuickSpec {
+    var onAddPrinterButtonTapped: (() -> Void)?
+
     override func spec() {
-        describe("a car") {
-            var car = Car!
-            beforeEach{ car = Car() }
+        // Objekt, který bude testován
+        var subject: PrinterListViewModel!
+        // Vytvoření dat před každým testem
+        beforeEach { }
+        // Odstranění dat po konci testu
+        afterEach { }
 
-            context("with empty fuel tank") {
-                beforeEach{ car.engine.fuel = 0 }
-
-                it("should not start") {
-                    expect(car.canStart()).toNot(beTruthy())
-                }
-            }
-
-            context("with full tank") {
-                it("should start") {
-                    car.engine.fuel = Tank.full
-                    expect(car.canStart()).to(beTruthy())
-                }
-            }
+        // DSL testu
+        it("notify delegate only when add button is tapped") {
+            // Otestování hodnoty pomocí Nimble
+            expect(addPrinterTapped) == false
+            subject.inputs.addPrinterButtonTapped()
+            expect(addPrinterTapped) == true
         }
+
+        it("update printers count on change") { }
+        it("supply correct network provider") { }
+        it("provides correct view model for cell") { }
     }
 }

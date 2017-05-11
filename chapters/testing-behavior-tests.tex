@@ -1,35 +1,54 @@
 \section{Testy chování}\label{testovani-bdd}
 
-Chování jednotlivých modulů aplikace se testuje pomocí zkoumání plnění svých závazků.
-Testované objekty mají definované své rozhraní a závisloti, tím jsou deklarovány i závazky objektu, které musí splnit.
+Chování modolu aplikace lze otestovat pomocí otestovat tak, že se zkoumá plnění jeho závazků.
+Testované objekty mají definované rozhraní a závisloti, tím mají také deklarovány i závazky.
 Závazky určují, jakým způsobem by měl objekt působit na zbylé části aplikace a jaké schopnosti a funkce má.
 Ze schopností a funkcí lze odvodit jakým způsobem se má objekt chovat.
-Testovaným objektem může být libovolný modul aplikace.
-Složitost a rozsah testů se odvíjí od počtu závazků objektu.
-Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny a sleduje se, jestli se objekt na základě změn chová podle očekávání. \cite{objcio-bdd}
 
-V reálném světě si lze jako objekt představit auto.
-Jako změnu vlastnosti můžeme lze použít vyčerpání nádrže.
-Očekávaným chováním auta následně je, že přestane být pojízdné a rozsvítí kontrolku řidiči.
-Auto projde testem chování, právě když při prázdné nádrži je nepojízdné a svítí kontrolka.
+\subsection{Testování komponent}
 
-Tento princip testování využívám pro testování View Modelu a Modelu (viz. kapitola MVVM: Model-View-ViewModel).
-Díky otestování dostatečného rozsahu logiky aplikace, lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
-View vrstvu následně není samostatně nutné testovat, protože z testů View Modelu je jisté, že data jsou správně připravena k zobrazení.
-Testy pomocí porovnání skutečného vzhledu s očekávaným (zmíněno v testech uživatelského rozhraní) jsou tedy dostačující.
+Pomocí těchto testů lze ověřovat funkčnost libovolné komponenty aplikace.
+Složitost a rozsah těchto testů se následně odvíjí od počtu závazků komponenty.
+Testování probíhá tak, že vlastnosti objektu jsou pomocí rozhraní měněny.
+Přitom se sleduje, jestli se objekt na základě změn chová podle očekávání. \cite{objcio-bdd}
 
-Obdobně jako testy rozhraní i tyto testy se pouštějí při vývoji až několikrát denně.
-Slouží také jako dobrý ukazatel kvality aplikace a dokáží určit její rozsah.
+\subsection{DSL}
 
-S pojmem \textit{testování chování} je velmi blízce spjat \textit{vývoj řízený testováním chování} (z anglického Behavior Driven Development, zkráceně BDD).
-V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
-Následně se sestavují testy, které vyžadují úplné implementování vyžadovaného chování.
-Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
-Testy jsou popisovány takzvaným DSL.
+Testy jsou popisovány takzvaným DSL jazykem.
 To je jazyk který pomocí kombinace klíčových slov a textového popisu definuje jak se komponenta má v určitou chvíli chovat.
-Ukázka \ref{code:bdd-dsl} znázorňuje DSL v testovacím frameworku Quick.
-Jakmile jsou vytvořené testy, přechází se k implementaci.
-Při implementování se vybere test, kterým má aplikace projít a implementuje se pouze takový kód, který zaručí průchod tímto testem.
-Takto se postupuje, dokud objekt neprojde všemi testy. \cite{objcio-bdd}
+Více o DSL lze zjistit na \cite{petrikainulainen-dsl}.
+
+V běžném testovacím rozhraní prostředí Xcode tento jazyk nenabízí.
+Rozhodl jsem pro to využí dvou knihoven.
+Pomocí Knihovny \textit{Quick} jsem mohl DSL v projektu využít.
+Očekávané hodnoty jsem ověřoval pomocí \textit{Nimble}.
+
+\subsection{Testování ViewModelu}
+
+Tento princip využívám ve své implementaci pro testování Modelu a ViewModelu.
+Díky dostatečnému rozsahu testů logiky aplikace lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
+View vrstvu následně není samostatně nutné testovat, protože z testů ViewModelu je téměř jisté, že data jsou správně připravena k zobrazení.
+
+U ViewModelu jsem podle zvoleného scénáře navrh DSL.
+Tímto jazykem jsem definoval jak očekávám, že s objektem bude pracovat.
+Pomocí Nimble knihovny jsem dále ověřoval, jestli na vytvořené vstupy vytváří ViewModel očekávané výstupy jak je vidět v ukázce \ref{code:bdd-dsl}.
+
+Během implementace jsem vytvořil bez mála sto testů, díky kterým jsem odchytil velké množství chyb.
+Tyto chyby jsem často do aplikace zanesl v momentě, kdy jsem k již hotové obrazovce implementoval novou funkcionalitu.
 
 \swiftcode{code:bdd-dsl}{Použití DSL pro definici testu}{assets/code/bdd-dsl.swift}
+
+\subsection{Vývoj řízený testováním chování}
+
+S pojmem testování chování je velmi blízce spjat \textit{vývoj řízený testováním chování} (z anglického Behavior Driven Development, zkráceně BDD).
+V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
+Následně se sestavují testy, které vyžadují implementování vyžadovaného chování.
+Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.
+
+Průběh vývoje probíhá cyklicky.
+Nejdříve se nadefinují testy některé funkcionality, následně se implementuje jen tolik kódu, kolik je nutné aby testy byly úspěšné.
+Tento postup se opakuje dokud nejsou implementovány veškeré funkce vyžadované po objektu.
+Více informací o tomto přístupu je dostupných na \cite{objcio-bdd}.
+
+Tento přístup jsem využil na část ViewModelů.
+Vzhledem k rozsahu implementace jsem ale většinu testů napsal až po kompletní implementaci ViewModelu.
