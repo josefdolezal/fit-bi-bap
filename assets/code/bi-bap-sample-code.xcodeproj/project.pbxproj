@@ -39,6 +39,7 @@
 		D22D70B21EBA81C1002C4A42 /* realm-write.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "realm-write.swift"; sourceTree = SOURCE_ROOT; };
 		D256A3651EC4640400DE3B6D /* rac-signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rac-signal.swift"; sourceTree = SOURCE_ROOT; };
 		D256A3661EC469E200DE3B6D /* rac-signalproducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rac-signalproducer.swift"; sourceTree = SOURCE_ROOT; };
+		D256A3671EC4868C00DE3B6D /* viewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewmodel.swift; sourceTree = SOURCE_ROOT; };
 		D26834711EC3BCFF002BAA5A /* detail-requests-chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "detail-requests-chain.swift"; sourceTree = SOURCE_ROOT; };
 		D2BA092E1EA4DF8B00C97E08 /* bi-bap-sample-code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "bi-bap-sample-code"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2BA09381EA4E02200C97E08 /* create-dispatch-queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "create-dispatch-queue.swift"; sourceTree = SOURCE_ROOT; };
@@ -110,6 +111,7 @@
 				D26834711EC3BCFF002BAA5A /* detail-requests-chain.swift */,
 				D256A3651EC4640400DE3B6D /* rac-signal.swift */,
 				D256A3661EC469E200DE3B6D /* rac-signalproducer.swift */,
+				D256A3671EC4868C00DE3B6D /* viewmodel.swift */,
 			);
 			path = "bi-bap-sample-code";
 			sourceTree = "<group>";

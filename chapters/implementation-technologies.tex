@@ -22,7 +22,25 @@ Vrstva View Controller obsahuje mnohem méně kódu a lze se v něm snáze orien
 ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob jakým daná část aplikace chová.
 Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
 
-\todo{Konkrétní implementace MVVM a Coordinatoru}
+\subsubsection*{Implementace ViewModelu}
+
+V části \ref{analyza-mvvm} kde jsem analyzoval architekturu MVVM jsem naznačil strategii implementace.
+ViewModel jsem se rozhodl implementovat jako logiku Controlleru, která jako rozhraní nabízí pouze vstupy či výstupy.
+
+Vstupem označuji uživatelskou interakci, na základě které je potřeba vyžádat nová data nebo zobrazit jinou obrazovku.
+Výstupem jsou zobrazovaná data, která jsou ViewModelem předformátovaná aby je Controller mohl přímo zobrazit pomocí View vrstvy.
+Jiným výstupem pak může být informace o stavu dat či o jejich počtu (počet polože v seznamu).
+
+Každá obrazovka vlastní svůj ViewModel.
+Pro ten jsou dostupné tři protokoly: \textit{ViewModelInputs}, \textit{ViewModelOutputs} a \textit{ViewModelType}.
+Tyto prokoly jsou konkrétně pojmenovány podle obrazovky, stejně tak ViewModel samotný a také Controller.
+Definice rozhraní je vidět v ukázce \ref{code:viewmodel}.
+
+\swiftcode{code:viewmodel}{Rozhraní objektu ViewModel}{assets/code/viewmodel.swift}
+
+První protokol popisuje množinu vstupů, druhý množinu výstupů a třetí popisuje rozhraní ViewModelu.
+Tím jsem dosáhl možnosti zaměňovat ViewModel obrazovky či sdílet jeden ViewModel mezi více obrazovkami.
+Návrhem tohoto rozhraní jsem inspiroval v open source aplikaci Kickstarter, dostupné na portálu GitHub \cite{github-kickstarter}.
 
 \subsection{Synchronizace vláken}
 
