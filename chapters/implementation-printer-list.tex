@@ -37,7 +37,7 @@ Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-r
 
 V momentě kdy CollectionView ví kolik prvků bude zobrazovat, začne vyžadovat jednotlivé položky seznamu.
 K tomu je opět využit delegate pattern.
-Pro správné dodržení MVVM architektury nesmí Controller využívat modelové objekty.
+Pro správné dodržení \acrshort{mvvm} architektury nesmí Controller využívat modelové objekty.
 Pro každou buňku je tedy potřeba vytvořit ViewModel, který ji bude obsluhovat.
 Controller si pro řádkový index vyžádá od svého ViewModelu nový ViewModel buňky a ten jí.
 Buňka se následně sama z ViewModelu nakonfiguruje.
@@ -47,7 +47,7 @@ Vyžádání ViewModelu buňky zachycuje ukázka \ref{code:printer-list-cell-vie
 
 \subsubsection*{Síťové tiskárny}
 
-Tato část názorně ukazuje sílu MVVM architektury.
+Tato část názorně ukazuje sílu \acrshort{mvvm} architektury.
 Přesto, že logika stojící za vyhledáním síťových tiskáren není triviální, ViewController zůstává velmi krátký a dobře čitelný.
 
 Z pohledu Controlleru totiž logika není podstatná, důležité jsou výstupy z ní.
@@ -61,7 +61,7 @@ Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCoun
 
 Pro zlepšení uživatelského zážitku jsem se snažil minimalizovat nutnost konfigurace aplikace.
 Jako uživatelsky nejméně přívětivé se jeví přidávání aplikace.
-Uživatel musí zjistit IP nebo URL adresu OctoPrintu, jeho port a přístupový token.
+Uživatel musí zjistit IP nebo \acrshort{url} adresu OctoPrintu, jeho port a přístupový token.
 
 Z tohoto důvodu je v aplikaci dostupné automatické hledání tiskáren.
 V případě, že je zařízení s nainstalovanou aplikací připojeno ke stejné síti jako tiskárna, je možné ji nechat nalézt automaticky.
@@ -78,7 +78,7 @@ Pro dokončení přidání stačí pouze zadat přístupový.
 \subsubsection*{Technologie Bonjour}
 
 Bonjour je balík síťových technologií od firmy Apple.
-Pomocí \textit{mDNS} (zajišťuje převod hostname zařízení na IP adresu) umí Bonjour na lokální síti nalézt počítače, tiskárny a jiná zařízení.
+Pomocí \textit{\acrshort{mdns}} (zajišťuje převod hostname zařízení na IP adresu) umí Bonjour na lokální síti nalézt počítače, tiskárny a jiná zařízení.
 Na systémech iOS a macOS jsou tyto nástroje předinstalovány, na jiné platformy je potřeba je doinstalovat.
 Více informací k Bonjour je dostupné na stránkách Apple \cite{apple-bonjour}.
 

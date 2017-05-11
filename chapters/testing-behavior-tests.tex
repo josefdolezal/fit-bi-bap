@@ -14,13 +14,13 @@ Přitom se sleduje, jestli se objekt na základě změn chová podle očekáván
 
 \subsection{DSL}
 
-Testy jsou popisovány takzvaným DSL jazykem.
+Testy jsou popisovány takzvaným \acrshort{mdns} jazykem.
 To je jazyk který pomocí kombinace klíčových slov a textového popisu definuje jak se komponenta má v určitou chvíli chovat.
-Více o DSL lze zjistit na \cite{petrikainulainen-dsl}.
+Více o \acrshort{mdns} lze zjistit na \cite{petrikainulainen-dsl}.
 
 V běžném testovacím rozhraní prostředí Xcode tento jazyk nenabízí.
 Rozhodl jsem pro to využí dvou knihoven.
-Pomocí Knihovny \textit{Quick} jsem mohl DSL v projektu využít.
+Pomocí Knihovny \textit{Quick} jsem mohl \acrshort{mdns} v projektu využít.
 Očekávané hodnoty jsem ověřoval pomocí \textit{Nimble}.
 
 \subsection{Testování ViewModelu}
@@ -29,18 +29,18 @@ Tento princip využívám ve své implementaci pro testování Modelu a ViewMode
 Díky dostatečnému rozsahu testů logiky aplikace lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
 View vrstvu následně není samostatně nutné testovat, protože z testů ViewModelu je téměř jisté, že data jsou správně připravena k zobrazení.
 
-U ViewModelu jsem podle zvoleného scénáře navrh DSL.
+U ViewModelu jsem podle zvoleného scénáře navrh \acrshort{mdns}.
 Tímto jazykem jsem definoval jak očekávám, že s objektem bude pracovat.
 Pomocí Nimble knihovny jsem dále ověřoval, jestli na vytvořené vstupy vytváří ViewModel očekávané výstupy jak je vidět v ukázce \ref{code:bdd-dsl}.
 
 Během implementace jsem vytvořil bez mála sto testů, díky kterým jsem odchytil velké množství chyb.
 Tyto chyby jsem často do aplikace zanesl v momentě, kdy jsem k již hotové obrazovce implementoval novou funkcionalitu.
 
-\swiftcode{code:bdd-dsl}{Použití DSL pro definici testu}{assets/code/bdd-dsl.swift}
+\swiftcode{code:bdd-dsl}{Použití \acrshort{mdns} pro definici testu}{assets/code/bdd-dsl.swift}
 
 \subsection{Vývoj řízený testováním chování}
 
-S pojmem testování chování je velmi blízce spjat \textit{vývoj řízený testováním chování} (z anglického Behavior Driven Development, zkráceně BDD).
+S pojmem testování chování je velmi blízce spjat \textit{vývoj řízený testováním chování} (z anglického Behavior Driven Development, zkráceně \acrshort{bdd}).
 V tomto přístupu k vývoji se před konkrétní implementací nejdříve nadefinuje, jakým způsobem se mají testované komponenty chovat.
 Následně se sestavují testy, které vyžadují implementování vyžadovaného chování.
 Tím má objekt definované, jaké rozhraní musí implementovat a jaké závislosti bude vyžadovat.

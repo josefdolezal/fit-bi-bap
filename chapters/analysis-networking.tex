@@ -1,6 +1,6 @@
 \section{Síťování}\label{analyza-sitovani}
 
-Nedílnou součástí aplikace je také síťování, tedy komunikace s rozhraním OctoPrint pomocí REST API.
+Nedílnou součástí aplikace je také síťování, tedy komunikace s rozhraním OctoPrint pomocí \acrshort{rest} API.
 Síťování je v mém řešení ztěžejní, protože aplikace komunikuje s tiskárnou vždy v reálném čase.
 Při analyzování síťové vrstvy jsem dospěl ke třem základním požadavkům:
 
@@ -36,10 +36,10 @@ V ukázce \ref{code:urlsessionconfiguration} je vidět možná implementace dyna
 
 Pro samotnou reprezentaci požadavků se využívají podtřídy abstraktní třídy \textit{URLSessionTask}.
 Těmito podtřídami jsou \textit{URLSessionDataTask}, \textit{URLSessionUploadTask} a \textit{URLSessionDownloadTask}.
-Ty zprostředkovávají získávání dat (JSON, XML, \ldots) a stahování a nahrávání souborů.
+Ty zprostředkovávají získávání dat (\acrshort{json}, \acrshort{xml}, \ldots) a stahování a nahrávání souborů.
 Pro vytvoření těchto tříd nabízí \textit{URLSession} předpřipravené metody.
 
-Samotné vytvoření požadavku pro stažení JSON objektu je vidět v ukázce \ref{code:urlsessionrequest}.
+Samotné vytvoření požadavku pro stažení \acrshort{json} objektu je vidět v ukázce \ref{code:urlsessionrequest}.
 
 \swiftcode{code:urlsessionrequest}{Vytvoření požadavku pomocí URLSession}{assets/code/urlsessionrequest.swift}
 
@@ -55,7 +55,7 @@ Z tohoto důvodu jsem se rozhodl přistoupit ke zanalyzování knihoven třetíc
 
 Jako první knihovnu třetích stran jsem se rozhodl zanalyzovat populární Alamofire \cite{github-alamofire}.
 Jedná se o síťovací knihovnu, naprogramovanou s využitím \textit{URLSession}.
-Alamofire nabízí oproti \textit{URLSession} moderní API využívající sílu jazyka Swift, formátování požadavků (JSON, URL, \ldots) a také validaci odpovědí serveru.
+Alamofire nabízí oproti \textit{URLSession} moderní \acrshort{api} využívající sílu jazyka Swift, formátování požadavků (\acrshort{json}, \acrshort{url}, \ldots) a také validaci odpovědí serveru.
 
 Alamofire navíc nabízí velmi jednoduchý a intuitivní způsob strukturování endpointů pomocí \textit{Routeru}.
 Další velkou výhodou je vysoká znovupoužitelnost.
@@ -80,7 +80,7 @@ Ukázková implementace Router objektu je vidět v ukázce \ref{code:alamofire-r
 Přestože standardně používané \textit{top-level} metody jsou běžné naprosto dostačující, pro mé řešení jsou nevhodné z důvodu sdílení společného nastavení i pro různé vzdálené body (tiskárny).
 
 Z tohoto důvodu je v Alamofire dostupná třída \textit{SessionManager}, jejíž instance mohou využívat různé nastavení.
-\textit{SessionManager} dále nabízí obdobné API jako \textit{top-level} funkce pro vytváření požadavků.
+\textit{SessionManager} dále nabízí obdobné \acrshort{api} jako \textit{top-level} funkce pro vytváření požadavků.
 
 Příklad vytvoření požadavku s nakonfigurovaným \textit{SessionManager} objektem je uveden v ukázce \ref{code:alamofire-sessionmanager}.
 
@@ -101,7 +101,7 @@ Pro zpracování je nicméně opět dostupný pouze \textit{completion blok}.
 Jako poslední možné řešení síťových požadavků jsem zvážil open source knihovnu Moya \cite{github-moya}.
 
 Moya je abstraktní vrstva na víše zmíněnou Alamofire.
-Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy URL adres a parametrů a dalšího nastavení.
+Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy \acrshort{url} adres a parametrů a dalšího nastavení.
 
 Druhou výhodou je zapouzdřování endpointů do tkzv. \textit{Provider} objektů.
 Na rozdíl od Router objektu zapouzdřuje Provider pouze endpointy se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
@@ -117,7 +117,7 @@ Nejprve nechá uživatele vytvořit \textit{Target}, ten se následně mapuje na
 
 Prvním krokem vytváření požadavku je Target.
 Target reprezentuje akci, která se má vykonat na vybraném vzdáleném API.
-Typicky implementovaný jako enum a poskytuje vysokoúrovňové API pro využití ve zbytku aplikace.
+Typicky implementovaný jako enum a poskytuje vysokoúrovňové \acrshort{api} pro využití ve zbytku aplikace.
 Implementace targetu je vidět v ukázce \ref{code:moya-target}.
 
 \swiftcode{code:moya-target}{Moya - Implementace Target objektu}{assets/code/moya-target.swift}
@@ -142,7 +142,7 @@ Vytvoření požadavku je vidět v ukázce \ref{code:moya-provider}.
 \subsubsection*{Reaktivní rozšíření}
 
 Moya v základu nabízí rozšíření pro použití s reaktivními knihovnami.
-Díky tomu lze velmi dobře integrovat s architekturou MVVM, konkrétně do vrstvy View Model.
+Díky tomu lze velmi dobře integrovat s architekturou \acrshort{mvvm}, konkrétně do vrstvy View Model.
 Usnadňuje tím také možnost řetězení požadavků pomocí flatMap operátoru jak je vidět v ukázce \ref{code:moya-reactive-extensions}.
 
 \swiftcode{code:moya-reactive-extensions}{Moya - Řetězení požadavků}{assets/code/moya-reactive-extensions.swift}
@@ -165,4 +165,4 @@ Oproti Alamofire navíc nabízí striktní oddělení Endpoint a Terget objektů
 
 Tím umožňuje požadavky automaticky mockovat při testování.
 
-Díky reaktivním rozšířením lze navíc velmi dobře integrovat s architekturou MVVM.
+Díky reaktivním rozšířením lze navíc velmi dobře integrovat s architekturou \acrshort{mvvm}.

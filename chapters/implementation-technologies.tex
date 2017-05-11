@@ -10,11 +10,11 @@ Rozhodujícím faktorem tedy nebyla popularita jednotlivých řešení ale spí�
 Nejdůležitějším rozhodnutím bylo správné vybrání architektury.
 Špatný výběr architektury by mohl mít dopad na celkovou funkčnost aplikace či znemožnit implementaci některých z vyžadovaných funkcí.
 
-Po podrobném analyzování obou zmíněných architektur jsem se rozhodl využít MVVM.
-Přestože MVVM není v současné době tak rozšířené, nabízí spoustu vlastností, které standardní MVC nemá.
+Po podrobném analyzování obou zmíněných architektur jsem se rozhodl využít \acrshort{mvvm}.
+Přestože \acrshort{mvvm} není v současné době tak rozšířené, nabízí spoustu vlastností, které standardní \acrshort{mvc} nemá.
 
 Silným argumentem je testování.
-V architektuře MVVM lze jednotlivé části otestovat samostatně.
+V architektuře \acrshort{mvvm} lze jednotlivé části otestovat samostatně.
 K otestování logiky aplikace navíc není potřeba vizuální vrstva aplikace.
 
 Neméně podstatným argumentem je čitelnost kódu.
@@ -24,7 +24,7 @@ Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné 
 
 \subsubsection*{Implementace ViewModelu}
 
-V části \ref{analyza-mvvm} kde jsem analyzoval architekturu MVVM jsem naznačil strategii implementace.
+V části \ref{analyza-mvvm} kde jsem analyzoval architekturu \acrshort{mvvm} jsem naznačil strategii implementace.
 ViewModel jsem se rozhodl implementovat jako logiku Controlleru, která jako rozhraní nabízí pouze vstupy či výstupy.
 
 Vstupem označuji uživatelskou interakci, na základě které je potřeba vyžádat nová data nebo zobrazit jinou obrazovku.
@@ -55,7 +55,7 @@ Controller vyžaduje v konstruktoru instanci implementující protokol vstupů a
 
 \subsubsection*{Coordinator}
 
-MVVM standardně nepoužívá objekt spravující navigaci v aplikaci.
+\acrshort{mvvm} standardně nepoužívá objekt spravující navigaci v aplikaci.
 Implementoval jsem proto další objekt nazvaný Coordinator.
 Jedná se o objekt, který se stará o průběh jedné konkrétní části aplikace (flow).
 Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coordinatoru, vytvoří se nový Coordinator starající se o novou obrazovku a její flow.
@@ -77,7 +77,7 @@ ReactiveSwift pak zaručuje konzistency dat mezi vlákny.
 Dohromady tak tyto knihovny zamezují vzniku \textit{race condition} za běhu aplikace.
 Více o těchto knihovnách lze zjistit z oficiální dokumentace \cite{github-reactiveswift} a \cite{github-reactivecocoa}.
 
-Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře MVVM.
+Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře \acrshort{mvvm}.
 Pomocí operátorů nad signály lze formátovat vlastnosti modelových objektů (přidání jednotek, standardizace čísel, zástupné texty).
 Takto naformátované signály zaručí, že kdykoliv se aktualizuje modelový objekt, jeho vlastnosti budou správně naformátovány.
 ViewController tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na modelu aplikovány.

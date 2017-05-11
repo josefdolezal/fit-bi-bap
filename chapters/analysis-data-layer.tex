@@ -14,7 +14,7 @@ Druhou technologií je Realm Mobile Database, open source knihovna třetí stran
 Core Data je framework představený společností Apple v roce 2005.
 Jedná se technologii starající se o modelovou vrstvu aplikace.
 Kromě reprezentování stavu aplikace umožňují Core Data také data perzistovat na disk.
-Nejedná se ale pouze o ORM či SQL wrapper, Core Data spravuje i ve chvíli, kdy jsou v paměti.
+Nejedná se ale pouze o \acrshort{orm} či \acrshort{sql} wrapper, Core Data spravuje i ve chvíli, kdy jsou v paměti.
 
 Během analyzování tohoto frameworku jsem dospěl k závěru, že implementace by byla velmi složitá.
 Z tohoto důvodu jsem neprováděl hlubší analýzu.
@@ -25,7 +25,7 @@ Jako druhou možnost jsem zvolil technologii Realm.
 Přestože verze 1.0 této knihovny byla vydána teprve v květnu 2016, má k dnešnímu dni má dohromady více než dvacet tisíc hvězdiček na službě Github \cite{github-realm-repos}.
 
 Realm je modelová technologie vytvořená pro využití v mobilních zařízeních.
-Oproti běžným databázím Realm nevyužívá ORM a nekopíruje data z databáze.
+Oproti běžným databázím Realm nevyužívá \acrshort{orm} a nekopíruje data z databáze.
 V Realm aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvodu jakmile jsou data jednou aktualizovány, změna se automaticky propisuje všude, kde jsou data využívána (reaktivní přístup) \cite{realm-overview}.
 
 \subsubsection*{Modelové objekty}
@@ -33,21 +33,21 @@ V Realm aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvod
 Realm je založen na modelových objektech.
 Ty se definují v jazyku, ve kterém je aplikace programována (v mém případě Swift).
 Databázový soubor se následně na disku vytvoří z těchto modelových objektů.
-Přístup je tedy opačný než u ORM, kde se v aplikaci vytváří objekty podle toho, jak jsou uloženy v databázi.
+Přístup je tedy opačný než u \acrshort{orm}, kde se v aplikaci vytváří objekty podle toho, jak jsou uloženy v databázi.
 Jedinou podmínkou při vytváření objektu je nutnost dědit od třídy \textit{Object} a využít správné datové typy (ne všechny je možné serializovat na disk). V ukázce \ref{code:realm-object} je třída \textit{Printer}, kterou lze použít pro reprezentaci objektu tiskárny.
 
 \swiftcode{code:realm-object}{Modelový objekt v technologii Realm}{assets/code/realm-object.swift}
 
 \subsubsection*{Relace}
 
-Realm implementačně sice není relační databází, nabízí ale podobné API pro relace mezi objekty.
+Realm implementačně sice není relační databází, nabízí ale podobné \acrshort{api} pro relace mezi objekty.
 Objekty mohou být v relacích \textit{many-to-many}, \textit{one-to-many}, \textit{ono-to-one} ale i \textit{many-to-one}.
 Na základě těchto vlastností je následně možné vytvářet databázové dotazy.
 
 \subsubsection*{Transakce}
 
 Z důvodu zajištění konzistence dat v aplikaci je nutné modelové objekty upravovat v transakcích \cite{realm-swift}.
-Realm neodděluje standardní \textit{CRUD} operace, místo toho je zavedena \textit{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
+Realm neodděluje standardní \textit{\acrshort{crud}} operace, místo toho je zavedena \textit{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
 
 \swiftcode{code:realm-write}{Transakce v technologii Realm}{assets/code/realm-write.swift}
 
@@ -61,4 +61,4 @@ Notifikace lze zaregistrovat i na změny kolekcí.
 Zobrazuje-li např. aplikace seznam tiskáren, lze se zaregistrovat na jejich změny.
 Je-li pak do kolekce přidána položka nebo je stávající položka změněna, lze nechat překreslit seznam.
 
-Tomuto principu se říká \textit{Reaktivní programování} a lze ho velmi dobře integrovat do architektury MVVM.
+Tomuto principu se říká \textit{Reaktivní programování} a lze ho velmi dobře integrovat do architektury \acrshort{mvvm}.

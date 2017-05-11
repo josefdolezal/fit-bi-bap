@@ -1,7 +1,7 @@
 \section{OctoPrint API}\label{analyza-api}
 
 V implementační části práce se zabývám vytvořením mobilní aplikace pro OctoPrint.
-Pro pro olvádání tiskárny využiji REST API, které OctoPrint v základu nabízí.
+Pro pro olvádání tiskárny využiji \acrshort{rest} API, které OctoPrint v základu nabízí.
 V dalších sekcích se budu podrobně zabývat analýzou jednotlivých funkcionalit implementovaných v mém řešení.
 
 Z důvodu bezpečnosti musí být každý požadavek na tiskárnu autorizovaný.
@@ -17,7 +17,7 @@ Ukázka popisu funkcionality z dokumentace je vidět v obrázku \ref{fig:octopri
 	\caption{Oficiální dokumentace OctoPrint}\label{fig:octoprint-docs}
 \end{figure}
 
-\subsection{Verze API a ověřování}
+\subsection{Verze \acrshort{api} a ověřování}
 
 První analyzovanou funkcionalitou je verze API.
 Tento endpoint je dostupný na \inlinestr{api/version}.
@@ -31,8 +31,8 @@ Vzhledem k výše uvedenému je tato funkcionalita vhodná pro simulaci přihla�
 
 \subsection{Správa souborového systému}
 
-Jednou ze skupin funkcionalit REST API je správa souborového systému.
-Pomocí API lze nejen obsah systému číst, ale také s ním manipulovat.
+Jednou ze skupin funkcionalit \acrshort{rest} \acrshort{api} je správa souborového systému.
+Pomocí \acrshort{api} lze nejen obsah systému číst, ale také s ním manipulovat.
 Jednotlivé endpointy jsou zanalyzovány níže.
 
 \subsubsection*{Seznam souborů}
@@ -57,7 +57,7 @@ Struktura odpovědí je pro všechny tři požadavky stejná, liší se pouze ob
 
 \subsubsection*{Nahrávání souborů}
 
-Pomocí API je možné nejen číst informace o existujících souborech, ale také nahrávat nové.
+Pomocí \acrshort{api} je možné nejen číst informace o existujících souborech, ale také nahrávat nové.
 Pro nahrávání slouží endpointy \inlinestr{api/files/local} a \inlinestr{api/files/sdcard}.
 Podle zvoleného koncového bodu se soubor uloží buď přímo na zařízení nebo na paměťovou kartu.
 
@@ -118,7 +118,7 @@ Seznam portů je možné získat z nastavení připojení.
 \subsection{Ovládání tiskárny}
 
 Ovládání tiskárny je docíleno pomocí příkazů jednotlivým částem tiskárny.
-Ve verzi API \vapi{} jsou rozpoznávány následující příkazy následujícím částem:
+Ve verzi \acrshort{api} \vapi{} jsou rozpoznávány následující příkazy následujícím částem:
 
 \begin{description}
 	\item[Tisková hlava] Umožňuje pohybovat tiskovou hlavou tiskárny po všech třech osách.
@@ -183,10 +183,10 @@ OctoPrint umožňuje spravovat tiskové profily, pomocí nichž lze definovat fy
 Mezi tyto vlastnosti patří informace o podložce, maximální rychlost tiskové hlavy či obsah tiskového profilu.
 
 Tiskové profily nejsou v mé implementaci stěžejní funkcí, rozhodl jsem se proto i analýzu nepokrývat podrobně.
-API poskytuje standardní \textit{CRUD} rozhraní pro správu profilů.
+API poskytuje standardní \textit{\acrshort{crud}} rozhraní pro správu profilů.
 Je tedy možné profily vytvářet, číst, aktualizovat a mazat.
 Rozhraní jsou dostupná na \inlinestr{api/printerprofiles}.
-Jednotlivým požadavkům pak odpovídají HTTP metody podle CRUD standardu.
+Jednotlivým požadavkům pak odpovídají \acrshort{http} metody podle \acrshort{crud} standardu.
 
 Více informací je možné získat z oficiální dokumentace \cite{octoprint-docs-printer-profiles}, i ta je ale na toto téma velmi skromná.
 
@@ -244,6 +244,6 @@ Vzhledem k jejich složité konfigurace by jejich tvoření z mobilní aplikace 
 Z tohoto důvodu jsem neprováděl podrobnou analýzu této funkcionality.
 
 OctoPrint nabízí koncový \inlinestr{api/slicing}, na kterém jsou dostupné CRUD operace.
-Manipulace je tedy možná pomocí dalších funkcí z nichž každá operuje s odpovídající HTTP metodou.
+Manipulace je tedy možná pomocí dalších funkcí z nichž každá operuje s odpovídající \acrshort{http} metodou.
 
 Podrobné informace k jednotlivým funkcím jsou dostupné v oficiální dokumentaci \cite{octoprint-docs-slicing}.

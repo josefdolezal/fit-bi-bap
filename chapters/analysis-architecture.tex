@@ -1,18 +1,18 @@
 \section{Architektura apliakce}\label{analyza-architektura}
 
-Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple Model-View-Controller (zkráceně MVC).
-Přestože je MVC pro vývoj aplikací nejpopulárnější, rozhodl jsem před začátkem implementace prozkoumat i jiné existující architektury.
-Z alternativních architektur jsem nakonec zvolil Model-View-ViweModel, kterou porovnám s dopručeným MVC.
+Jako doporučenou architekturu aplikací pro platformu iOS (konkrétně iPhone a iPad) uvádí Apple Model-View-Controller (zkráceně \acrshort{mvc}).
+Přestože je \acrshort{mvc} pro vývoj aplikací nejpopulárnější, rozhodl jsem před začátkem implementace prozkoumat i jiné existující architektury.
+Z alternativních architektur jsem nakonec zvolil Model-View-ViweModel, kterou porovnám s dopručeným \acrshort{mvc}.
 V závislosti na výsledku porovnání zvolím ideální architekturu pro svou aplikaci.
 
-\subsection{MVC: Model-View-Controller}\label{analyza-mvc}
+\subsection{\acrshort{mvc}: Model-View-Controller}\label{analyza-mvc}
 Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 
 \subsubsection*{Popis architektury}
 
 \begin{figure}\centering
 	\includegraphics[width=0.5\textwidth]{assets/mvc-architecture.png}
-	\caption[Architektura MVC]{Architektura MVC}\label{fig:architektura-mvc}
+	\caption[Architektura \acrshort{mvc}]{Architektura \acrshort{mvc}}\label{fig:architektura-mvc}
 \end{figure}
 
 \begin{description}
@@ -20,7 +20,7 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
   Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
   Tato vrstva je často reprezentována databází, příkladem mohou být databáze CoreData, Realm nebo SQLite.
   Ukázka \ref{code:mvc-model} prezentuje možnou podobu modelového objektu.
-  \swiftcode{code:mvc-model}{Modelový objekt v architektuře MVC}{assets/code/mvc-model.swift}
+  \swiftcode{code:mvc-model}{Modelový objekt v architektuře \acrshort{mvc}}{assets/code/mvc-model.swift}
 
   \item[View] je datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
   Přestože se View standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
@@ -42,7 +42,7 @@ Z tohoto shrnutí vyplývá, že Controller je velmi blízce spjat s View. Toto 
 \subsubsection*{Modelový příklad použití}
 
 Pro možné porovnání architektury jsem připravil scénář stažení libovolných dat na základě požadavku uživatele.
-V MVC by se architektura chovala takto:
+V \acrshort{mvc} by se architektura chovala takto:
 
 \begin{itemize}
   \item Uživatel v aplikaci klikne na tlačítko \uv{Stáhnout data}.
@@ -53,7 +53,7 @@ V MVC by se architektura chovala takto:
   \item Nastane-li během stahování chyba, controller vytváří nové view a chybu prezentuje uživateli.
 \end{itemize}
 
-\swiftcode{code:mvc-view}{View v architektuře MVC}{assets/code/mvc-view.swift}
+\swiftcode{code:mvc-view}{View v architektuře \acrshort{mvc}}{assets/code/mvc-view.swift}
 
 \subsubsection*{Shrnutí}
 
@@ -65,29 +65,29 @@ Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
   \item Controller se stará o ostatní logiku.
 \end{itemize}
 
-\swiftcode{code:mvc-view-controller}{ViewControlle architektuře MVC}{assets/code/mvc-view-controller.swift}
+\swiftcode{code:mvc-view-controller}{ViewControlle architektuře \acrshort{mvc}}{assets/code/mvc-view-controller.swift}
 
 Pro zmíněné notifikace nabízí Apple řešení pomocí Delegate pattern.
 Controller musí naimplementovat specifické rozhraní, čímž se stane delegátem.
 Jako delegát se pak může zaregistrovat na notifikace obejktů, jejichž rozhraní implementoval.
 
-MVC je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
+\acrshort{mvc} je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
 Při tvorbě větších aplikací ale nemusí být vhodné.
 Controller se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
-Z tohoto důvodu se MVC často přezdívá \uv{Massive View Controller} \ref{fig:massive-mvc}.
+Z tohoto důvodu se \acrshort{mvc} často přezdívá \uv{Massive View Controller} \ref{fig:massive-mvc}.
 Díky přímému napojení controlleru na View se při testování chování Controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky \uv{proklikat}.
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (controlleru nezle podvrhnout mock objekty).
-Tento problém se snaží řešit architektura MVVM od společnosti Microsoft.
+Tento problém se snaží řešit architektura \acrshort{mvvm} od společnosti Microsoft.
 
 \begin{figure}\centering
 	\includegraphics[width=0.5\textwidth]{assets/mvc-massive-view-controller.png}
-	\caption[Role Controlleru v MVC]{Controller spjatý s View}\label{fig:massive-mvc}
+	\caption[Role Controlleru v \acrshort{mvc}]{Controller spjatý s View}\label{fig:massive-mvc}
 \end{figure}
 
-\subsection{MVVM: Model-View-ViewModel}\label{analyza-mvvm}
+\subsection{\acrshort{mvvm}: Model-View-ViewModel}\label{analyza-mvvm}
 
-Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura MVVM.
-Tato architektura vychází ze zmíněného MVC a jejím základním úkolem je zjednodušit Controller.
+Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura \acrshort{mvvm}.
+Tato architektura vychází ze zmíněného \acrshort{mvc} a jejím základním úkolem je zjednodušit Controller.
 
 \subsubsection*{Popis architektury} \label{architektura-mvvm-popis}
 
@@ -98,7 +98,7 @@ Za účelem zjednodušení Controlleru se ke stávajícím třem vrstvám přid�
   Pro Controller připravuje naformátované výstupy a poskytuje mu rozhraní pro vstupy.
   Výstupem se rozumí veškerá data, která jsou potřebná pro sestavení View.
   To může být např. datum ve specifickém formátu, cena včetně měny nebo informace o tom, kolik řádků bude obsahovat tabulka na obrazovce.
-  Oproti MVC tedy perzistentní data nejsou viditelná Controlleru, ale pouze View Modelu.
+  Oproti \acrshort{mvc} tedy perzistentní data nejsou viditelná Controlleru, ale pouze View Modelu.
   Ten je nejdříve připraví pro zobrazení.
   Vstupem může být libovolná interakce uživatele:
   změna textu v textovém poli, stisknutí tlačítka, ale i fyzický pohyb telefonem (otočení obrazovky).
@@ -106,7 +106,7 @@ Za účelem zjednodušení Controlleru se ke stávajícím třem vrstvám přid�
   Jednoduchou implementaci View Modelu bez použití vstupů lze vidět v ukázce \ref{code:mvvm-view-model}
 \end{description}
 
-\swiftcode{code:mvvm-view-model}{ViewModel v architektuře MVVM}{assets/code/mvvm-view-model.swift}
+\swiftcode{code:mvvm-view-model}{ViewModel v architektuře \acrshort{mvvm}}{assets/code/mvvm-view-model.swift}
 
 Zodpovědnost Controlleru se zavedením View Modelu dramaticky snižuje.
 V ideálním případě je Controller zodpovědný pouze za správné sestavení View a napojení zfromátovaných výstupů na něj.
@@ -115,12 +115,12 @@ Toto chování zachycuje obrázek \ref{architektura-mvvm}.
 
 \begin{figure}\centering
 	\includegraphics[width=0.7\textwidth]{assets/mvvm-architecture.png}
-	\caption[Architektura MVVM]{Architektura MVVM}\label{architektura-mvvm}
+	\caption[Architektura \acrshort{mvvm}]{Architektura \acrshort{mvvm}}\label{architektura-mvvm}
 \end{figure}
 
 \subsubsection*{Modelový příklad použití} \label{architektura-mvvm-priklad}
 
-Pro porovnání architektury s MVC lze opět využít scénář pro stažení dat. Pro tento scénář by se architektura MVVM chovala následovně:
+Pro porovnání architektury s \acrshort{mvc} lze opět využít scénář pro stažení dat. Pro tento scénář by se architektura \acrshort{mvvm} chovala následovně:
 \begin{itemize}
   \item Controller napojuje výstupy view modelu na view a vytváří pravidla pro převod uživatelské interakce na vstupy view modelu.
   \item Uživatel v aplikaci klikne na tlačítko "Stáhnout data".
@@ -140,7 +140,7 @@ Vrstvy mají následující klíčové vlastnosti:
   \item View model načítá data modelu, na základě vstupů z controlleru nebo změny modelu generuje výstupy pro controller.
 \end{itemize}
 
-Oproti MVC je na tomto příkladu vidět snížení zodpovědnosti Controlleru.
+Oproti \acrshort{mvc} je na tomto příkladu vidět snížení zodpovědnosti Controlleru.
 Tato zodpovědnost se přesunula do View Modelu (viz. ukázka \ref{code:mvvm-view-controller}).
 Na první pohled nemusí být tato změna opodstatněná, protože logika aplikace nezmizela, jen se přesunula.
 Právě to ale umožnilo (nebo minimálně zjednodušilo) způsob, jakým lze logiku testovat.
@@ -148,19 +148,19 @@ View Model generuje výstupy na základě vstupů, v testech tedy lze uživatels
 Dodatečně lze otestovat i uživatelské rozhraní.
 Protože logika aplikace je otestována pomocí testů View Modelu, uživatelské rozhraní už stačí otestovat např. shodou View s referenčním obrázkem.
 
-\swiftcode{code:mvvm-view-controller}{Controller v architektuře MVVM}{assets/code/mvvm-view-controller.swift}
+\swiftcode{code:mvvm-view-controller}{Controller v architektuře \acrshort{mvvm}}{assets/code/mvvm-view-controller.swift}
 
-Při pohledu na notifikace je vidět, že přibyl typ, který nebyl v MVC potřeba.
+Při pohledu na notifikace je vidět, že přibyl typ, který nebyl v \acrshort{mvc} potřeba.
 Jedná se o notifikace směrem z View Modelu ke Controlleru (View Model nemá referenci na Controller, nemůže ho notifikovat přímo).
 Některé výstupy view modelu je tedy potřeba sledovat v čase a na jejich změny reagovat.
-Toto lze vyřešit pomocí KVO, které nabízí Apple v základu.
-KVO umožňuje objektu zaregistrovat se na notifikace o změně stavu nějakého libovolného objektu.
+Toto lze vyřešit pomocí \acrshort{kvo}, které nabízí Apple v základu.
+\acrshort{kvo} umožňuje objektu zaregistrovat se na notifikace o změně stavu nějakého libovolného objektu.
 V případě Controlleru by se registroval na změny stavu výstupů View Modelu.
 Kdykoliv by se výstup změnil, Controller by dostal notifikaci.
 Tento přístup ale není běžný pro použití s jazykem Swift.
 Tento postup navíc neřeší synchronizaci vláken, z tohoto důvodu by mohlo docházet k nekonzistenci dat či neočekávanému chování.
-Místo KVO se nyní standardně používají reaktivní rozšíření, které popisuji v následujících kapitolách.
+Místo \acrshort{kvo} se nyní standardně používají reaktivní rozšíření, které popisuji v následujících kapitolách.
 
 Přestože mnou implementovaná aplikace není v ohledu na uživatelské scénáře nijak složitá, obsahuje mnoho obrazovek.
 Obrazovky jsou vysoce interaktivní a více se k jejich implementaci hodí reaktivní přístup.
-Z tohoto důvodu jsem jako architekturu vybral MVVM s použitím reaktivních rozšíření místo standardního MVC.
+Z tohoto důvodu jsem jako architekturu vybral \acrshort{mvvm} s použitím reaktivních rozšíření místo standardního \acrshort{mvc}.

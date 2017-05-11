@@ -1,7 +1,7 @@
 \section{Synchronizace vláken aplikace} \label{analyza-synchronizace-vlaken}
 
 Mobilní aplikace se svou povahou značně liší od běžných webových nebo desktopových aplikací.
-Oproti zmíněným jsou často mnohem interaktivnější, tedy ovládané nejen běžnými vstupy, ale i vlastnostmi zařízení (GPS poloha, orientace zařízení, dostupnost periferií).
+Oproti zmíněným jsou často mnohem interaktivnější, tedy ovládané nejen běžnými vstupy, ale i vlastnostmi zařízení (\acrshort{gps} poloha, orientace zařízení, dostupnost periferií).
 Aby tyto vstupy nekazily uživatelský zážitek, jsou v systému implementovány asynchronně.
 
 Jako příklad lze vzít získávání polohy z družic.
@@ -9,7 +9,7 @@ To provádí telefon na vlákně v pozadí.
 Tím je zaručené, že hlavní vlákno aplikace (které se mimo jiné stará o vykreslování) není blokované a s aplikací lze bez problému intereagovat.
 Jakmile jsou dostupné informace o poloze, aplikace zažádá systém o prostředky na hlavním vlákně a získanou polohu prezentuje uživateli.
 
-Tento přístup je v SDK poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
+Tento přístup je v \acrshort{sdk} poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
 Ne vždy je ale běžné, aby výsledek byl prezentovaný na hlavním vlákně.
 Takový princip je využit u síťových požadavků.
 
@@ -20,16 +20,16 @@ Od verze systému iOS 9 je navíc nemožné udělat síťový požadavek synchro
 Otázkou tedy zůstává jak správně synchronizovat všechny vlákna, která potřebují zpracovat data na hlavním vlákně.
 
 Při analýze tohoto problému jsem se zaměřil na tři možná řešení.
-První dvě jsou implementovány přímo v dodávaném SDK, třetí možnost je knihovna od společnosti GitHub.
+První dvě jsou implementovány přímo v dodávaném \acrshort{sdk}, třetí možnost je knihovna od společnosti GitHub.
 
 \subsection{Grand Central Dispatch}
 
-Grand Central Dispatch (zkráceně GCD) je technologie vyvinutá společností Apple přinášející optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
-GCD je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
+Grand Central Dispatch (zkráceně \acrshort{gcd}) je technologie vyvinutá společností Apple přinášející optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
+\acrshort{gcd} je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
 
 Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \textit{DispatchQueue}.
 DispatchQueue je implementována jako \textit{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
-Do této fronty je možné vkládat jednotky práce, GCD se postará o to aby byly spuštěny na ve správném pořadí.
+Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to aby byly spuštěny na ve správném pořadí.
 V závislosti na konfiguraci je pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
 
 V základu je dostupná \textit{main} fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
@@ -64,20 +64,20 @@ Při vytváření front je důležité správně volit prioritu.
 Budou-li všechny fronty využívat jednu prioritu, může se stát, že systémová vlákna nebudou správně využita.
 To by vedlo ke snížení výkonu aplikace a špatné uživatelské zkušenosti.
 
-Přestože GCD je velmi zajímavá abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
+Přestože \acrshort{gcd} je velmi zajímavá abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
 Mezi jednotkami práce nelze vyvářet závislosti či je řetězit.
 Tuto možnost ale nábízí \textit{Foundation} framework pomocí \textit{NSOperationQueue}.
 
 \subsection{NSOperationQueue a NSOperation}
 
-NSOperationQueue a NSOperation je abstrakce nad metodou GCD zmíněnou víše.
-Toto API je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
-Hlavním rozdílem oproti GCD je vyloučení pojmu \textit{vlákno}.
+NSOperationQueue a NSOperation je abstrakce nad metodou \acrshort{gcd} zmíněnou víše.
+Toto \acrshort{api} je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
+Hlavním rozdílem oproti \acrshort{gcd} je vyloučení pojmu \textit{vlákno}.
 Jednotky práce nejsou nadále reprezentovány pomocí \textit{first class funkcí}, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
 
 \subsubsection*{NSOperation}
 
-Pro reprezentaci jednotek práce se standardní funkce v GCD nejevily jako dostatečné.
+Pro reprezentaci jednotek práce se standardní funkce v \acrshort{gcd} nejevily jako dostatečné.
 S představením NSOperationQueue, je ale nově možné nad opakovanými jednotkami abstrakci pomocí tříd.
 Toho lze docílit pomocí vytváření vlastních tříd dědících od NSOperation.
 
@@ -87,7 +87,7 @@ Jedná se o abstraktní třídu zajišťující \textit{thread-safe} přístup k
 Jako úkol lze chápat například jednotlivé síťové požadavdy, zpracování vstupů a uživatele a jejich perzistence nebo komplexní výpočty.
 Úkolem je možné označit ale i libovolnou strukturovanou jednotku práce, u které je potřeba udržovat stav nebo zpracovat její datový výstup.
 
-Oproti CGD má objektový přístup výhodu nejen v přehlednější strukturování, ale i v možnosti vytváření závislostí a správě stavu \cite{apple-operation-queues}.
+Oproti \acrshort{gcd} má objektový přístup výhodu nejen v přehlednější strukturování, ale i v možnosti vytváření závislostí a správě stavu \cite{apple-operation-queues}.
 
 \begin{description}
   \item[Závislosti] definují, jaké další operace musí být vykonány před tím, než bude daná operace spuštěna.
@@ -118,9 +118,9 @@ V takovém případě se vždy jako první vykonají operace s vyšší priorito
 \subsubsection*{Quality of Service}
 
 Jednou z nejsilněších stránek NSOperationQueue je abstrakce front nad vlákny (tedy celého GCD).
-V nastavení fronty lze zvolit stejně jako u GCD výchozí QoS.
+V nastavení fronty lze zvolit stejně jako u \acrshort{gcd} výchozí QoS.
 Všechny operace pak budou vyžívat právě tuto prioritu.
-Oproti GCD má však NSOperationQueue výhodu, že nepracuje pouze s jednou frontou.
+Oproti \acrshort{gcd} má však NSOperationQueue výhodu, že nepracuje pouze s jednou frontou.
 
 To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvořát více front.
 V závisloti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
@@ -135,7 +135,7 @@ Myšlenka reaktivního programování je nepřistupovat k datům jako stálým h
 Implementací existuje více, např. Promise \cite{slaks-promise}, Callback \cite{yld-callback} či funkcionálně reaktivní programování.
 V analýze jsem zabýval pouze funkcionálně reaktivním programováním, konkrétně imlementací v knihovně \textit{ReactiveCocoa}.
 
-\subsubsection*{Funkcionálně reaktivní programování -- FRP}
+\subsubsection*{Funkcionálně reaktivní programování -- \acrshort{frp}}
 
 Funkcionálně reaktivní programování označuje stream hodnot jako signál.
 Z teorie funkcionálního programování se k signálům přistupuje jako ke konstantám.

@@ -10,9 +10,10 @@
 \definecolor{dangerred}{rgb}{0.91,0.13,0.16}
 
 % % list of acronyms
-% \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
+\usepackage[acronym]{glossaries}
 % \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
-% \makeglossaries
+\makeglossaries
+\input{acronyms}
 
 \renewcommand \listingscaption{Ukázka kódu}
 \renewcommand \listoflistingscaption{Seznam ukázek kódu}
@@ -90,6 +91,8 @@
 % \begin{description}
 %
 % \end{description}
+
+\printglossary[type=\acronymtype]
 
 \chapter{Obsah přiloženého CD}
 

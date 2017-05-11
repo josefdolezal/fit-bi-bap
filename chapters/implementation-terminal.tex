@@ -9,7 +9,7 @@ Jakmile uživatel napíše příkaz a stiskne tlačítko \uv{Odeslat}, vytvoří
 Příkaz je v databázi vytvořen s příznakem \uv{Zpracováván}.
 Na základě vložení ViewModel upozorní Controller, že v historii příkazů proběhla změna a Controller překreslí seznam.
 
-V rámci dodržení architektury MVVM jsem pro každou položku seznamu vytvořil další ViewModel.
+V rámci dodržení architektury \acrshort{mvvm} jsem pro každou položku seznamu vytvořil další ViewModel.
 ViewModel položky seznamu se stará o to, aby byl příkaz proveden.
 Ve chvíli vytvoření položky v seznamu ViewModel prozkoumá objekt příkazu.
 Má-li příznak \uv{Zpracováván}, vytvoří požadavek na tiskárnu o provedení příkazu.
