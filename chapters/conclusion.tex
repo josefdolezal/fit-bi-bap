@@ -1,0 +1,31 @@
+Cílem práce bylo vypracování mobilní aplikace pro platformu iOS umožňující nastavovat 3D tiskárny a tisknout z nich.
+
+Výsledná aplikace umožňuje zobrazit přehled aktuálního tisku, správu souborů a nastavení 3D tiskárny.
+Pomocí aplikace je také možné sledovat video stream z webové kamery připojené k tiskárně.
+Uživatel také může vybrat soubor ve svém zařízení, nahrát ho do tiskárny a následně vytisknout.
+
+V aplikaci lze komunikovat s libovolnou tiskárnou dostupnou na místní síti, která je aplikací automaticky nalezena.
+Uživatel může velmi jednoduše takto tiskárnu přidat a obsloužit celý tisk.
+
+\bigskip
+
+Během implementace jsem se snažil většinu pozornosti věnovat architektuře aplikace.
+Mnoho částí jsem proto v průběmu implementace několikrát přepsal.
+
+Velkou výzvou bylo implementovat aplikaci reaktivně.
+S reaktivním programování jsem doposud neměl žádné zkušenosti.
+Nyní jsem ale rád, že jsem se takto rozhodl.
+Využití reaktivního přístupu mi ušetřilo mnoho práce a velmi pravděpodobně i mnoho chyb, které bych jinak standardní cestou do aplikace zanesl.
+
+\bigskip
+
+Jsem přesvědčený, že díky využití zvolené architektury jsem také zvýšil testovatelnost aplikace.
+Přesto, že jsem testy aplikace nikdy dříve nepsal, nebylo složité je s toutou architekturou vytvořit.
+
+\subsection*{Výhled do budoucna}
+
+V budoucnu je možné do vývoje aplikace přizvat programátory pohybující se pravidelně v prostředí 3D tisku a rozšířit ji tak v komunitě.
+Z tohoto důvodu jsou zdrojové kódy práce volně dostupné jako open source.
+Aplikaci je díky tomu možné rozšířit o nové funkcionality v případě aktualizace API OctoPrint.
+
+V současné době ale neplánuji aplikaci distrubuovat běžným uživatelům obchodem App Store.
