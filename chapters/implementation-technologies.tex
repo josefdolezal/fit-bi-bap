@@ -42,6 +42,17 @@ První protokol popisuje množinu vstupů, druhý množinu výstupů a třetí p
 Tím jsem dosáhl možnosti zaměňovat ViewModel obrazovky či sdílet jeden ViewModel mezi více obrazovkami.
 Návrhem tohoto rozhraní jsem inspiroval v open source aplikaci Kickstarter, dostupné na portálu GitHub \cite{github-kickstarter}.
 
+\subsubsection*{Implementace Controlleru}
+
+Controller při inicializaci vyžaduje instanci ViewModelu.
+Veškerou logiku obrazovky pak na ViewModel během svého životního cyklu deleguje.
+
+Uživatelské vstupy jsou implementovány pomocí funkcí.
+Controller sleduje uživatelskou interakci a volá patřičné funkce ViewModelu.
+Výstupy z ViewModelu jsou pomocí UI bindigs napojeny na View v metodě \textit{bindViewModel}, která je volána těsně po načtení View vrstvy do paměti.
+
+Controller vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
+
 \subsection{Synchronizace vláken}
 
 Pro synchronizaci vláken jsem se rozhodl použít knihovny ReactiveCocoa a ReactiveSwift, tedy reaktivní přístup.
