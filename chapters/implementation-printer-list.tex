@@ -1,8 +1,8 @@
 \section{Seznam dostupných tiskáren}
 
-Aplikace jsem navrhl tak, aby klíčové funkcionality byly dostupné s co nejkratším průchodem aplikace.
+Aplikaci jsem navrhl tak, aby klíčové funkcionality byly dostupné s co nejkratším průchodem aplikace.
 Jako úvodní obrazovku jsem zvolil seznam tiskáren.
-V případě, že již uživatel aplikace dříve používal, zobrazí se v seznamu na prvních místech tiskárny, které si uživatel uložil.
+V případě, že již uživatel aplikaci dříve používal, zobrazí se v seznamu na prvních místech tiskárny, které si dříve uložil.
 Na dalších místech jsou pak tiskárny dostupné na stejné síti, které aplikace automaticky nalezla.
 
 Pokud aplikace požadovanou tiskárnu nenalezla, je ze seznamu tiskáren možné přejít na obrazovku pro manuální přidání tiskárny.
@@ -29,7 +29,7 @@ To požaduje komplexní výpočet a dává prostor mmoha chybám.
 \subsubsection*{Uložené tiskárny}
 
 První sekce zobrazuje tiskárny načtené z lokální databáze.
-Při sestavování seznamu si pomocí \textit{delegate pattern} CollectionView nejdříve vyžádá počet prvků pro tuto sekci.
+Při sestavování seznamu si CollectionView pomocí delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
 Controller tedy využije výstup ViewModelu a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
 Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-rows}.
 
@@ -39,7 +39,7 @@ V momentě kdy CollectionView ví kolik prvků bude zobrazovat, začne vyžadova
 K tomu je opět využit delegate pattern.
 Pro správné dodržení \acrshort{mvvm} architektury nesmí Controller využívat modelové objekty.
 Pro každou buňku je tedy potřeba vytvořit ViewModel, který ji bude obsluhovat.
-Controller si pro řádkový index vyžádá od svého ViewModelu nový ViewModel buňky a ten jí.
+Controller si pro řádkový index vyžádá od svého ViewModelu nový ViewModel buňky a ten jí předá.
 Buňka se následně sama z ViewModelu nakonfiguruje.
 Vyžádání ViewModelu buňky zachycuje ukázka \ref{code:printer-list-cell-viewmodel}.
 
@@ -60,7 +60,7 @@ Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCoun
 \subsection{Automatické nalezení tiskáren}
 
 Pro zlepšení uživatelského zážitku jsem se snažil minimalizovat nutnost konfigurace aplikace.
-Jako uživatelsky nejméně přívětivé se jeví přidávání aplikace.
+Jako uživatelsky nejméně přívětivé se jeví přidávání tiskárny.
 Uživatel musí zjistit IP nebo \acrshort{url} adresu OctoPrintu, jeho port a přístupový token.
 
 Z tohoto důvodu je v aplikaci dostupné automatické hledání tiskáren.
@@ -73,7 +73,7 @@ Aplikace pomocí technologie \textit{Bonjour} prozkoumá lokální síť a uživ
 Rozhodne-li se uživatel přidat síťovou tiskárnu, jejím výběrem otevře obrazovku pro přihlášení.
 Na obrazovce jsou předvyplněné údaje, které aplikace o tiskárně zjistila.
 Konkrétně se jedná o její síťový název a adresu s portem.
-Pro dokončení přidání stačí pouze zadat přístupový.
+Pro dokončení přidání stačí pouze zadat přístupový token.
 
 \subsubsection*{Technologie Bonjour}
 
@@ -92,10 +92,10 @@ Rozhodl jsem vytvořit novou třídu \textit{Bonjour}, která místo delegate pa
 Třída je implementována jako \textit{Singleton} \cite{thatthinginswift-singletons} poskytující pouze metodu \textit{searchServices}.
 
 Tato metoda spustí vyhledávání síťových zařízení (které je asynchronní) a vrátí signál, na kterém budou jako hodnoty posílány \textit{BonjourService}, tedy objekty reprezentující tiskárny.
-Uvnitř třídy se nejprve proběhne nalezení všech dostupných hostname (názvů síťových zařízení).
+Uvnitř třídy nejprve proběhne nalezení všech dostupných hostname (názvů síťových zařízení).
 Ve chvíli kdy systém ohlásí, že prohledal celou síť, spustí se překlad hostname na IP adresu.
 
-Systém projde po jednom nalezená zařízení a pokusí se zjistit jeho IP adresu.
+Systém po jednom projde nalezená zařízení a pokusí se zjistit jeho IP adresu.
 Pokud je překlad úspěšný, zařízení se přidá do pole nalezených tiskáren a celé pole se odešle signálem.
 
 Díky reaktivnímu přístupu tak Controller dostane informaci o novém prvku, který je nutné zobrazit a překreslí seznam.
@@ -103,7 +103,7 @@ Díky reaktivnímu přístupu tak Controller dostane informaci o novém prvku, k
 \subsection{Automatické aktualizace}
 
 Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \textit{push-based}.
-Tato strategie uvádí, že při změně dat jejich vlastník (např. ViewModel) upozorní své odběratele (Controller).
+Tato strategie udává, že při změně dat jejich vlastník (např. ViewModel) upozorní své odběratele (Controller).
 Každý odběratel se sám rozhodne, jakým způsobem informaci využít.
 V mé konkrétní implementaci lze vidět rozdíl od \textit{pull-based} strategie v automatických aktualizacích.
 
@@ -129,7 +129,7 @@ Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pom
 
 \subsection{Přidání tiskárny}
 
-V momentě kdy nebude požadavaná tiskárna automaticky nalezena a zároveň ji uživatel dříve nepřidal, je možné tiskárnu přidat ručně.
+V momentě kdy nebude požadovaná tiskárna automaticky nalezena a zároveň ji uživatel dříve nepřidal, je možné tiskárnu přidat ručně.
 Přidání tiskárny se odehrává na nové obrazovce.
 Na tu se uživatel dostane stisknutím tlačítka \uv{+} na obrazovce se seznamem tiskáren.
 
@@ -140,8 +140,8 @@ Controller seznamu tiskáren vytvoří vstup pro svůj ViewModel, ten na základ
 Coordinator má předem definováno jakým způsobem na interakce reagovat.
 Průběh je vidět v ukázce \ref{code:printer-list-coordinator-flow}.
 
-Na základě notifikace Coordinator vytvoří potřebné objekty k sestavení obrazovky a ovrazovku prezentuje uživateli.
-Až do ukončí tohoto flow je seznam tiskáren neaktivní.
+Na základě notifikace Coordinator vytvoří potřebné objekty k sestavení obrazovky a prezentuje ji uživateli.
+Až do ukončení tohoto flow je seznam tiskáren neaktivní.
 
 Pokud uživatel tiskárnu úspěšně přidá, seznam je automaticky aktualizovaný díky push-based strategii.
 

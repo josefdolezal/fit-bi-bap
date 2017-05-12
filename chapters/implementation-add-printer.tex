@@ -2,14 +2,14 @@
 
 Obrazovka přidání tiskárny slouží pro případ, kdy uživatel chce ovládat novou tiskárnu a nenalezl ji v seznamu síťových tiskáren.
 Pro úspěšné přidání tiskárny je nutné zadat její název, \acrshort{url} či IP adresu a přístupový token.
-Volitelně je možné také přidat url adresu na které se vyskytuje video stream z web kamery natáčející průběh tisku.
+Volitelně je možné také přidat url adresu, na které se vyskytuje video stream z web kamery natáčející průběh tisku.
 
 \subsection{Validace formuláře}
 
 Jako u každé aplikace, která přijímá uživatelské vstupy i v mé implementaci je nutné ověřit platnost zadaných údajů.
 Jelikož se jedná o logiku, je validace umístěna ve ViewModelu.
 Text zadaný uživatelem se při každé změně odešle ViewModelu, který všechny vstupy zvaliduje.
-Na základě platnosti kombinace vstupů vyšle ViewModel boolean hodnotu Controlleru.
+Na základě platnosti kombinace vstupů vyšle ViewModel booleanovskou hodnotu Controlleru.
 Controller pomocí UI bindigs sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
 
 Je-li formulář platný, tlačítko je povolené.
@@ -33,7 +33,7 @@ Díky reaktivnímu přístupu a push-based strategii se rovnou tiskárna zobraz�
 ViewModel ani ViewController seznamu nemusí být o výsledku přidání tiskárny nijak notifikovány, o propagaci této informace se postará datová vrstva aplikace.
 
 V případě selhání požadavku je vytvořena chybová hláška.
-Díky reaktivním rozšířením, které jsem vytvořil pro ViewController třídu je možné v Controlleru obrazovky chybu zobrazit pomocí UI bindings.
+Díky reaktivním rozšířením, které jsem vytvořil pro ViewController třídu chybu zobrazit pomocí UI bindings.
 
 Ukázka \ref{code:add-printer-login-request} zjednodušeně implementuje vytvoření požadavku a následné zpracování odpovědi od tiskárny.
 

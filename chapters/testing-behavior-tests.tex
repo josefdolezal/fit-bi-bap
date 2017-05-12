@@ -1,6 +1,6 @@
 \section{Testy chování}\label{testovani-bdd}
 
-Chování modolu aplikace lze otestovat pomocí otestovat tak, že se zkoumá plnění jeho závazků.
+Chování modolu aplikace lze otestovat tak, že se zkoumá plnění jeho závazků.
 Testované objekty mají definované rozhraní a závisloti, tím mají také deklarovány i závazky.
 Závazky určují, jakým způsobem by měl objekt působit na zbylé části aplikace a jaké schopnosti a funkce má.
 Ze schopností a funkcí lze odvodit jakým způsobem se má objekt chovat.
@@ -14,13 +14,13 @@ Přitom se sleduje, jestli se objekt na základě změn chová podle očekáván
 
 \subsection{DSL}
 
-Testy jsou popisovány takzvaným \acrshort{mdns} jazykem.
+Testy jsou popisovány takzvaným \acrshort{dsl} jazykem.
 To je jazyk který pomocí kombinace klíčových slov a textového popisu definuje jak se komponenta má v určitou chvíli chovat.
-Více o \acrshort{mdns} lze zjistit na \cite{petrikainulainen-dsl}.
+Více o \acrshort{dsl} lze zjistit na \cite{petrikainulainen-dsl}.
 
 V běžném testovacím rozhraní prostředí Xcode tento jazyk nenabízí.
 Rozhodl jsem pro to využí dvou knihoven.
-Pomocí Knihovny \textit{Quick} jsem mohl \acrshort{mdns} v projektu využít.
+Pomocí Knihovny \textit{Quick} jsem mohl \acrshort{dsl} v projektu využít.
 Očekávané hodnoty jsem ověřoval pomocí \textit{Nimble}.
 
 \subsection{Testování ViewModelu}
@@ -29,14 +29,14 @@ Tento princip využívám ve své implementaci pro testování Modelu a ViewMode
 Díky dostatečnému rozsahu testů logiky aplikace lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
 View vrstvu následně není samostatně nutné testovat, protože z testů ViewModelu je téměř jisté, že data jsou správně připravena k zobrazení.
 
-U ViewModelu jsem podle zvoleného scénáře navrh \acrshort{mdns}.
+U ViewModelu jsem podle zvoleného scénáře navrhl \acrshort{dsl}.
 Tímto jazykem jsem definoval jak očekávám, že s objektem bude pracovat.
 Pomocí Nimble knihovny jsem dále ověřoval, jestli na vytvořené vstupy vytváří ViewModel očekávané výstupy jak je vidět v ukázce \ref{code:bdd-dsl}.
 
 Během implementace jsem vytvořil bez mála sto testů, díky kterým jsem odchytil velké množství chyb.
 Tyto chyby jsem často do aplikace zanesl v momentě, kdy jsem k již hotové obrazovce implementoval novou funkcionalitu.
 
-\swiftcode{code:bdd-dsl}{Použití \acrshort{mdns} pro definici testu}{assets/code/bdd-dsl.swift}
+\swiftcode{code:bdd-dsl}{Použití \acrshort{dsl} pro definici testu}{assets/code/bdd-dsl.swift}
 
 \subsection{Vývoj řízený testováním chování}
 

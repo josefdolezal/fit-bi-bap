@@ -12,7 +12,7 @@ Umožňuje totiž velmi rychle získat základní údaje o probíhajícím tisku
 OctoPrint se může nacházet ve stavu, kdy je připravený k použití, ale není připojen k tiskárně.
 V tuto chvíli nelze získat informace o aktuálním tisku ale ani o tiskárně samotné.
 
-Z tohoto důvodu jsem implementoval \uv{prázdnou obrazovku}, která uživatele upozorňuje na odpojenou tiskárnu a vyzývá uživatele k jejímu připojení.
+Z tohoto důvodu jsem implementoval \uv{prázdnou obrazovku}, která uživatele upozorňuje na odpojenou tiskárnu a vyzývá ho k jejímu připojení.
 Fakt, že data nejsou dostupná se propaguje z ViewModelu.
 Ten vysílá signál nazvaný \textit{contentIsAvailable} booleanovského typu.
 Obrazovka s výzvou k připojení tiskárny je dostupná právě když hodnota signálu je \textit{false}.

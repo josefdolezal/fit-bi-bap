@@ -18,8 +18,8 @@ V architektuře \acrshort{mvvm} lze jednotlivé části otestovat samostatně.
 K otestování logiky aplikace navíc není potřeba vizuální vrstva aplikace.
 
 Neméně podstatným argumentem je čitelnost kódu.
-Vrstva View Controller obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
-ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob jakým daná část aplikace chová.
+Vrstva Controller obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
+ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob, jakým se daná část aplikace chová.
 Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
 
 \subsubsection*{Implementace ViewModelu}
@@ -29,7 +29,7 @@ ViewModel jsem se rozhodl implementovat jako logiku Controlleru, která jako roz
 
 Vstupem označuji uživatelskou interakci, na základě které je potřeba vyžádat nová data nebo zobrazit jinou obrazovku.
 Výstupem jsou zobrazovaná data, která jsou ViewModelem předformátovaná aby je Controller mohl přímo zobrazit pomocí View vrstvy.
-Jiným výstupem pak může být informace o stavu dat či o jejich počtu (počet polože v seznamu).
+Jiným výstupem pak může být informace o stavu dat či o jejich počtu (počet položek v seznamu).
 
 Každá obrazovka vlastní svůj ViewModel.
 Pro ten jsou dostupné tři protokoly: \textit{ViewModelInputs}, \textit{ViewModelOutputs} a \textit{ViewModelType}.
@@ -49,7 +49,7 @@ Veškerou logiku obrazovky pak na ViewModel během svého životního cyklu dele
 
 Uživatelské vstupy jsou implementovány pomocí funkcí.
 Controller sleduje uživatelskou interakci a volá patřičné funkce ViewModelu.
-Výstupy z ViewModelu jsou pomocí UI bindigs napojeny na View v metodě \textit{bindViewModel}, která je volána těsně po načtení View vrstvy do paměti.
+Výstupy z ViewModelu jsou pomocí UI bindings napojeny na View v metodě \textit{bindViewModel}, která je volána těsně po načtení View vrstvy do paměti.
 
 Controller vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
 
@@ -62,7 +62,7 @@ Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coo
 Coordinator má také na starosti vytvoření ViewModelu a předání jeho instance Controlleru.
 
 Flow obrazovky se spustí metodou \textit{start}.
-Po ukončení flow (uživatel chce zavří obrazovku), volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
+Po ukončení flow (uživatel chce zavřít obrazovku) volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
 
 S Coordinatorem spolupracuje ViewModel metodou delegate pattern.
 
@@ -73,14 +73,14 @@ Díky těmto knihovnám lze jednoduše tvořit závislosti asynchronních operac
 
 S využitím knihovny ReactiveCocoa od verze 5.0 lze navíc využít tkzv. \textit{UI bindings}.
 Ty zaručují, že hodnoty signálů jsou vždy zpracovány na hlavním vlákně a to i v momentě, kdy jsou odeslány z vlákna v pozadí.
-ReactiveSwift pak zaručuje konzistency dat mezi vlákny.
+ReactiveSwift pak zaručuje konzistenci dat mezi vlákny.
 Dohromady tak tyto knihovny zamezují vzniku \textit{race condition} za běhu aplikace.
 Více o těchto knihovnách lze zjistit z oficiální dokumentace \cite{github-reactiveswift} a \cite{github-reactivecocoa}.
 
 Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře \acrshort{mvvm}.
 Pomocí operátorů nad signály lze formátovat vlastnosti modelových objektů (přidání jednotek, standardizace čísel, zástupné texty).
 Takto naformátované signály zaručí, že kdykoliv se aktualizuje modelový objekt, jeho vlastnosti budou správně naformátovány.
-ViewController tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na modelu aplikovány.
+ViewController tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na Modelu aplikovány.
 
 \subsection{Síťová vrstva}
 
@@ -106,7 +106,7 @@ Místo využití protokolu TargetType jsem vytvořil nový protokol TargetPart, 
 
 Má implementace Provider objektu využívá tento nový protokol pro vytvoření požadavku.
 Abych mohl využít třídu, od které můj objekt DynamicTarget dědí, musel jsem ještě vytvořit strukturu DynamicTarget, která implementuje rozhraní TargetType a využaduje tedy URL serveru.
-Tu jí ale může poskytnout v konstruktutoru Dynamic provider spolu s TargetPart koncovým bodem.
+Tu jí ale může poskytnout v konstruktutoru DynamicProvider spolu s TargetPart koncovým bodem.
 
 Tím jsem dosáhl stejného rozhraní pro požadavky jako má nadtřída, jediným rozdílem je možnost dodat URL až při běhu aplikace.
 
@@ -114,7 +114,7 @@ Tím jsem dosáhl stejného rozhraní pro požadavky jako má nadtřída, jedin�
 
 Pro umožnění zobrazení video streamu jsem opět potřeboval dynamickou URL, ale tentokrát pro každý požadavek (uživatel zadává pouze URL, nejsou žádné koncové body).
 Tato implementace nebyla složitá, využil jsem standardních tříd knihovny Moya.
-Vytvořil jsem nový objekt spravující koncové body a v něm pouze jeden bod \textit{get}.
+Vytvořil jsem nový objekt spravující koncové body a v něm definoval pouze jeden bod \textit{get}.
 Ten pro zkonstruování využaduje koncovou URL a chová se tedy velmi podobně jako kdyby URL byla známá už v čase kompilace.
 
 Při využití je ale nutné pro každý požadavek explicitně URL zadat.
@@ -123,14 +123,15 @@ To je krok který v DynamicProvider není nutný.
 \subsection{Datová vrstva}
 
 Jak vyplývá z části \ref{analyza-datova-vrstva} kde popisuji datovou vrstvu, rozhodl jsem se využít knihovnu Realm.
-Díky jejím reaktivním rozšíření se skvěle hodí nejen k architektuře, ale i síťové vrstvě.
+Díky jejím reaktivním rozšířením se skvěle hodí nejen k architektuře, ale i k síťové vrstvě.
 
 Při implementaci jsem dospěl k závěru, že standardní cestou využití Realmu opakuji spoustu kódu.
 Vytvořil jsem proto rozšíření pro ReactiveCocoa a její Cold signál.
 
 Pro SignalProducer, který jako hodnotu nese Realm objekt jsem přidal dvě metody.
 První z nich, \textit{fetch(collectionOf:)} umožňuje z databáze načíst kolekci.
-Druhou metodou je \textit{fetch(classType:, forPrimaryKey:)} vybere z databáze prvek podle primárního klíče.
+Druhou metodou je \textit{fetch(classType:, forPrimaryKey:)}.
+Ta vybere z databáze prvek podle primárního klíče.
 Využití metod je vidět v ukázce \ref{code:realm-extensions}.
 
 \swiftcode{code:realm-extensions}{Reaktivní rozšíření pro Realm}{assets/code/realm-extensions.swift}
