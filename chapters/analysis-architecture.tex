@@ -75,7 +75,9 @@ Jako delegát se pak může zaregistrovat na notifikace obejktů, jejichž rozhr
 Při tvorbě větších aplikací ale nemusí být vhodné.
 Controller se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
 Z tohoto důvodu se \acrshort{mvc} často přezdívá \uv{Massive View Controller}.
-Díky přímému napojení controlleru na View se při testování chování Controlleru (behavioral testing) musí využít simulátoru mobilního operačního systému a aplikaci v něm automaticky \uv{proklikat}.
+Kvůli přímému napojení Controlleru na View se při testování jeho chování (behavior testing) musí využít simulátoru mobilního operačního systému.
+Pro simulátor je navíc nutné naskriptovat uživatelův průchod aplikací, aby bylo možné testy automatizovat.
+
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (Controlleru nezle podvrhnout mock objekty).
 Tento problém se snaží řešit architektura \acrshort{mvvm} od společnosti Microsoft.
 
