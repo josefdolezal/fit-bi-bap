@@ -6,7 +6,7 @@ Z alternativních architektur jsem nakonec zvolil Model-View-ViewModel, kterou p
 V závislosti na výsledku porovnání zvolím ideální architekturu pro svou aplikaci.
 
 \subsection{\acrshort{mvc}: Model-View-Controller}\label{analyza-mvc}
-Tato architektura rozděluje aplikaci do tří vrstev: Model, \texttt{View} a \texttt{Controller}.
+Tato architektura rozděluje aplikaci do tří vrstev: \texttt{Model}, \texttt{View} a \texttt{Controller}.
 Názvy vrstev se běžně do českého jazyka nepřekládají.
 Jejich významu se věnuji níže.
 
@@ -25,13 +25,13 @@ Jejich významu se věnuji níže.
   \swiftcode{code:mvc-model}{Modelový objekt v architektuře \acrshort{mvc}}{assets/code/mvc-model.swift}
 
   \item[View] Datový objekt viditelný uživatelem. \texttt{View} obsahuje logiku pro vykreslení a interakci s uživatelem.
-  Přestože se \texttt{View} standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
+  Přestože se \texttt{View} standardně používá pro zobrazení \texttt{Model} objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
   Na platformě iOS tuto vrstvu reprezentuje framework UIKit vytvořený Applem.
   Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci \texttt{View}.
 
-  \item[Controller] Aplikační vrstva, která na základě vstupů z \texttt{View} aktualizuje a mění Model nebo překresluje \texttt{View} v případě, že zobrazovaná data už nejsou aktuální.
-  Jedním z úkolů \texttt{Controlleru} je striktně zamezit přímé interakci mezi \texttt{View} a Modelem.
-  Toto oddělení je zavedeno proto, aby \texttt{View} nemuselo znát konkrétní strukturu Modelu a aby Model nemusel obsahovat logiku formátování dat (cena, čas, ...) pro vykreslení.
+  \item[Controller] Aplikační vrstva, která na základě vstupů z \texttt{View} aktualizuje a mění \texttt{Model} nebo překresluje \texttt{View} v případě, že zobrazovaná data už nejsou aktuální.
+  Jedním z úkolů \texttt{Controlleru} je striktně zamezit přímé interakci mezi \texttt{View} a \texttt{Modelem}.
+  Toto oddělení je zavedeno proto, aby \texttt{View} nemuselo znát konkrétní strukturu \texttt{Modelu} a aby \texttt{Model} nemusel obsahovat logiku formátování dat (cena, čas, ...) pro vykreslení.
   Dále se stará o navigaci mezi obrazovkami, síťování a interakci s uživatelem.
   Při rozdělení do obrazovek platí pravidlo, že jeden \texttt{Controller} obsluhuje jedno nebo více \texttt{View}.
   Ke korektnímu vykreslení \texttt{View} využívá libovoné množství modelových objektů.
@@ -41,7 +41,7 @@ Jejich významu se věnuji níže.
 
 Z tohoto shrnutí vyplývá, že \texttt{Controller} je velmi blízce spjat s \texttt{View}. Toto propojení reprezentuje obrázek \ref{fig:massive-mvc}.
 
-\subsubsection*{Modelový příklad použití}
+\subsubsection*{\texttt{Modelový} příklad použití}
 
 Pro možné porovnání architektury jsem připravil scénář stažení libovolných dat na základě požadavku uživatele.
 V \acrshort{mvc} by se architektura chovala takto:
@@ -49,8 +49,8 @@ V \acrshort{mvc} by se architektura chovala takto:
 \begin{itemize}
   \item Uživatel v aplikaci klikne na tlačítko \uv{Stáhnout data}.
   \item Tuto interakci odchytí \texttt{View} a upozorní \texttt{Controller}.
-  \item \texttt{Controller} na základě upozornění stáhne data a předá je Modelu k uložení.
-  \item Model ukládá data a notifikuje \texttt{Controller} o změně.
+  \item \texttt{Controller} na základě upozornění stáhne data a předá je \texttt{Modelu} k uložení.
+  \item \texttt{Model} ukládá data a notifikuje \texttt{Controller} o změně.
   \item \texttt{Controller} aktualizuje \texttt{View}.
   \item Nastane-li během stahování chyba, \texttt{Controller} vytváří nové \texttt{View} a chybu prezentuje uživateli.
 \end{itemize}
@@ -62,7 +62,7 @@ V \acrshort{mvc} by se architektura chovala takto:
 Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
 
 \begin{itemize}
-  \item Model udává, jakým způsobem jsou data uložena,
+  \item \texttt{Model} udává, jakým způsobem jsou data uložena,
   \item \texttt{View} se stará o správné vykreslení předformátovaných dat,
   \item \texttt{Controller} se stará o ostatní logiku.
 \end{itemize}
@@ -130,8 +130,8 @@ Pro tento scénář by se architektura \acrshort{mvvm} chovala následovně:
   \item \texttt{Controller} napojuje výstupy \texttt{ViewModelu} na \texttt{View} a vytváří pravidla pro převod uživatelské interakce na vstupy \texttt{ViewModelu}.
   \item Uživatel v aplikaci klikne na tlačítko \uv{Stáhnout data}.
   \item \texttt{View} upozorňuje \texttt{Controller} na interakci uživatele, ten automaticky vytváří vstup pro \texttt{ViewModel}.
-  \item \texttt{ViewModel} na základě vstupu stahuje data a předává je Modelu.
-  \item Model po uložení notifikuje \texttt{ViewModel}, ten vytváří výstup pro \texttt{Controller}, který nechává překreslit \texttt{View}.
+  \item \texttt{ViewModel} na základě vstupu stahuje data a předává je \texttt{Modelu}.
+  \item \texttt{Model} po uložení notifikuje \texttt{ViewModel}, ten vytváří výstup pro \texttt{Controller}, který nechává překreslit \texttt{View}.
   \item V případě chyby vytvoří \texttt{ViewModel} chybový výstup, ten se pomocí \texttt{Controlleru} propaguje do \texttt{View}.
 \end{itemize}
 
@@ -139,10 +139,10 @@ Pro tento scénář by se architektura \acrshort{mvvm} chovala následovně:
 
 Vrstvy mají následující klíčové vlastnosti:
 \begin{itemize}
-  \item Model definuje jakým způsobem jsou data uložena a při změně notifikuje \texttt{ViewModel},
+  \item \texttt{Model} definuje jakým způsobem jsou data uložena a při změně notifikuje \texttt{ViewModel},
   \item \texttt{View} vykresluje na obrazovku naformátované výstupy a upozorňuje \texttt{Controller} při interakci uživatele,
   \item \texttt{Controller} sestavuje hierarchii \texttt{View}, napojuje zformátované výstupy \texttt{ViewModelu} na \texttt{View} a z uživatelské interakce vytváří vstupy pro \texttt{ViewModel},
-  \item \texttt{ViewModel} načítá data Modelu. Na základě vstupů z \texttt{Controlleru} nebo změny Modelu generuje výstupy pro \texttt{Controller}.
+  \item \texttt{ViewModel} načítá data \texttt{Modelu}. Na základě vstupů z \texttt{Controlleru} nebo změny \texttt{Modelu} generuje výstupy pro \texttt{Controller}.
 \end{itemize}
 
 Oproti \acrshort{mvc} je na tomto příkladu vidět snížení zodpovědnosti \texttt{Controlleru}.
