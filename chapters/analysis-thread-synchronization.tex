@@ -28,11 +28,11 @@ Grand Central Dispatch (zkráceně \acrshort{gcd}) je technologie vyvinutá spol
 \acrshort{gcd} je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
 
 Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \textit{DispatchQueue}.
-DispatchQueue je implementována jako \textit{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
+DispatchQueue je implementována jako \texttt{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
 Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to aby byly spuštěny ve správném pořadí.
 V závislosti na konfiguraci pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
 
-V základu je dostupná \textit{main} fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
+V základu je dostupná hlavní (\texttt{main}) fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
 Pro synchronizaci vláken stačí požadované jednotky práce přidávat do správných front.
 
 Je-li potřeba vytvořit vlastní frontu (z důvodu uvolnění času na hlavním vlákně), stačí specifikovat název fronty a její prioritu.
@@ -70,8 +70,8 @@ Tuto možnost ale nábízí \textit{Foundation} framework pomocí \textit{NSOper
 
 NSOperationQueue a NSOperation je abstrakce nad metodou \acrshort{gcd} zmíněnou výše.
 Toto \acrshort{api} je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
-Hlavním rozdílem oproti \acrshort{gcd} je vyloučení pojmu \textit{vlákno}.
-Jednotky práce nejsou nadále reprezentovány pomocí \textit{first class funkcí}, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
+Hlavním rozdílem oproti \acrshort{gcd} je vyloučení pojmu \texttt{vlákno}.
+Jednotky práce nejsou nadále reprezentovány pomocí \texttt{first class} funkcí, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
 
 \subsubsection*{NSOperation}
 
@@ -80,7 +80,7 @@ S představením NSOperationQueue, je ale nově možné nad opakovanými jednotk
 Toho lze docílit pomocí vytváření vlastních tříd dědících od NSOperation.
 
 NSOperation představuje samostatnou jednotku práce (operaci).
-Jedná se o abstraktní třídu zajišťující \textit{thread-safe} přístup ke správě stavu, priority a závislostí.
+Jedná se o abstraktní třídu zajišťující \texttt{thread-safe} přístup ke správě stavu, priority a závislostí.
 
 Jako úkol lze chápat například jednotlivé síťové požadavdy, zpracování vstupů a uživatele a jejich perzistence nebo komplexní výpočty.
 Úkolem je možné označit ale i libovolnou strukturovanou jednotku práce, u které je potřeba udržovat stav nebo zpracovat její datový výstup.

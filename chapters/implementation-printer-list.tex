@@ -102,12 +102,12 @@ Díky reaktivnímu přístupu tak \texttt{Controller} dostane informaci o novém
 
 \subsection{Automatické aktualizace}
 
-Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \textit{push-based}.
+Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \texttt{push-based}.
 Tato strategie udává, že při změně dat jejich vlastník (např. \texttt{ViewModel}) upozorní své odběratele (\texttt{Controller}).
 Každý odběratel se sám rozhodne, jakým způsobem informaci využít.
-V mé konkrétní implementaci lze vidět rozdíl od \textit{pull-based} strategie v automatických aktualizacích.
+V mé konkrétní implementaci lze vidět rozdíl od \texttt{pull-based} strategie v automatických aktualizacích.
 
-Strategie \textit{pull-based} spočívá v tom, že data jsou dostupná na požádání.
+Strategie \texttt{pull-based} spočívá v tom, že data jsou dostupná na požádání.
 To znamená, že změní-li se data (např. bude-li nalezena nová síťová tiskárna), odběratel si je explictině musí vyžádat.
 Zde vzniká otázka, jak často se dotazovat, zda změna proběhala či nikoli.
 

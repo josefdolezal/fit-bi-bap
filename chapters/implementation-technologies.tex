@@ -61,8 +61,8 @@ Jedná se o objekt, který se stará o průběh jedné konkrétní části aplik
 Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího \texttt{Coordinatoru}, vytvoří se nový \texttt{Coordinator} starající se o novou obrazovku a její životní cyklus.
 \texttt{Coordinator} má také na starosti vytvoření \texttt{ViewModelu} a předání jeho instance \texttt{Controlleru}.
 
-Scénář obrazovky se spustí metodou \textit{start}.
-Po ukončení (uživatel chce zavřít obrazovku) volá \texttt{Coordinator} metodu \textit{completed} kde se uvolní naalokované zdroje.
+Scénář obrazovky se spustí metodou \texttt{start}.
+Po ukončení (uživatel chce zavřít obrazovku) volá \texttt{Coordinator} metodu \texttt{completed} kde se uvolní naalokované zdroje.
 
 S \texttt{Coordinatorem} spolupracuje \texttt{ViewModel} metodou Delegate pattern.
 
@@ -74,7 +74,7 @@ Díky těmto knihovnám lze jednoduše tvořit závislosti asynchronních operac
 S využitím knihovny ReactiveCocoa od verze 5.0 lze navíc využít tkzv. \texttt{UI bindings}.
 Ty zaručují, že hodnoty signálů jsou vždy zpracovány na hlavním vlákně a to i v momentě, kdy jsou odeslány z vlákna v pozadí.
 ReactiveSwift pak zaručuje konzistenci dat mezi vlákny.
-Dohromady tak tyto knihovny zamezují vzniku \textit{race condition} za běhu aplikace.
+Dohromady tak tyto knihovny zamezují vzniku \texttt{race condition} za běhu aplikace.
 Více o těchto knihovnách lze zjistit z oficiální dokumentace \cite{github-reactiveswift} a \cite{github-reactivecocoa}.
 
 Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře \acrshort{mvvm}.
@@ -114,7 +114,7 @@ Tím jsem dosáhl stejného rozhraní pro požadavky jako má nadtřída, jedin�
 
 Pro umožnění zobrazení video streamu jsem opět potřeboval dynamickou URL, ale tentokrát pro každý požadavek (uživatel zadává pouze URL, nejsou žádné koncové body).
 Tato implementace nebyla složitá, využil jsem standardních tříd knihovny Moya.
-Vytvořil jsem nový objekt spravující koncové body a v něm definoval pouze jeden bod \textit{get}.
+Vytvořil jsem nový objekt spravující koncové body a v něm definoval pouze jeden bod \texttt{get}.
 Ten pro zkonstruování využaduje koncovou URL a chová se tedy velmi podobně jako kdyby URL byla známá už v čase kompilace.
 
 Při využití je ale nutné pro každý požadavek explicitně URL zadat.

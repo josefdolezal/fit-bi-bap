@@ -33,7 +33,7 @@ Implementace řetězení je vidět v ukázce \ref{code:detail-requests-chain}.
 
 \swiftcode{code:detail-requests-chain}{Řetězení požadavků v Moya}{assets/code/detail-requests-chain.swift}
 
-Řetězení pomocí reaktivního přístupu přináší možnost chyby řešit pomocí \textit{railway} strategie.
+Řetězení pomocí reaktivního přístupu přináší možnost chyby řešit pomocí \texttt{railway} strategie.
 Tedy řetězení probíhá po \uv{úspěšné koleji} až do výskytu první chyby.
 Chyba slouží jako výhybka z této koleje a dále pokračuje po \uv{chybné koleji}.
 Tento přístup umožňuje nezabývat se v jednotlivých požadavcích chybami.

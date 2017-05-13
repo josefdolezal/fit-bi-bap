@@ -2,7 +2,7 @@
 
 Pro zvýšení použitelnosti a přehlednosti jsem se rozhodl do aplikace zakomponovat grafické prvky (ikony tlačítek, zobrazovaná varování, \ldots).
 Protože cílím aplikaci nejen na iPhone, ale i na iPad, musí veškerá zakomponovaná grafika být ve vysokém rozlišení.
-Jednotlivé ikony a obrázky lze do Xcode nahrát pomocí \textit{Assets catalog}, tedy galerie obrázků.
+Jednotlivé ikony a obrázky lze do Xcode nahrát pomocí \texttt{Assets catalog}, tedy galerie obrázků.
 Jako alternativní možnost jsem se rozhodl zanalyzovat knihovnu \textit{Iconic}, která umožňuje využít grafických fontů.
 
 \subsection{Assets catalog}
@@ -30,7 +30,7 @@ Pomocí výčtového typu lze pak k obrázkům přistupovat pomocí jejich jmén
 Protože se fonty typicky generují na začátku tvoření aplikace, pouští se Iconic typicky jen jednou a jeho výstup včetně fontu se následně přidává do projektu.
 
 Pro obdobné použití jako s Assets catalog nabízí Iconic rozšíření frameworku UIKit.
-Tyto rozšíření umožňují využívat fonty nejen ve zdrojovém kódu, ale i v \textit{Interface builder} rozhraní.
+Tyto rozšíření umožňují využívat fonty nejen ve zdrojovém kódu, ale i v \texttt{Interface builder} rozhraní.
 Využití v kódu je naznačené v ukázce \ref{code:iconic-fonts}.
 
 \swiftcode{code:iconic-fonts}{Využití grafického fontu s frameworkem Iconic}{assets/code/iconic-fonts.swift}

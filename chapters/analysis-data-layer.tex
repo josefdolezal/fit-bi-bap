@@ -42,13 +42,13 @@ Jedinou podmínkou při vytváření objektu je nutnost dědit od třídy \texti
 \subsubsection*{Relace}
 
 Realm implementačně sice není relační databází, nabízí ale podobné \acrshort{api} pro relace mezi objekty.
-Objekty mohou být v relacích \textit{many-to-many}, \textit{one-to-many}, \textit{ono-to-one} ale i \textit{many-to-one}.
+Objekty mohou být v relacích \texttt{M:N}, \texttt{1:M} nebo \texttt{1:1}.
 Na základě těchto vlastností je následně možné vytvářet databázové dotazy.
 
 \subsubsection*{Transakce}
 
 Z důvodu zajištění konzistence dat v aplikaci je nutné modelové objekty upravovat v transakcích \cite{realm-swift}.
-Realm neodděluje standardní \textit{\acrshort{crud}} operace, místo toho je zavedena \textit{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
+Realm neodděluje standardní {\acrshort{crud} operace, místo toho je zavedena \texttt{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
 
 \swiftcode{code:realm-write}{Transakce v technologii Realm}{assets/code/realm-write.swift}
 

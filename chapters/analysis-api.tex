@@ -5,7 +5,7 @@ Pro pro olvádání tiskárny využiji \acrshort{rest} API, které OctoPrint v z
 V dalších sekcích se budu podrobně zabývat analýzou jednotlivých funkcionalit implementovaných v mém řešení.
 
 Z důvodu bezpečnosti musí být každý požadavek na tiskárnu autorizovaný.
-To OctoPrint zajišťuje pomocí ověřovacích \textit{tokenů}.
+To OctoPrint zajišťuje pomocí ověřovacích \texttt{tokenů}.
 Token je náhodně vygenerovaná posloupnost znaků jednoznačně spjatá s účtem uživatele.
 Pokud v požadavku je uveden platný token, předpokládá se, že požadavek vytvořil uživatel jehož účet je s token svázaný.
 
@@ -69,7 +69,7 @@ Systém iOS neobsahuje sdílený souborový systém, soubory lze nahrávat buď 
 \subsubsection*{Informace o konkrétním souboru}
 
 Aby bylo možné aktualizovat informace o jednotlivých souborech, umožňuje OctoPrint využít koncový bod \inlinestr{api/files/[location]/[filename]}.
-Takový požadavek zajistí stažení aktuálních informací o souboru v lokaci \textit{[location]} s názvem \textit{[filename]}.
+Takový požadavek zajistí stažení aktuálních informací o souboru v lokaci \texttt{[location]} s názvem \texttt{[filename]}.
 
 Strukturou se odpověď nelyší od položky souboru v seznamu souborů.
 Požadavek lze ale využít v momentě, kdy se z klientské aplikace se souborem v tiskárně manipuluje pro udržení konzistence.
@@ -111,7 +111,7 @@ Pro mobilní aplikaci ale nedávají z důvodu komplikovaného nastavení velký
 Zajímavou konfigurací je ale možnost připojit tiskárnu.
 Tento koncový bod se nalézá na \inlinestr{api/connection} a jako metodu je nutné využít \texttt{POST}.
 
-V těle požadavku musí být explicitně zadaný příkaz \textit{connect} a také port pro připojení.
+V těle požadavku musí být explicitně zadaný příkaz \texttt{connect} a také port pro připojení.
 Hodnota portu musí být jedna z uvedených v seznamu portů.
 Seznam portů je možné získat z nastavení připojení.
 
