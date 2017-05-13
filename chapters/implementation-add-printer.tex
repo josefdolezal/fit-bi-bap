@@ -10,7 +10,7 @@ Jako u každé aplikace, která přijímá uživatelské vstupy i v mé implemen
 Jelikož se jedná o logiku, je validace umístěna ve \texttt{ViewModelu}.
 Text zadaný uživatelem se při každé změně odešle \texttt{ViewModelu}, který všechny vstupy zvaliduje.
 Na základě platnosti kombinace vstupů vyšle \texttt{ViewModel} booleanovskou hodnotu \texttt{Controlleru}.
-\texttt{Controller} pomocí UI bindigs sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
+\texttt{Controller} pomocí \texttt{UI bindings} sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
 
 Je-li formulář platný, tlačítko je povolené.
 V opačném případě je zablokované a nelze stisknutím spustit jeho interakci.
@@ -33,7 +33,7 @@ Díky reaktivnímu přístupu a push-based strategii se rovnou tiskárna zobraz�
 \texttt{ViewModel} ani \texttt{ViewController} seznamu nemusí být o výsledku přidání tiskárny nijak notifikovány, o propagaci této informace se postará datová vrstva aplikace.
 
 V případě selhání požadavku je vytvořena chybová hláška.
-Díky reaktivním rozšířením, které jsem vytvořil pro \texttt{ViewController} třídu chybu zobrazit pomocí UI bindings.
+Díky reaktivním rozšířením, které jsem vytvořil pro \texttt{ViewController} třídu chybu zobrazit pomocí \texttt{UI bindings}.
 
 Ukázka \ref{code:add-printer-login-request} zjednodušeně implementuje vytvoření požadavku a následné zpracování odpovědi od tiskárny.
 

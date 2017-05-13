@@ -49,7 +49,7 @@ Veškerou logiku obrazovky pak na \texttt{ViewModel} během svého životního c
 
 Uživatelské vstupy jsou implementovány pomocí funkcí.
 \texttt{Controller} sleduje uživatelskou interakci a volá patřičné funkce \texttt{ViewModelu}.
-Výstupy z \texttt{ViewModelu} jsou pomocí UI bindings napojeny na \texttt{View} v metodě \textit{bindViewModel}, která je volána těsně po načtení \texttt{View} vrstvy do paměti.
+Výstupy z \texttt{ViewModelu} jsou pomocí \texttt{UI bindings} napojeny na \texttt{View} v metodě \textit{bindViewModel}, která je volána těsně po načtení \texttt{View} vrstvy do paměti.
 
 \texttt{Controller} vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
 
@@ -71,7 +71,7 @@ S Coordinatorem spolupracuje \texttt{ViewModel} metodou Delegate pattern.
 Pro synchronizaci vláken jsem se rozhodl použít knihovny ReactiveCocoa a ReactiveSwift, tedy reaktivní přístup.
 Díky těmto knihovnám lze jednoduše tvořit závislosti asynchronních operací.
 
-S využitím knihovny ReactiveCocoa od verze 5.0 lze navíc využít tkzv. \textit{UI bindings}.
+S využitím knihovny ReactiveCocoa od verze 5.0 lze navíc využít tkzv. \texttt{UI bindings}.
 Ty zaručují, že hodnoty signálů jsou vždy zpracovány na hlavním vlákně a to i v momentě, kdy jsou odeslány z vlákna v pozadí.
 ReactiveSwift pak zaručuje konzistenci dat mezi vlákny.
 Dohromady tak tyto knihovny zamezují vzniku \textit{race condition} za běhu aplikace.

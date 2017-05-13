@@ -119,11 +119,11 @@ Některé data není potřeba po načtení aktualizovat vůbec, jiná naopak prv
 Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z \texttt{ViewModelu} do \texttt{Controlleru}.
 \texttt{Controller} sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající \texttt{View}.
 
-Za pomoci UI bindings frameworku ReactiveCocoa jsem napojil signál změn na metodu překreslení seznamu.
+Za pomoci \texttt{UI bindings} frameworku ReactiveCocoa jsem napojil signál změn na metodu překreslení seznamu.
 \texttt{Controller} tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle \texttt{ViewModel} signál a tabulka se překreslí.
 Pro překreslení se využívá stejný postup jako při iniciálním načtení, nehrozí proto problém s čátečnou nekonzistencí.
 Výsledkem je, že uživatel vidí na obrazovce vždy aktuální data.
-Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pomocí UI bingins.
+Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pomocí \texttt{UI bindings}.
 
 \swiftcode{code:printer-list-ui-binding}{Překreslení CollectionView pomocí UI bindings}{assets/code/printer-list-ui-binding.swift}
 
