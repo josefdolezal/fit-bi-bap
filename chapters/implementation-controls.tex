@@ -12,14 +12,14 @@ Dále každý z ovladačů obsahuje tlačítko \uv{Domů}, které zavede hlavu
 \subsection{Pohyb hlavy}
 
 Jelikož jsou prvky tvořeny tlačítky, je pohyb implementovaný pomocí požadavků pro každou interakci zvlášť.
-\texttt{Controller} pro každý stisk vytvoří vstup ViewModelu, ten následně vytváří požadavky na tiskárnu.
+\texttt{Controller} pro každý stisk vytvoří vstup \texttt{ViewModelu}, ten následně vytváří požadavky na tiskárnu.
 
 Požadavek pro posun hlavy je implementovaný genericky parametrizovaný množinou os a směrem.
 Aby UI nebylo zbytečně komplikované, rozhodl jsem uživateli neumožnit explicitně zvolit o jakou vzdálenost se má hlava posunout.
 Každý požadavek tedy posune hlavu po dané ose o 10 mm vpřed nebo vzad.
 
-Každý uživatelský vstup je namapovaný na právě jeden vstup ViewModelu.
-Tím jsem dosáhl jednoduchého rozhraní ViewModelu a odstranil potřebu využití složitých řídících konstrukcí (switch konstrukce či řetězené podmínky).
+Každý uživatelský vstup je namapovaný na právě jeden vstup \texttt{ViewModelu}.
+Tím jsem dosáhl jednoduchého rozhraní \texttt{ViewModelu} a odstranil potřebu využití složitých řídících konstrukcí (switch konstrukce či řetězené podmínky).
 Implementace je znázorněna v ukázce \ref{code:printer-controls-request}.
 
 \swiftcode{code:printer-controls-request}{Implementace pohybu tiskové hlavy}{assets/code/printer-controls-request.swift}

@@ -7,9 +7,9 @@ Volitelně je možné také přidat url adresu, na které se vyskytuje video str
 \subsection{Validace formuláře}
 
 Jako u každé aplikace, která přijímá uživatelské vstupy i v mé implementaci je nutné ověřit platnost zadaných údajů.
-Jelikož se jedná o logiku, je validace umístěna ve ViewModelu.
-Text zadaný uživatelem se při každé změně odešle ViewModelu, který všechny vstupy zvaliduje.
-Na základě platnosti kombinace vstupů vyšle ViewModel booleanovskou hodnotu \texttt{Controlleru}.
+Jelikož se jedná o logiku, je validace umístěna ve \texttt{ViewModelu}.
+Text zadaný uživatelem se při každé změně odešle \texttt{ViewModelu}, který všechny vstupy zvaliduje.
+Na základě platnosti kombinace vstupů vyšle \texttt{ViewModel} booleanovskou hodnotu \texttt{Controlleru}.
 \texttt{Controller} pomocí UI bindigs sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
 
 Je-li formulář platný, tlačítko je povolené.
@@ -25,12 +25,12 @@ Použití validace nad signály je vidět v ukázce \ref{code:add-printer-valida
 
 Ve chvíli kdy je formulář ověřený, může uživatel připojení uložit do lokální databáze.
 Uložení provede pomocí tlačítka \uv{Připojit}.
-ViewModel upozorněný na interakci uživatele načte aktuální hodnoty formuláře a vytvoří požadavek na tiskárnu.
+\texttt{ViewModel} upozorněný na interakci uživatele načte aktuální hodnoty formuláře a vytvoří požadavek na tiskárnu.
 
 Je-li odpověd od tiskárny pozitivní (status kód odpovědi je v rozmezí 200 až 299), pak se hodnoty uloží do lokální databáze.
 Coordinator je následně upozorněn na ukončení scénáře a obrazovku zavře.
 Díky reaktivnímu přístupu a push-based strategii se rovnou tiskárna zobrazí v seznamu mezi dostupnými k použití.
-ViewModel ani \texttt{ViewController} seznamu nemusí být o výsledku přidání tiskárny nijak notifikovány, o propagaci této informace se postará datová vrstva aplikace.
+\texttt{ViewModel} ani \texttt{ViewController} seznamu nemusí být o výsledku přidání tiskárny nijak notifikovány, o propagaci této informace se postará datová vrstva aplikace.
 
 V případě selhání požadavku je vytvořena chybová hláška.
 Díky reaktivním rozšířením, které jsem vytvořil pro \texttt{ViewController} třídu chybu zobrazit pomocí UI bindings.

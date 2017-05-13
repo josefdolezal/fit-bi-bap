@@ -19,37 +19,37 @@ K otestování logiky aplikace navíc není potřeba vizuální vrstva aplikace.
 
 Neméně podstatným argumentem je čitelnost kódu.
 Vrstva \texttt{Controller} obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
-ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob, jakým se daná část aplikace chová.
+\texttt{ViewModel} naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob, jakým se daná část aplikace chová.
 Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
 
 \subsubsection*{Implementace ViewModelu}
 
 V části \ref{analyza-mvvm} kde jsem analyzoval architekturu \acrshort{mvvm} jsem naznačil strategii implementace.
-ViewModel jsem se rozhodl implementovat jako logiku \texttt{Controlleru}, která jako rozhraní nabízí pouze vstupy či výstupy.
+\texttt{ViewModel} jsem se rozhodl implementovat jako logiku \texttt{Controlleru}, která jako rozhraní nabízí pouze vstupy či výstupy.
 
 Vstupem označuji uživatelskou interakci, na základě které je potřeba vyžádat nová data nebo zobrazit jinou obrazovku.
-Výstupem jsou zobrazovaná data, která jsou ViewModelem předformátovaná aby je \texttt{Controller} mohl přímo zobrazit pomocí \texttt{View} vrstvy.
+Výstupem jsou zobrazovaná data, která jsou \texttt{ViewModelem} předformátovaná aby je \texttt{Controller} mohl přímo zobrazit pomocí \texttt{View} vrstvy.
 Jiným výstupem pak může být informace o stavu dat či o jejich počtu (počet položek v seznamu).
 
-Každá obrazovka vlastní svůj ViewModel.
+Každá obrazovka vlastní svůj \texttt{ViewModel}.
 Pro ten jsou dostupné tři protokoly: \textit{ViewModelInputs}, \textit{ViewModelOutputs} a \textit{ViewModelType}.
-Tyto prokoly jsou konkrétně pojmenovány podle obrazovky, stejně tak ViewModel samotný a také \texttt{Controller}.
+Tyto prokoly jsou konkrétně pojmenovány podle obrazovky, stejně tak \texttt{ViewModel} samotný a také \texttt{Controller}.
 Definice rozhraní je vidět v ukázce \ref{code:viewmodel}.
 
 \swiftcode{code:viewmodel}{Rozhraní objektu ViewModel}{assets/code/viewmodel.swift}
 
-První protokol popisuje množinu vstupů, druhý množinu výstupů a třetí popisuje rozhraní ViewModelu.
-Tím jsem dosáhl možnosti zaměňovat ViewModel obrazovky či sdílet jeden ViewModel mezi více obrazovkami.
+První protokol popisuje množinu vstupů, druhý množinu výstupů a třetí popisuje rozhraní \texttt{ViewModelu}.
+Tím jsem dosáhl možnosti zaměňovat \texttt{ViewModel} obrazovky či sdílet jeden \texttt{ViewModel} mezi více obrazovkami.
 Návrhem tohoto rozhraní jsem inspiroval v open source aplikaci Kickstarter, dostupné na portálu GitHub \cite{github-kickstarter}.
 
 \subsubsection*{Implementace Controlleru}
 
-\texttt{Controller} při inicializaci vyžaduje instanci ViewModelu.
-Veškerou logiku obrazovky pak na ViewModel během svého životního cyklu deleguje.
+\texttt{Controller} při inicializaci vyžaduje instanci \texttt{ViewModelu}.
+Veškerou logiku obrazovky pak na \texttt{ViewModel} během svého životního cyklu deleguje.
 
 Uživatelské vstupy jsou implementovány pomocí funkcí.
-\texttt{Controller} sleduje uživatelskou interakci a volá patřičné funkce ViewModelu.
-Výstupy z ViewModelu jsou pomocí UI bindings napojeny na \texttt{View} v metodě \textit{bindViewModel}, která je volána těsně po načtení \texttt{View} vrstvy do paměti.
+\texttt{Controller} sleduje uživatelskou interakci a volá patřičné funkce \texttt{ViewModelu}.
+Výstupy z \texttt{ViewModelu} jsou pomocí UI bindings napojeny na \texttt{View} v metodě \textit{bindViewModel}, která je volána těsně po načtení \texttt{View} vrstvy do paměti.
 
 \texttt{Controller} vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
 
@@ -59,12 +59,12 @@ Výstupy z ViewModelu jsou pomocí UI bindings napojeny na \texttt{View} v metod
 Implementoval jsem proto další objekt nazvaný Coordinator.
 Jedná se o objekt, který se stará o průběh jedné konkrétní části aplikace (flow).
 Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coordinatoru, vytvoří se nový Coordinator starající se o novou obrazovku a její životní cyklus.
-Coordinator má také na starosti vytvoření ViewModelu a předání jeho instance \texttt{Controlleru}.
+Coordinator má také na starosti vytvoření \texttt{ViewModelu} a předání jeho instance \texttt{Controlleru}.
 
 Scénář obrazovky se spustí metodou \textit{start}.
 Po ukončení (uživatel chce zavřít obrazovku) volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
 
-S Coordinatorem spolupracuje ViewModel metodou Delegate pattern.
+S Coordinatorem spolupracuje \texttt{ViewModel} metodou Delegate pattern.
 
 \subsection{Synchronizace vláken}
 

@@ -20,8 +20,8 @@ Jednotlivé obrazovky pak využívají třídy dědící z \texttt{BaseCollectio
 
 Seznam tiskáren je rozdělen na dvě základní sekce.
 Pomocí rozdělení do samostatných sekcí jsem dosáhl vytvoření nezávislých řádkových indexů pro každou sekci.
-ViewModel pro \texttt{Controller} poskytuje počet řádků pro každou ze sekcí samostatně.
-Při vytváření seznamu stačí tedy ověřit pro jakou sekci se záznam v seznamu vytváří a následně ViewModel požádat o data s konkrátním řádkovým indexem číslovaným od nuly.
+\texttt{ViewModel} pro \texttt{Controller} poskytuje počet řádků pro každou ze sekcí samostatně.
+Při vytváření seznamu stačí tedy ověřit pro jakou sekci se záznam v seznamu vytváří a následně \texttt{ViewModel} požádat o data s konkrátním řádkovým indexem číslovaným od nuly.
 
 V případě jedné sekce by bylo nutné vzájmně porovnávat aktuální číslo řádku s počtem uložených tiskáren a tiskáren nalezených.
 To požaduje komplexní výpočet a dává prostor mmoha chybám.
@@ -30,7 +30,7 @@ To požaduje komplexní výpočet a dává prostor mmoha chybám.
 
 První sekce zobrazuje tiskárny načtené z lokální databáze.
 Při sestavování seznamu si \texttt{CollectionView} pomocí Delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
-\texttt{Controller} tedy využije výstup ViewModelu a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
+\texttt{Controller} tedy využije výstup \texttt{ViewModelu} a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
 Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-rows}.
 
 \swiftcode{code:printer-list-number-of-rows}{Konfigurace počtu tiskáren v seznamu}{assets/code/printer-list-number-of-rows.swift}
@@ -38,10 +38,10 @@ Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-r
 V momentě kdy \texttt{CollectionView} ví kolik prvků bude zobrazovat, začne vyžadovat jednotlivé položky seznamu.
 K tomu je opět využit Delegate pattern.
 Pro správné dodržení \acrshort{mvvm} architektury nesmí \texttt{Controller} využívat modelové objekty.
-Pro každou buňku je tedy potřeba vytvořit ViewModel, který ji bude obsluhovat.
-\texttt{Controller} si pro řádkový index vyžádá od svého ViewModelu nový ViewModel buňky a ten jí předá.
-Buňka se následně sama z ViewModelu nakonfiguruje.
-Vyžádání ViewModelu buňky zachycuje ukázka \ref{code:printer-list-cell-viewmodel}.
+Pro každou buňku je tedy potřeba vytvořit \texttt{ViewModel}, který ji bude obsluhovat.
+\texttt{Controller} si pro řádkový index vyžádá od svého \texttt{ViewModelu} nový \texttt{ViewModel} buňky a ten jí předá.
+Buňka se následně sama z \texttt{ViewModelu} nakonfiguruje.
+Vyžádání \texttt{ViewModelu} buňky zachycuje ukázka \ref{code:printer-list-cell-viewmodel}.
 
 \swiftcode{code:printer-list-cell-viewmodel}{Vytváření buňky v seznamu}{assets/code/printer-list-cell-viewmodel.swift}
 
@@ -51,11 +51,11 @@ Tato část názorně ukazuje sílu \acrshort{mvvm} architektury.
 Přesto, že logika stojící za vyhledáním síťových tiskáren není triviální, \texttt{ViewController} zůstává velmi krátký a dobře čitelný.
 
 Z pohledu \texttt{Controlleru} totiž logika není podstatná, důležité jsou výstupy z ní.
-ViewModel pro seznam tiskáren jsem proto navrh tak, aby poskytoval obdobné rozhraní jako poskytuje pro uložené tiskárny.
+\texttt{ViewModel} pro seznam tiskáren jsem proto navrh tak, aby poskytoval obdobné rozhraní jako poskytuje pro uložené tiskárny.
 
-Pro zobrazení druhé sekce seznamu stačí \texttt{CollectionView} předat informaci o počtu síťových tiskáren a buňkám předat odpovídající ViewModely.
+Pro zobrazení druhé sekce seznamu stačí \texttt{CollectionView} předat informaci o počtu síťových tiskáren a buňkám předat odpovídající \texttt{ViewModely}.
 Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
-Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a ViewModely je možné získat metodou \textit{networkPrinterCellViewModel}.
+Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a \texttt{ViewModely} je možné získat metodou \textit{networkPrinterCellViewModel}.
 
 \subsection{Automatické nalezení tiskáren}
 
@@ -85,7 +85,7 @@ Více informací k Bonjour je dostupné na stránkách Apple \cite{apple-bonjour
 \subsubsection*{Reaktivní rozšíření}
 
 Standardní knihiovna nabízí pro práci s Bonjour třídy \textit{NetService} a \textit{NetServiceBrowser}, které využívají Delegate pattern \cite{apple-netservicebrowser}.
-Tento přístup mi nevyhovoval, protože vnesl mnoho kódu do ViewModel objektu a zhoršil tím jeho přehlednost a čitelnost.
+Tento přístup mi nevyhovoval, protože vnesl mnoho kódu do \texttt{ViewModel} objektu a zhoršil tím jeho přehlednost a čitelnost.
 Kód byl navíc přímo vázaný na logiku jedné obrazovky což znemožňovalo jeho znovuvyužitelnost.
 
 Rozhodl jsem vytvořit novou třídu \textit{Bonjour}, která místo Delegate pattern nabízí reaktivní přístup.
@@ -103,7 +103,7 @@ Díky reaktivnímu přístupu tak \texttt{Controller} dostane informaci o novém
 \subsection{Automatické aktualizace}
 
 Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \textit{push-based}.
-Tato strategie udává, že při změně dat jejich vlastník (např. ViewModel) upozorní své odběratele (\texttt{Controller}).
+Tato strategie udává, že při změně dat jejich vlastník (např. \texttt{ViewModel}) upozorní své odběratele (\texttt{Controller}).
 Každý odběratel se sám rozhodne, jakým způsobem informaci využít.
 V mé konkrétní implementaci lze vidět rozdíl od \textit{pull-based} strategie v automatických aktualizacích.
 
@@ -116,11 +116,11 @@ Některé data není potřeba po načtení aktualizovat vůbec, jiná naopak prv
 
 \bigskip
 
-Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z ViewModelu do \texttt{Controlleru}.
+Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z \texttt{ViewModelu} do \texttt{Controlleru}.
 \texttt{Controller} sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající \texttt{View}.
 
 Za pomoci UI bindings frameworku ReactiveCocoa jsem napojil signál změn na metodu překreslení seznamu.
-\texttt{Controller} tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle ViewModel signál a tabulka se překreslí.
+\texttt{Controller} tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle \texttt{ViewModel} signál a tabulka se překreslí.
 Pro překreslení se využívá stejný postup jako při iniciálním načtení, nehrozí proto problém s čátečnou nekonzistencí.
 Výsledkem je, že uživatel vidí na obrazovce vždy aktuální data.
 Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pomocí UI bingins.
@@ -133,10 +133,10 @@ V momentě kdy nebude požadovaná tiskárna automaticky nalezena a zároveň ji
 Přidání tiskárny se odehrává na nové obrazovce.
 Na tu se uživatel dostane stisknutím tlačítka \uv{+} na obrazovce se seznamem tiskáren.
 
-Pro vytvoření obrazovky je potřeba nový \texttt{Controller} a k němu odpovídající ViewModel.
+Pro vytvoření obrazovky je potřeba nový \texttt{Controller} a k němu odpovídající \texttt{ViewModel}.
 Za zprostředkování nové obrazovky zodpovídá Coordinator zmíněný v sekci \ref{technologie-architektura}.
 
-\texttt{Controller} seznamu tiskáren vytvoří vstup pro svůj ViewModel, ten na základě vstupu notifikuje Coordinator o uživatelské interakci.
+\texttt{Controller} seznamu tiskáren vytvoří vstup pro svůj \texttt{ViewModel}, ten na základě vstupu notifikuje Coordinator o uživatelské interakci.
 Coordinator má předem definováno jakým způsobem na interakce reagovat.
 Průběh je vidět v ukázce \ref{code:printer-list-coordinator-flow}.
 
@@ -153,4 +153,4 @@ Pro interakci s tiskárnou je nutné otevřít její detail.
 Ten uživatel otevře vybráním uložené tiskárny ze seznamu.
 
 Průběh je velmi podobný výběru tiskárny.
-Opět je nutné zpropagovat uživatelskou iterakci z \texttt{View} do Coordinatoru pomocí \texttt{Controlleru} a ViewModelu.
+Opět je nutné zpropagovat uživatelskou iterakci z \texttt{View} do Coordinatoru pomocí \texttt{Controlleru} a \texttt{ViewModelu}.

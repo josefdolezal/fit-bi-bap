@@ -25,13 +25,13 @@ Očekávané hodnoty jsem ověřoval pomocí \textit{Nimble}.
 
 \subsection{Testování ViewModelu}
 
-Tento princip využívám ve své implementaci pro testování Modelu a ViewModelu.
+Tento princip využívám ve své implementaci pro testování Modelu a \texttt{ViewModelu}.
 Díky dostatečnému rozsahu testů logiky aplikace lze usuzovat, že v produkčním nasazení se vyskytne jen nepatrné množství chyb.
-\texttt{View} vrstvu následně není samostatně nutné testovat, protože z testů ViewModelu je téměř jisté, že data jsou správně připravena k zobrazení.
+\texttt{View} vrstvu následně není samostatně nutné testovat, protože z testů \texttt{ViewModelu} je téměř jisté, že data jsou správně připravena k zobrazení.
 
-U ViewModelu jsem podle zvoleného scénáře navrhl \acrshort{dsl}.
+U \texttt{ViewModelu} jsem podle zvoleného scénáře navrhl \acrshort{dsl}.
 Tímto jazykem jsem definoval jak očekávám, že s objektem bude pracovat.
-Pomocí Nimble knihovny jsem dále ověřoval, jestli na vytvořené vstupy vytváří ViewModel očekávané výstupy jak je vidět v ukázce \ref{code:bdd-dsl}.
+Pomocí Nimble knihovny jsem dále ověřoval, jestli na vytvořené vstupy vytváří \texttt{ViewModel} očekávané výstupy jak je vidět v ukázce \ref{code:bdd-dsl}.
 
 Během implementace jsem vytvořil bez mála sto testů, díky kterým jsem odchytil velké množství chyb.
 Tyto chyby jsem často do aplikace zanesl v momentě, kdy jsem k již hotové obrazovce implementoval novou funkcionalitu.
@@ -50,5 +50,5 @@ Nejdříve se nadefinují testy některé funkcionality, následně se implement
 Tento postup se opakuje dokud nejsou implementovány veškeré funkce vyžadované po objektu.
 Více informací o tomto přístupu je dostupných na \cite{objcio-bdd}.
 
-Tento přístup jsem využil na část ViewModelů.
-Vzhledem k rozsahu implementace jsem ale většinu testů napsal až po kompletní implementaci ViewModelu.
+Tento přístup jsem využil na část \texttt{ViewModelů}.
+Vzhledem k rozsahu implementace jsem ale většinu testů napsal až po kompletní implementaci \texttt{ViewModelu}.
