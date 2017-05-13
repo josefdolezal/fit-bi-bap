@@ -134,13 +134,13 @@ Přidání tiskárny se odehrává na nové obrazovce.
 Na tu se uživatel dostane stisknutím tlačítka \uv{+} na obrazovce se seznamem tiskáren.
 
 Pro vytvoření obrazovky je potřeba nový \texttt{Controller} a k němu odpovídající \texttt{ViewModel}.
-Za zprostředkování nové obrazovky zodpovídá Coordinator zmíněný v sekci \ref{technologie-architektura}.
+Za zprostředkování nové obrazovky zodpovídá \texttt{Coordinator} zmíněný v sekci \ref{technologie-architektura}.
 
-\texttt{Controller} seznamu tiskáren vytvoří vstup pro svůj \texttt{ViewModel}, ten na základě vstupu notifikuje Coordinator o uživatelské interakci.
-Coordinator má předem definováno jakým způsobem na interakce reagovat.
+\texttt{Controller} seznamu tiskáren vytvoří vstup pro svůj \texttt{ViewModel}, ten na základě vstupu notifikuje \texttt{Coordinator} o uživatelské interakci.
+\texttt{Coordinator} má předem definováno jakým způsobem na interakce reagovat.
 Průběh je vidět v ukázce \ref{code:printer-list-coordinator-flow}.
 
-Na základě notifikace Coordinator vytvoří potřebné objekty k sestavení obrazovky a prezentuje ji uživateli.
+Na základě notifikace \texttt{Coordinator} vytvoří potřebné objekty k sestavení obrazovky a prezentuje ji uživateli.
 Až do uzavření obrazovky je seznam tiskáren neaktivní.
 
 Pokud uživatel tiskárnu úspěšně přidá, seznam je automaticky aktualizovaný díky push-based strategii.
@@ -153,4 +153,4 @@ Pro interakci s tiskárnou je nutné otevřít její detail.
 Ten uživatel otevře vybráním uložené tiskárny ze seznamu.
 
 Průběh je velmi podobný výběru tiskárny.
-Opět je nutné zpropagovat uživatelskou iterakci z \texttt{View} do Coordinatoru pomocí \texttt{Controlleru} a \texttt{ViewModelu}.
+Opět je nutné zpropagovat uživatelskou iterakci z \texttt{View} do \texttt{Coordinatoru} pomocí \texttt{Controlleru} a \texttt{ViewModelu}.

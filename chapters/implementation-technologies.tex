@@ -56,15 +56,15 @@ Výstupy z \texttt{ViewModelu} jsou pomocí \texttt{UI bindings} napojeny na \te
 \subsubsection*{Coordinator}
 
 \acrshort{mvvm} standardně nepoužívá objekt spravující navigaci v aplikaci.
-Implementoval jsem proto další objekt nazvaný Coordinator.
+Implementoval jsem proto další objekt nazvaný \texttt{Coordinator}.
 Jedná se o objekt, který se stará o průběh jedné konkrétní části aplikace (flow).
-Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coordinatoru, vytvoří se nový Coordinator starající se o novou obrazovku a její životní cyklus.
-Coordinator má také na starosti vytvoření \texttt{ViewModelu} a předání jeho instance \texttt{Controlleru}.
+Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího \texttt{Coordinatoru}, vytvoří se nový \texttt{Coordinator} starající se o novou obrazovku a její životní cyklus.
+\texttt{Coordinator} má také na starosti vytvoření \texttt{ViewModelu} a předání jeho instance \texttt{Controlleru}.
 
 Scénář obrazovky se spustí metodou \textit{start}.
-Po ukončení (uživatel chce zavřít obrazovku) volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
+Po ukončení (uživatel chce zavřít obrazovku) volá \texttt{Coordinator} metodu \textit{completed} kde se uvolní naalokované zdroje.
 
-S Coordinatorem spolupracuje \texttt{ViewModel} metodou Delegate pattern.
+S \texttt{Coordinatorem} spolupracuje \texttt{ViewModel} metodou Delegate pattern.
 
 \subsection{Synchronizace vláken}
 
