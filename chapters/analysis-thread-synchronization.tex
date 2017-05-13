@@ -9,7 +9,7 @@ To provádí telefon na vlákně v pozadí.
 Tím je zaručené, že hlavní vlákno aplikace (které se mimo jiné stará o vykreslování) není blokované a s aplikací lze bez problému intereagovat.
 Jakmile jsou dostupné informace o poloze, aplikace zažádá systém o prostředky na hlavním vlákně a získanou polohu prezentuje uživateli.
 
-Tento přístup je v \acrshort{sdk} poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
+Tento přístup je v \acrfull{sdk} poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
 Ne vždy je ale běžné, aby výsledek byl prezentovaný na hlavním vlákně.
 Takový princip je využit u síťových požadavků.
 
@@ -135,7 +135,7 @@ V analýze jsem zabýval pouze funkcionálně reaktivním programováním, konkr
 
 \subsubsection*{Funkcionálně reaktivní programování -- \acrshort{frp}}
 
-Funkcionálně reaktivní programování označuje stream hodnot jako signál.
+Funkcionálně reaktivní programování (zkráceně \acrshort{frp}) označuje stream hodnot jako signál.
 Z teorie funkcionálního programování se k signálům přistupuje jako ke konstantám.
 Jednou vytvořený signál nelze měnit ani ho ovlivnit vedlejšími účinky.
 Je-li potřeba signál změnit, je nutné vytvořit nový signál a ten používat místo původního.

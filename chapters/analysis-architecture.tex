@@ -79,7 +79,7 @@ Kvůli přímému napojení Controlleru na View se při testování jeho chován
 Pro simulátor je navíc nutné naskriptovat uživatelův průchod aplikací, aby bylo možné testy automatizovat.
 
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (Controlleru nezle podvrhnout mock objekty).
-Tento problém se snaží řešit architektura \acrshort{mvvm} od společnosti Microsoft.
+Tento problém se snaží řešit architektura \acrfull{mvvm} od společnosti Microsoft.
 
 \begin{figure}\centering
 	\includegraphics[width=0.75\textwidth]{assets/analysis-massive-view-controller.pdf}
@@ -156,7 +156,7 @@ Protože logika aplikace je otestována pomocí testů ViewModelu, uživatelské
 Při pohledu na notifikace je vidět, že přibyl typ, který nebyl v \acrshort{mvc} potřeba.
 Jedná se o notifikace směrem z ViewModelu ke Controlleru (ViewModel nemá referenci na Controller, nemůže ho notifikovat přímo).
 Některé výstupy View Modelu je tedy potřeba sledovat v čase a na jejich změny reagovat.
-Toto lze vyřešit pomocí \acrshort{kvo}, které nabízí Apple mezi standardními knihovnami.
+Toto lze vyřešit pomocí \acrfull{kvo}, které nabízí Apple mezi standardními knihovnami.
 \acrshort{kvo} umožňuje objektu zaregistrovat se na notifikace o změně stavu nějakého libovolného jiného objektu.
 V případě Controlleru by se registroval na změny stavu výstupů ViewModelu.
 Kdykoliv by se výstup změnil, Controller by dostal notifikaci.
