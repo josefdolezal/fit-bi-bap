@@ -19,13 +19,13 @@ Ukázka popisu funkcionality z dokumentace je vidět v obrázku \ref{fig:octopri
 
 \subsection{Verze \acrshort{api} a ověřování}
 
-První analyzovanou funkcionalitou je verze API.
-Tento endpoint je dostupný na \inlinestr{api/version}.
+První analyzovanou funkcionalitou je verze \acrshort{api}.
+Dostupná je na \inlinestr{api/version}.
 V případě platného přístupového tokenu vrátí textovou reprezentaci verze API, v opačném případě odpovídající stavový kód.
 
 Ve své implementaci jsem se rozhodl uživatele nezatěžovat využívanými verzemi.
-Jedná se ale o jediný endpoint, který nemá žádné vedlejší efekty.
-Zároveň neexistuje žádný endpoint umožňující samostatně ověřit platnost tokenu.
+Jedná se ale o jedinou funkci, která nemá žádné vedlejší efekty.
+Zároveň neexistuje žádný jiný koncový bod umožňující samostatně ověřit platnost tokenu.
 
 Vzhledem k výše uvedenému je tato funkcionalita vhodná pro simulaci přihlašování k tiskárně.
 
@@ -33,12 +33,12 @@ Vzhledem k výše uvedenému je tato funkcionalita vhodná pro simulaci přihla�
 
 Jednou ze skupin funkcionalit \acrshort{rest} \acrshort{api} je správa souborového systému.
 Pomocí \acrshort{api} lze nejen obsah systému číst, ale také s ním manipulovat.
-Jednotlivé endpointy jsou zanalyzovány níže.
+Jednotlivé funkce jsou zanalyzovány níže.
 
 \subsubsection*{Seznam souborů}
 
 OctoPrint umožňuje vypsat seznam uložených souborů.
-Tento endpoint je dostupný na \inlinestr{api/files}.
+Funkcionalita je dostupná na \inlinestr{api/files}.
 
 V současnou chvíli mohou na soborový systém být uloženy pouze tisknutelné soubory (s příponou .gcode) nebo modelové soubory (s příponou .stl).
 
@@ -58,7 +58,7 @@ Struktura odpovědí je pro všechny tři požadavky stejná, liší se pouze ob
 \subsubsection*{Nahrávání souborů}
 
 Pomocí \acrshort{api} je možné nejen číst informace o existujících souborech, ale také nahrávat nové.
-Pro nahrávání slouží endpointy \inlinestr{api/files/local} a \inlinestr{api/files/sdcard}.
+Pro nahrávání slouží koncové body \inlinestr{api/files/local} a \inlinestr{api/files/sdcard}.
 Podle zvoleného koncového bodu se soubor uloží buď přímo na zařízení nebo na paměťovou kartu.
 
 Soubor se odesílá v těle požadavku kde je zároveň uveden jeho název.
@@ -78,15 +78,15 @@ Požadavek lze ale využít v momentě, kdy se z klientské aplikace se souborem
 
 OctoPrint umožňuje pro manipulaci se soubory více konfigurací.
 Pro využití v mobilní aplikaci se ale hodí pouze konfigurace pro tisk.
-Ta je dostupná na endpointu \inlinestr{api/files/[location]/[filename]}.
+Ta je dostupná na \inlinestr{api/files/[location]/[filename]}.
 
 V těle požadavku je nutné uvést typ příkazu a explicitně vyžádat tisknutí.
 Více o konfiguracích se lze dočíst v dokumentaci \cite{octoprint-api-filecommand}.
 
 \subsubsection*{Smazání souboru}
 
-Další funkcionalitou je odstranění souboru.
-Tento endpoint je dostupný na \inlinestr{api/files/[location]/[filename]}.
+Další funkcionalitou, je odstranění souboru.
+Lze k ní přistupovat skrz \inlinestr{api/files/[location]/[filename]}.
 Požadavek je nutné odeslat metodou \textit{DELETE}.
 
 \subsection{Připojení tiskárny}
@@ -105,7 +105,7 @@ To může nastat v momentě kdy uživatel chce s tiskárnou pracovat v době kdy
 
 \subsubsection*{Příkaz připojení tiskárny}
 
-Podobně jako v sekci o manipulaci souborů, i tento endpoint nabízí mnoho konfigurací.
+Podobně jako v sekci o manipulaci souborů, i zde je mnoho konfigurací.
 Pro mobilní aplikaci ale nedávají z důvodu komplikovaného nastavení velký smysl.
 
 Zajímavou konfigurací je ale možnost připojit tiskárnu.
@@ -134,11 +134,11 @@ Ten je dostupný na \inlinestr{api/printer}.
 Odpověď obsahuje informace o teplotách podložky a trysky.
 Dále lze v odpovědi nalézt informace o celkové připravenosti tiskárny.
 
-Tento endpoint je vhodný pro obrazovku s přehledem stavu tiskárny.
+Vhodný může být pro obrazovku s přehledem stavu tiskárny.
 
 \subsubsection*{Ovládání trysky}
 
-Ovládání trysky je nastavitelný endpoint přístupný na \inlinestr{api/printer/tool}.
+Ovládání trysky je nastavitelný koncový bod přístupný na \inlinestr{api/printer/tool}.
 Každý požadavek na tento koncový bod musí být odeslaný metodou \textit{POST}.
 
 Z důvodu zjednodušení uživatelského rozhraní jsem se rozhodl analyzovat nastavení pro tavení filamentu.
@@ -149,7 +149,7 @@ Tato funkce je ideální pro zkombinování s ovládáním tiskové hlavy.
 \subsubsection*{Aktuální stav trysky}
 
 Pro kontrolu správného průběhu tisku je důležité sledovat teplotu trysky.
-OctoPrint nabízí z tohoto důvodu endpoint \inlinestr{api/printer/tool}.
+OctoPrint nabízí z tohoto důvodu koncový bod \inlinestr{api/printer/tool}.
 V odpovědi se nachází informace o akuální teplotě.
 
 \subsubsection*{Ovládání podložky}
@@ -160,7 +160,7 @@ Koncový bod se nachází na \inlinestr{api/printer/bed}, požadavek je nutné v
 \subsubsection*{Aktuální stav podložky}
 
 OctoPrint nabízí také informace o aktuální teplotě podložky.
-Endpoint je dostupný na \inlinestr{api/printer/bed}.
+Infomace jsou dostupné na \inlinestr{api/printer/bed}.
 
 Tyto informace je možné zobrazit na přehledu stavu tiskárny.
 
@@ -205,13 +205,13 @@ Dále lze získat také informace o průběhu, tedy kolik procent je hotovo a ja
 
 Ovládání tisku obsahuje mnoho konfigurací.
 Pro mobilní aplikaci jsem zvolil možnost konfigurace pro zrušení tisku.
-Pro zrušení aktuálního tisku je dostupný endpoint \inlinestr{api/job} s metodou \textit{POST}.
+Pro zrušení aktuálního tisku lze využít \inlinestr{api/job} s metodou \textit{POST}.
 Do těla požadavku je nutné explicitně vložit příkaz pro zrušení tisku.
 Více informací o konfiguracích je dostupné v dokumentaci \cite{octoprint-docs-job}.
 
 \subsubsection*{Vlastní příkaz tiskárně}
 
-Protože OctoPrint nepokrývá veškeré funkce tiskárny samostatnými konocovými body, je dostupný endpoint pro odeslání vlastního příkazu tiskárně v jazyce GCode.
+Protože OctoPrint nepokrývá veškeré funkce tiskárny samostatnými konocovými body, je možné pro odeslat vlastní příkaz tiskárně v jazyce GCode.
 
 Tento koncový bod je dostupný na \inlinestr{api/printer/command}.
 Vlastní příkaz se vkládá do těla požadavku.
@@ -230,12 +230,12 @@ Jednou z poskytovaných funkcí je seznam logů.
 V seznamu jsou obsaženy metadata souboru a jeho umístění na souborovém systému.
 Seznam je dostupný z přístupového bodu \inlinestr{api/logs}.
 
-OctoPrint nenabízí samostatný endpoint pro detail logu, pro zobrazení obsahu je tedy nutné soubor stáhnout a teprve následně zobrazit.
+OctoPrint nenabízí samostatný endpokoncový bod pro detail logu, pro zobrazení obsahu je tedy nutné soubor stáhnout a teprve následně zobrazit.
 
 \subsubsection*{Smazání logového souboru}
 
 Z důvodu zvětšujícího se počtu souborů nabízí OctoPrint možnost manuálně mazat logy.
-Mazání je možné pomocí endpointu \inlinestr{api/logs/[filename]} metodou \textit{DELETE}.
+Mazání je možné pomocí funkce \inlinestr{api/logs/[filename]} metodou \textit{DELETE}.
 
 \subsection{Správa slicing profilů}
 

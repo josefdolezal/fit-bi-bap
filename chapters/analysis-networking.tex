@@ -11,7 +11,7 @@ Při analyzování síťové vrstvy jsem dospěl ke třem základním požadavk�
 \end{enumerate}
 
 Mým požadavkům se nejvíce přiblížila tři možná řešení, které následně podrobně popíši.
-Řešení jsem analyzoval od těch nejvíce \textit{low-level}, které pracují pouze se standardními knihovnami až po implementace za využití externích knihoven.
+Řešení jsem analyzoval od těch nejvíce nízkoúrovňových, které pracují pouze se standardními knihovnami až po implementace za využití externích knihoven.
 
 \subsection{URLSession}
 
@@ -47,7 +47,7 @@ Samotné vytvoření požadavku pro stažení \acrshort{json} objektu je vidět 
 Přestože \textit{URLSession} nabízí velmi komplexní řešení síťových požadavků byla by implementace velmi náročná.
 V současné době nabízí na řetězení požadavků pouze \textit{completion blok}, který ale není pro řetězení mnoha požadavků vhodný (časté opakování kódu, zanořování metod).
 
-Strukturování endpointů v základu také není řešené, bylo by tedy potřeba vytvořit novou abstraktní vrstvu.
+Strukturování koncových bodů v základu také není řešené, bylo by tedy potřeba vytvořit novou abstraktní vrstvu.
 Z tohoto důvodu jsem se rozhodl přistoupit ke zanalyzování knihoven třetích stran.
 
 \subsection{Alamofire}
@@ -56,7 +56,7 @@ Jako první knihovnu třetích stran jsem se rozhodl zanalyzovat populární Ala
 Jedná se o síťovací knihovnu, naprogramovanou s využitím \textit{URLSession}.
 Alamofire nabízí oproti \textit{URLSession} moderní \acrshort{api} využívající sílu jazyka Swift, formátování požadavků (\acrshort{json}, \acrshort{url}, \ldots) a také validaci odpovědí serveru.
 
-Alamofire navíc nabízí velmi jednoduchý a intuitivní způsob strukturování endpointů pomocí \textit{Routeru}.
+Alamofire navíc nabízí velmi jednoduchý a intuitivní způsob strukturování koncových bodů pomocí \textit{Routeru}.
 Další velkou výhodou je vysoká znovupoužitelnost.
 Pomocí vlastních pravidel pro serializování odpovědí serveru je možné vytvořit generické požadavky, jejichž odpovědi nebudou prostý text ale už platný Swift objekt.
 Takto serializované objekty lze následně uložit do databáze či používat bez zanesení chyby za běhu aplikace (díky typové kontrole během kompilace).
@@ -65,9 +65,10 @@ Pro samotné požadavky využívají \textit{top-level} metody, které sdílí s
 
 \subsubsection*{Router}
 
-Pro rozsáhlejší projekty poskytuje Alamofire velmi elegantní způsob strukturování endpointů.
-V terminilogii Alamofire se objektu, který endpointy struktuje říká Router.
-Zpravidla se jedná výčtový typ (\textit{enum}), kde jednotlivé endpointy jsou reprezentovány pomocí výčtů.
+Pro rozsáhlejší projekty poskytuje Alamofire velmi elegantní způsob strukturování koncových bodů.
+V terminilogii Alamofire se objektu, který je struktuje říká Router.
+Zpravidla se jedná výčtový typ (\textit{enum}).
+Koncové body jsou v něm reprezentovány pomocí výčtů.
 
 Tyto výčty lze pak předat do Alamofire a tím vytvořit požadavek na server.
 Ukázková implementace Router objektu je vidět v ukázce \ref{code:alamofire-router}.
@@ -89,7 +90,7 @@ Příklad vytvoření požadavku s nakonfigurovaným \textit{SessionManager} obj
 
 Alamofire je velmi rozsáhlou knihovnou pro síťové požadavky.
 Již v základu obsahuje abstraktní vrstvu nad \textit{URLSession}, kterou bych ve své implementaci musel také napsat.
-Pomocí Router objektu lze velmi přehledně a čitelně zapouzdřit jednotlivé endpointy.
+Pomocí Router objektu lze velmi přehledně a čitelně zapouzdřit jednotlivé koncové body.
 Vlastní serializace odpovědí serveru pak umožňuje vysokou znovupoužitelnost bez opakování kódu.
 
 Pro zpracování je nicméně opět dostupný pouze \textit{completion blok}.
@@ -102,8 +103,8 @@ Jako poslední možné řešení síťových požadavků jsem zvážil open sour
 Moya je abstraktní vrstva nad výše zmíněným Alamofire.
 Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy \acrshort{url} adres, parametrů požadavku a dalšího nastavení.
 
-Druhou výhodou je zapouzdřování endpointů do tkzv. \textit{Provider} objektů.
-Na rozdíl od Router objektu zapouzdřuje Provider pouze endpointy se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
+Druhou výhodou je zapouzdřování koncových bodů do tkzv. \textit{Provider} objektů.
+Na rozdíl od Router objektu zapouzdřuje Provider pouze ty se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
 Během kompilace tak lze ověřit, že požadavky, které vyžadují oprávnění vytváří stejný Provider.
 
 \medskip

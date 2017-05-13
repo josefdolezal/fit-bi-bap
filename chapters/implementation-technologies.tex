@@ -58,11 +58,11 @@ Controller vyžaduje v konstruktoru instanci implementující protokol vstupů a
 \acrshort{mvvm} standardně nepoužívá objekt spravující navigaci v aplikaci.
 Implementoval jsem proto další objekt nazvaný Coordinator.
 Jedná se o objekt, který se stará o průběh jedné konkrétní části aplikace (flow).
-Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coordinatoru, vytvoří se nový Coordinator starající se o novou obrazovku a její flow.
+Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coordinatoru, vytvoří se nový Coordinator starající se o novou obrazovku a její životní cyklus.
 Coordinator má také na starosti vytvoření ViewModelu a předání jeho instance Controlleru.
 
-Flow obrazovky se spustí metodou \textit{start}.
-Po ukončení flow (uživatel chce zavřít obrazovku) volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
+Scénář obrazovky se spustí metodou \textit{start}.
+Po ukončení (uživatel chce zavřít obrazovku) volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
 
 S Coordinatorem spolupracuje ViewModel metodou delegate pattern.
 

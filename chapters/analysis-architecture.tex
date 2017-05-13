@@ -7,6 +7,8 @@ V závislosti na výsledku porovnání zvolím ideální architekturu pro svou a
 
 \subsection{\acrshort{mvc}: Model-View-Controller}\label{analyza-mvc}
 Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
+Názvy vrstev se běžně do českého jazyka nepřekládají.
+Jejich významu se věnuji níže.
 
 \subsubsection*{Popis architektury}
 
@@ -16,18 +18,18 @@ Tato architektura rozděluje aplikaci do tří vrstev: Model, View a Controller.
 \end{figure}
 
 \begin{description}
-  \item[Model] reprezentuje perzistentní objekty, které aplikace využívá pro vnitřní logiku a prezentaci dat uživateli.
+  \item[Model] Reprezentuje perzistentní objekty, které aplikace využívá pro vnitřní logiku a prezentaci dat uživateli.
   Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
   Tato vrstva je často reprezentována databází, příkladem mohou být databáze CoreData, Realm nebo SQLite.
   Ukázka \ref{code:mvc-model} prezentuje možnou podobu modelového objektu.
   \swiftcode{code:mvc-model}{Modelový objekt v architektuře \acrshort{mvc}}{assets/code/mvc-model.swift}
 
-  \item[View] je datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
+  \item[View] Datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
   Přestože se View standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
   Na platformě iOS tuto vrstvu reprezentuje framework UIKit vytvořený Applem.
   Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci View.
 
-  \item[Controller] je aplikační vrstva, která na základě vstupů z View aktualizuje a mění Model nebo překresluje View v případě, že zobrazovaná data už nejsou aktuální.
+  \item[Controller] Aplikační vrstva, která na základě vstupů z View aktualizuje a mění Model nebo překresluje View v případě, že zobrazovaná data už nejsou aktuální.
   Jedním z úkolů Controlleru je striktně zamezit přímé interakci mezi View a Modelem.
   Toto oddělení je zavedeno proto, aby View nemuselo znát konkrétní strukturu Modelu a aby Model nemusel obsahovat logiku formátování dat (cena, čas, ...) pro vykreslení.
   Dále se stará o navigaci mezi obrazovkami, síťování a interakci s uživatelem.
