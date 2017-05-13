@@ -9,12 +9,12 @@ Pokud aplikace požadovanou tiskárnu nenalezla, je ze seznamu tiskáren možné
 
 \subsection{Implementace seznamu}
 
-Abych dosáhl uživatelského rozhraní kompatibilního se zařízeními iPhone i iPad, rozhodl jsem se seznam implementovat pomocí CollectionView.
+Abych dosáhl uživatelského rozhraní kompatibilního se zařízeními iPhone i iPad, rozhodl jsem se seznam implementovat pomocí \texttt{CollectionView}.
 Z analýzy vyplynulo, že velmi podobné seznamy budou dostupné na většině obrazovek.
-Rozhodl jsem se tedy zavést novou třídu pokrývající společnou logiku a výchozí nastavení nazvanou BaseCollectionView.
+Rozhodl jsem se tedy zavést novou třídu pokrývající společnou logiku a výchozí nastavení nazvanou \texttt{BaseCollectionView}.
 
-Tato základní třída se stará o barevné sjednocení obrazovek, zobrazování chyb a nastavení View pro prázdné obrazovky.
-Jednotlivé obrazovky pak využívají třídy dědící z BaseCollectionView.
+Tato základní třída se stará o barevné sjednocení obrazovek, zobrazování chyb a nastavení \texttt{View} pro prázdné obrazovky.
+Jednotlivé obrazovky pak využívají třídy dědící z \texttt{BaseCollectionView}.
 
 \subsubsection*{Sekce seznamu}
 
@@ -29,13 +29,13 @@ To požaduje komplexní výpočet a dává prostor mmoha chybám.
 \subsubsection*{Uložené tiskárny}
 
 První sekce zobrazuje tiskárny načtené z lokální databáze.
-Při sestavování seznamu si CollectionView pomocí Delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
+Při sestavování seznamu si \texttt{CollectionView} pomocí Delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
 \texttt{Controller} tedy využije výstup ViewModelu a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
 Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-rows}.
 
 \swiftcode{code:printer-list-number-of-rows}{Konfigurace počtu tiskáren v seznamu}{assets/code/printer-list-number-of-rows.swift}
 
-V momentě kdy CollectionView ví kolik prvků bude zobrazovat, začne vyžadovat jednotlivé položky seznamu.
+V momentě kdy \texttt{CollectionView} ví kolik prvků bude zobrazovat, začne vyžadovat jednotlivé položky seznamu.
 K tomu je opět využit Delegate pattern.
 Pro správné dodržení \acrshort{mvvm} architektury nesmí \texttt{Controller} využívat modelové objekty.
 Pro každou buňku je tedy potřeba vytvořit ViewModel, který ji bude obsluhovat.
@@ -53,7 +53,7 @@ Přesto, že logika stojící za vyhledáním síťových tiskáren není trivi�
 Z pohledu \texttt{Controlleru} totiž logika není podstatná, důležité jsou výstupy z ní.
 ViewModel pro seznam tiskáren jsem proto navrh tak, aby poskytoval obdobné rozhraní jako poskytuje pro uložené tiskárny.
 
-Pro zobrazení druhé sekce seznamu stačí CollectionView předat informaci o počtu síťových tiskáren a buňkám předat odpovídající ViewModely.
+Pro zobrazení druhé sekce seznamu stačí \texttt{CollectionView} předat informaci o počtu síťových tiskáren a buňkám předat odpovídající ViewModely.
 Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
 Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a ViewModely je možné získat metodou \textit{networkPrinterCellViewModel}.
 
@@ -117,7 +117,7 @@ Některé data není potřeba po načtení aktualizovat vůbec, jiná naopak prv
 \bigskip
 
 Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z ViewModelu do \texttt{Controlleru}.
-\texttt{Controller} sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající View.
+\texttt{Controller} sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající \texttt{View}.
 
 Za pomoci UI bindings frameworku ReactiveCocoa jsem napojil signál změn na metodu překreslení seznamu.
 \texttt{Controller} tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle ViewModel signál a tabulka se překreslí.
@@ -153,4 +153,4 @@ Pro interakci s tiskárnou je nutné otevřít její detail.
 Ten uživatel otevře vybráním uložené tiskárny ze seznamu.
 
 Průběh je velmi podobný výběru tiskárny.
-Opět je nutné zpropagovat uživatelskou iterakci z View do Coordinatoru pomocí \texttt{Controlleru} a ViewModelu.
+Opět je nutné zpropagovat uživatelskou iterakci z \texttt{View} do Coordinatoru pomocí \texttt{Controlleru} a ViewModelu.

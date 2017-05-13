@@ -6,7 +6,7 @@ Z alternativních architektur jsem nakonec zvolil Model-View-ViewModel, kterou p
 V závislosti na výsledku porovnání zvolím ideální architekturu pro svou aplikaci.
 
 \subsection{\acrshort{mvc}: Model-View-Controller}\label{analyza-mvc}
-Tato architektura rozděluje aplikaci do tří vrstev: Model, View a \texttt{Controller}.
+Tato architektura rozděluje aplikaci do tří vrstev: Model, \texttt{View} a \texttt{Controller}.
 Názvy vrstev se běžně do českého jazyka nepřekládají.
 Jejich významu se věnuji níže.
 
@@ -24,22 +24,22 @@ Jejich významu se věnuji níže.
   Ukázka \ref{code:mvc-model} prezentuje možnou podobu modelového objektu.
   \swiftcode{code:mvc-model}{Modelový objekt v architektuře \acrshort{mvc}}{assets/code/mvc-model.swift}
 
-  \item[View] Datový objekt viditelný uživatelem. View obsahuje logiku pro vykreslení a interakci s uživatelem.
-  Přestože se View standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
+  \item[View] Datový objekt viditelný uživatelem. \texttt{View} obsahuje logiku pro vykreslení a interakci s uživatelem.
+  Přestože se \texttt{View} standardně používá pro zobrazení modelových objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
   Na platformě iOS tuto vrstvu reprezentuje framework UIKit vytvořený Applem.
-  Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci View.
+  Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci \texttt{View}.
 
-  \item[Controller] Aplikační vrstva, která na základě vstupů z View aktualizuje a mění Model nebo překresluje View v případě, že zobrazovaná data už nejsou aktuální.
-  Jedním z úkolů \texttt{Controlleru} je striktně zamezit přímé interakci mezi View a Modelem.
-  Toto oddělení je zavedeno proto, aby View nemuselo znát konkrétní strukturu Modelu a aby Model nemusel obsahovat logiku formátování dat (cena, čas, ...) pro vykreslení.
+  \item[Controller] Aplikační vrstva, která na základě vstupů z \texttt{View} aktualizuje a mění Model nebo překresluje \texttt{View} v případě, že zobrazovaná data už nejsou aktuální.
+  Jedním z úkolů \texttt{Controlleru} je striktně zamezit přímé interakci mezi \texttt{View} a Modelem.
+  Toto oddělení je zavedeno proto, aby \texttt{View} nemuselo znát konkrétní strukturu Modelu a aby Model nemusel obsahovat logiku formátování dat (cena, čas, ...) pro vykreslení.
   Dále se stará o navigaci mezi obrazovkami, síťování a interakci s uživatelem.
-  Při rozdělení do obrazovek platí pravidlo, že jeden \texttt{Controller} obsluhuje jedno nebo více View.
-  Ke korektnímu vykreslení View využívá libovoné množství modelových objektů.
+  Při rozdělení do obrazovek platí pravidlo, že jeden \texttt{Controller} obsluhuje jedno nebo více \texttt{View}.
+  Ke korektnímu vykreslení \texttt{View} využívá libovoné množství modelových objektů.
   O jednu obrazovku se typicky stará právě jeden \texttt{Controller}, je ale možné jich použít více.
   Zjednodušenou implementaci lze vidět v ukázce \ref{code:mvc-view-controller}.
 \end{description}
 
-Z tohoto shrnutí vyplývá, že \texttt{Controller} je velmi blízce spjat s View. Toto propojení reprezentuje obrázek \ref{fig:massive-mvc}.
+Z tohoto shrnutí vyplývá, že \texttt{Controller} je velmi blízce spjat s \texttt{View}. Toto propojení reprezentuje obrázek \ref{fig:massive-mvc}.
 
 \subsubsection*{Modelový příklad použití}
 
@@ -48,11 +48,11 @@ V \acrshort{mvc} by se architektura chovala takto:
 
 \begin{itemize}
   \item Uživatel v aplikaci klikne na tlačítko \uv{Stáhnout data}.
-  \item Tuto interakci odchytí View a upozorní \texttt{Controller}.
+  \item Tuto interakci odchytí \texttt{View} a upozorní \texttt{Controller}.
   \item \texttt{Controller} na základě upozornění stáhne data a předá je Modelu k uložení.
   \item Model ukládá data a notifikuje \texttt{Controller} o změně.
-  \item \texttt{Controller} aktualizuje View.
-  \item Nastane-li během stahování chyba, \texttt{Controller} vytváří nové View a chybu prezentuje uživateli.
+  \item \texttt{Controller} aktualizuje \texttt{View}.
+  \item Nastane-li během stahování chyba, \texttt{Controller} vytváří nové \texttt{View} a chybu prezentuje uživateli.
 \end{itemize}
 
 \swiftcode{code:mvc-view}{View v architektuře \acrshort{mvc}}{assets/code/mvc-view.swift}
@@ -63,7 +63,7 @@ Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
 
 \begin{itemize}
   \item Model udává, jakým způsobem jsou data uložena,
-  \item View se stará o správné vykreslení předformátovaných dat,
+  \item \texttt{View} se stará o správné vykreslení předformátovaných dat,
   \item \texttt{Controller} se stará o ostatní logiku.
 \end{itemize}
 
@@ -76,8 +76,8 @@ Jako delegát se pak může zaregistrovat na notifikace obejktů, jejichž rozhr
 \acrshort{mvc} je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
 Při tvorbě větších aplikací ale nemusí být vhodné.
 \texttt{Controller} se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
-Z tohoto důvodu se \acrshort{mvc} často přezdívá \uv{Massive View Controller}.
-Kvůli přímému napojení \texttt{Controlleru} na View se při testování jeho chování (behavior testing) musí využít simulátoru mobilního operačního systému.
+Z tohoto důvodu se \acrshort{mvc} často přezdívá \uv{Massive \texttt{View} Controller}.
+Kvůli přímému napojení \texttt{Controlleru} na \texttt{View} se při testování jeho chování (behavior testing) musí využít simulátoru mobilního operačního systému.
 Pro simulátor je navíc nutné naskriptovat uživatelův průchod aplikací, aby bylo možné testy automatizovat.
 
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (\texttt{Controlleru} nezle podvrhnout mock objekty).
@@ -100,7 +100,7 @@ Za účelem zjednodušení \texttt{Controlleru} se ke stávajícím třem vrstv�
 \begin{description}
   \item[ViewModel] je objekt vlastněný \texttt{Controllerem} za pomoci kompozice.
   Pro \texttt{Controller} připravuje naformátované výstupy a poskytuje mu rozhraní pro vstupy.
-  Výstupem se rozumí veškerá data, která jsou potřebná pro sestavení View.
+  Výstupem se rozumí veškerá data, která jsou potřebná pro sestavení \texttt{View}.
   To může být např. datum ve specifickém formátu, cena včetně měny nebo informace o tom, kolik řádků bude obsahovat tabulka na obrazovce.
   Oproti \acrshort{mvc} tedy perzistentní data nejsou viditelná \texttt{Controlleru}, ale pouze ViewModelu.
   Ten je nejdříve připraví pro zobrazení.
@@ -113,7 +113,7 @@ Za účelem zjednodušení \texttt{Controlleru} se ke stávajícím třem vrstv�
 \swiftcode{code:mvvm-view-model}{ViewModel v architektuře \acrshort{mvvm}}{assets/code/mvvm-view-model.swift}
 
 Zodpovědnost \texttt{Controlleru} se zavedením ViewModelu dramaticky snižuje.
-V ideálním případě je \texttt{Controller} zodpovědný pouze za správné sestavení View a napojení zfromátovaných výstupů na něj.
+V ideálním případě je \texttt{Controller} zodpovědný pouze za správné sestavení \texttt{View} a napojení zfromátovaných výstupů na něj.
 Dále pak za odchycení uživatelských interakcí a jejich propagaci do ViewModelu.
 Toto chování zachycuje obrázek \ref{architektura-mvvm}.
 
@@ -127,12 +127,12 @@ Toto chování zachycuje obrázek \ref{architektura-mvvm}.
 Pro porovnání architektury s \acrshort{mvc} lze opět využít scénář pro stažení dat.
 Pro tento scénář by se architektura \acrshort{mvvm} chovala následovně:
 \begin{itemize}
-  \item \texttt{Controller} napojuje výstupy ViewModelu na View a vytváří pravidla pro převod uživatelské interakce na vstupy ViewModelu.
+  \item \texttt{Controller} napojuje výstupy ViewModelu na \texttt{View} a vytváří pravidla pro převod uživatelské interakce na vstupy ViewModelu.
   \item Uživatel v aplikaci klikne na tlačítko \uv{Stáhnout data}.
-  \item View upozorňuje \texttt{Controller} na interakci uživatele, ten automaticky vytváří vstup pro ViewModel.
+  \item \texttt{View} upozorňuje \texttt{Controller} na interakci uživatele, ten automaticky vytváří vstup pro ViewModel.
   \item ViewModel na základě vstupu stahuje data a předává je Modelu.
-  \item Model po uložení notifikuje ViewModel, ten vytváří výstup pro \texttt{Controller}, který nechává překreslit View.
-  \item V případě chyby vytvoří ViewModel chybový výstup, ten se pomocí \texttt{Controlleru} propaguje do View.
+  \item Model po uložení notifikuje ViewModel, ten vytváří výstup pro \texttt{Controller}, který nechává překreslit \texttt{View}.
+  \item V případě chyby vytvoří ViewModel chybový výstup, ten se pomocí \texttt{Controlleru} propaguje do \texttt{View}.
 \end{itemize}
 
 \subsubsection*{Shrnutí} \label{architektura-mvvm-shrnuti}
@@ -140,8 +140,8 @@ Pro tento scénář by se architektura \acrshort{mvvm} chovala následovně:
 Vrstvy mají následující klíčové vlastnosti:
 \begin{itemize}
   \item Model definuje jakým způsobem jsou data uložena a při změně notifikuje ViewModel,
-  \item View vykresluje na obrazovku naformátované výstupy a upozorňuje \texttt{Controller} při interakci uživatele,
-  \item \texttt{Controller} sestavuje hierarchii View, napojuje zformátované výstupy ViewModelu na View a z uživatelské interakce vytváří vstupy pro ViewModel,
+  \item \texttt{View} vykresluje na obrazovku naformátované výstupy a upozorňuje \texttt{Controller} při interakci uživatele,
+  \item \texttt{Controller} sestavuje hierarchii \texttt{View}, napojuje zformátované výstupy ViewModelu na \texttt{View} a z uživatelské interakce vytváří vstupy pro ViewModel,
   \item ViewModel načítá data Modelu. Na základě vstupů z \texttt{Controlleru} nebo změny Modelu generuje výstupy pro \texttt{Controller}.
 \end{itemize}
 
@@ -149,9 +149,9 @@ Oproti \acrshort{mvc} je na tomto příkladu vidět snížení zodpovědnosti \t
 Tato zodpovědnost se přesunula do ViewModelu (viz. ukázka \ref{code:mvvm-view-controller}).
 Na první pohled nemusí být tato změna opodstatněná, protože logika aplikace nezmizela, jen se přesunula.
 Právě to ale umožnilo (nebo minimálně zjednodušilo) způsob, jakým lze logiku testovat.
-ViewModel generuje výstupy na základě vstupů, v testech tedy lze uživatelskou interakci podvrhnout a testovat pouze výstupy (není potřeba vytvářet View ani \texttt{Controller}).
+ViewModel generuje výstupy na základě vstupů, v testech tedy lze uživatelskou interakci podvrhnout a testovat pouze výstupy (není potřeba vytvářet \texttt{View} ani \texttt{Controller}).
 Dodatečně lze otestovat i uživatelské rozhraní.
-Protože logika aplikace je otestována pomocí testů ViewModelu, uživatelské rozhraní už stačí otestovat např. shodou View s referenčním obrázkem.
+Protože logika aplikace je otestována pomocí testů ViewModelu, uživatelské rozhraní už stačí otestovat např. shodou \texttt{View} s referenčním obrázkem.
 
 \swiftcode{code:mvvm-view-controller}{Controller v architektuře \acrshort{mvvm}}{assets/code/mvvm-view-controller.swift}
 
