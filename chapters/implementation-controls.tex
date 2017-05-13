@@ -12,7 +12,7 @@ Dále každý z ovladačů obsahuje tlačítko \uv{Domů}, které zavede hlavu
 \subsection{Pohyb hlavy}
 
 Jelikož jsou prvky tvořeny tlačítky, je pohyb implementovaný pomocí požadavků pro každou interakci zvlášť.
-Controller pro každý stisk vytvoří vstup ViewModelu, ten následně vytváří požadavky na tiskárnu.
+\texttt{Controller} pro každý stisk vytvoří vstup ViewModelu, ten následně vytváří požadavky na tiskárnu.
 
 Požadavek pro posun hlavy je implementovaný genericky parametrizovaný množinou os a směrem.
 Aby UI nebylo zbytečně komplikované, rozhodl jsem uživateli neumožnit explicitně zvolit o jakou vzdálenost se má hlava posunout.

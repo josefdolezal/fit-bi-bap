@@ -7,7 +7,7 @@ Obrazovka se skládá z historie příkazů a vstupu pro nový příkaz.
 
 Jakmile uživatel napíše příkaz a stiskne tlačítko \uv{Odeslat}, vytvoří ViewModel na základě vstupu novou položku v lokální databázi.
 Příkaz je v databázi vytvořen s příznakem \uv{Zpracováván}.
-Na základě vložení ViewModel upozorní Controller, že v historii příkazů proběhla změna a Controller překreslí seznam.
+Na základě vložení ViewModel upozorní \texttt{Controller}, že v historii příkazů proběhla změna a \texttt{Controller} překreslí seznam.
 
 V rámci dodržení architektury \acrshort{mvvm} jsem pro každou položku seznamu vytvořil další ViewModel.
 ViewModel položky seznamu se stará o to, aby byl příkaz proveden.

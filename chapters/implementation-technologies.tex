@@ -18,22 +18,22 @@ V architektuře \acrshort{mvvm} lze jednotlivé části otestovat samostatně.
 K otestování logiky aplikace navíc není potřeba vizuální vrstva aplikace.
 
 Neméně podstatným argumentem je čitelnost kódu.
-Vrstva Controller obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
+Vrstva \texttt{Controller} obsahuje mnohem méně kódu a lze se v něm snáze orientovat.
 ViewModel naopak neobsahuje žádné prvky uživatelského rozhraní a znázorňuje tak pouze způsob, jakým se daná část aplikace chová.
 Jednotlivé vrstvy jsou od sebe striktně odděleny a dodržují princip jedné odpovědnosti \cite{toptal-srp}.
 
 \subsubsection*{Implementace ViewModelu}
 
 V části \ref{analyza-mvvm} kde jsem analyzoval architekturu \acrshort{mvvm} jsem naznačil strategii implementace.
-ViewModel jsem se rozhodl implementovat jako logiku Controlleru, která jako rozhraní nabízí pouze vstupy či výstupy.
+ViewModel jsem se rozhodl implementovat jako logiku \texttt{Controlleru}, která jako rozhraní nabízí pouze vstupy či výstupy.
 
 Vstupem označuji uživatelskou interakci, na základě které je potřeba vyžádat nová data nebo zobrazit jinou obrazovku.
-Výstupem jsou zobrazovaná data, která jsou ViewModelem předformátovaná aby je Controller mohl přímo zobrazit pomocí View vrstvy.
+Výstupem jsou zobrazovaná data, která jsou ViewModelem předformátovaná aby je \texttt{Controller} mohl přímo zobrazit pomocí View vrstvy.
 Jiným výstupem pak může být informace o stavu dat či o jejich počtu (počet položek v seznamu).
 
 Každá obrazovka vlastní svůj ViewModel.
 Pro ten jsou dostupné tři protokoly: \textit{ViewModelInputs}, \textit{ViewModelOutputs} a \textit{ViewModelType}.
-Tyto prokoly jsou konkrétně pojmenovány podle obrazovky, stejně tak ViewModel samotný a také Controller.
+Tyto prokoly jsou konkrétně pojmenovány podle obrazovky, stejně tak ViewModel samotný a také \texttt{Controller}.
 Definice rozhraní je vidět v ukázce \ref{code:viewmodel}.
 
 \swiftcode{code:viewmodel}{Rozhraní objektu ViewModel}{assets/code/viewmodel.swift}
@@ -44,14 +44,14 @@ Návrhem tohoto rozhraní jsem inspiroval v open source aplikaci Kickstarter, do
 
 \subsubsection*{Implementace Controlleru}
 
-Controller při inicializaci vyžaduje instanci ViewModelu.
+\texttt{Controller} při inicializaci vyžaduje instanci ViewModelu.
 Veškerou logiku obrazovky pak na ViewModel během svého životního cyklu deleguje.
 
 Uživatelské vstupy jsou implementovány pomocí funkcí.
-Controller sleduje uživatelskou interakci a volá patřičné funkce ViewModelu.
+\texttt{Controller} sleduje uživatelskou interakci a volá patřičné funkce ViewModelu.
 Výstupy z ViewModelu jsou pomocí UI bindings napojeny na View v metodě \textit{bindViewModel}, která je volána těsně po načtení View vrstvy do paměti.
 
-Controller vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
+\texttt{Controller} vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
 
 \subsubsection*{Coordinator}
 
@@ -59,7 +59,7 @@ Controller vyžaduje v konstruktoru instanci implementující protokol vstupů a
 Implementoval jsem proto další objekt nazvaný Coordinator.
 Jedná se o objekt, který se stará o průběh jedné konkrétní části aplikace (flow).
 Jakmile uživatel vyžaduje přechod na obrazovku mimo rozsah stávajícího Coordinatoru, vytvoří se nový Coordinator starající se o novou obrazovku a její životní cyklus.
-Coordinator má také na starosti vytvoření ViewModelu a předání jeho instance Controlleru.
+Coordinator má také na starosti vytvoření ViewModelu a předání jeho instance \texttt{Controlleru}.
 
 Scénář obrazovky se spustí metodou \textit{start}.
 Po ukončení (uživatel chce zavřít obrazovku) volá Coordinator metodu \textit{completed} kde se uvolní naalokované zdroje.
@@ -80,7 +80,7 @@ Více o těchto knihovnách lze zjistit z oficiální dokumentace \cite{github-r
 Neméně podstatným faktorem byla i velmi dobrá integrace v architektuře \acrshort{mvvm}.
 Pomocí operátorů nad signály lze formátovat vlastnosti modelových objektů (přidání jednotek, standardizace čísel, zástupné texty).
 Takto naformátované signály zaručí, že kdykoliv se aktualizuje modelový objekt, jeho vlastnosti budou správně naformátovány.
-ViewController tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na Modelu aplikovány.
+\texttt{ViewController} tak vždy dostane data ve správném formátu bez ohledu na to, jakým způsobem byly změny na Modelu aplikovány.
 
 \subsection{Síťová vrstva}
 

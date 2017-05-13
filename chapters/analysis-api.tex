@@ -87,7 +87,7 @@ Více o konfiguracích se lze dočíst v dokumentaci \cite{octoprint-api-filecom
 
 Další funkcionalitou, je odstranění souboru.
 Lze k ní přistupovat skrz \inlinestr{api/files/[location]/[filename]}.
-Požadavek je nutné odeslat metodou \textit{DELETE}.
+Požadavek je nutné odeslat metodou \texttt{DELETE}.
 
 \subsection{Připojení tiskárny}
 
@@ -109,7 +109,7 @@ Podobně jako v sekci o manipulaci souborů, i zde je mnoho konfigurací.
 Pro mobilní aplikaci ale nedávají z důvodu komplikovaného nastavení velký smysl.
 
 Zajímavou konfigurací je ale možnost připojit tiskárnu.
-Tento koncový bod se nalézá na \inlinestr{api/connection} a jako metodu je nutné využít \textit{POST}.
+Tento koncový bod se nalézá na \inlinestr{api/connection} a jako metodu je nutné využít \texttt{POST}.
 
 V těle požadavku musí být explicitně zadaný příkaz \textit{connect} a také port pro připojení.
 Hodnota portu musí být jedna z uvedených v seznamu portů.
@@ -139,7 +139,7 @@ Vhodný může být pro obrazovku s přehledem stavu tiskárny.
 \subsubsection*{Ovládání trysky}
 
 Ovládání trysky je nastavitelný koncový bod přístupný na \inlinestr{api/printer/tool}.
-Každý požadavek na tento koncový bod musí být odeslaný metodou \textit{POST}.
+Každý požadavek na tento koncový bod musí být odeslaný metodou \texttt{POST}.
 
 Z důvodu zjednodušení uživatelského rozhraní jsem se rozhodl analyzovat nastavení pro tavení filamentu.
 Toto nastavení vyžaduje explicitně zadat příkaz pro tavení a množství filamentu, které má být nataveno.
@@ -155,7 +155,7 @@ V odpovědi se nachází informace o akuální teplotě.
 \subsubsection*{Ovládání podložky}
 
 Podobně jako u trysky je možné konfigurovat teplotu i u podložky.
-Koncový bod se nachází na \inlinestr{api/printer/bed}, požadavek je nutné vytvořit metodou \textit{POST}.
+Koncový bod se nachází na \inlinestr{api/printer/bed}, požadavek je nutné vytvořit metodou \texttt{POST}.
 
 \subsubsection*{Aktuální stav podložky}
 
@@ -170,7 +170,7 @@ Aby bylo možné manuálně spravovat stav paměťové karty, nabízí OctoPrint
 Pomocí této funkce lze paměťovou kartu připojit, odpojit nebo vynutit načtení dat.
 
 Jednotlivé konfigurace je nutné v požadavku explicitně uvést.
-Každý požadavek musí být metodou \textit{POST}.
+Každý požadavek musí být metodou \texttt{POST}.
 
 \subsubsection*{Aktuální stav paměťové karty}
 
@@ -205,7 +205,7 @@ Dále lze získat také informace o průběhu, tedy kolik procent je hotovo a ja
 
 Ovládání tisku obsahuje mnoho konfigurací.
 Pro mobilní aplikaci jsem zvolil možnost konfigurace pro zrušení tisku.
-Pro zrušení aktuálního tisku lze využít \inlinestr{api/job} s metodou \textit{POST}.
+Pro zrušení aktuálního tisku lze využít \inlinestr{api/job} s metodou \texttt{POST}.
 Do těla požadavku je nutné explicitně vložit příkaz pro zrušení tisku.
 Více informací o konfiguracích je dostupné v dokumentaci \cite{octoprint-docs-job}.
 
@@ -215,7 +215,7 @@ Protože OctoPrint nepokrývá veškeré funkce tiskárny samostatnými konocov�
 
 Tento koncový bod je dostupný na \inlinestr{api/printer/command}.
 Vlastní příkaz se vkládá do těla požadavku.
-Požadavek je nutné vytvořit metodou \textit{POST}.
+Požadavek je nutné vytvořit metodou \texttt{POST}.
 
 Tato funkcionalita je vhodná pro vytvoření obrazovky s vlastní terminálovým emulátorem.
 
@@ -235,7 +235,7 @@ OctoPrint nenabízí samostatný endpokoncový bod pro detail logu, pro zobrazen
 \subsubsection*{Smazání logového souboru}
 
 Z důvodu zvětšujícího se počtu souborů nabízí OctoPrint možnost manuálně mazat logy.
-Mazání je možné pomocí funkce \inlinestr{api/logs/[filename]} metodou \textit{DELETE}.
+Mazání je možné pomocí funkce \inlinestr{api/logs/[filename]} metodou \texttt{DELETE}.
 
 \subsection{Správa slicing profilů}
 

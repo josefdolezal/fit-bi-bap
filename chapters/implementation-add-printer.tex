@@ -9,8 +9,8 @@ Volitelně je možné také přidat url adresu, na které se vyskytuje video str
 Jako u každé aplikace, která přijímá uživatelské vstupy i v mé implementaci je nutné ověřit platnost zadaných údajů.
 Jelikož se jedná o logiku, je validace umístěna ve ViewModelu.
 Text zadaný uživatelem se při každé změně odešle ViewModelu, který všechny vstupy zvaliduje.
-Na základě platnosti kombinace vstupů vyšle ViewModel booleanovskou hodnotu Controlleru.
-Controller pomocí UI bindigs sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
+Na základě platnosti kombinace vstupů vyšle ViewModel booleanovskou hodnotu \texttt{Controlleru}.
+\texttt{Controller} pomocí UI bindigs sváže tuto hodnotu s blokací tlačítka \uv{Přihlásit}. 
 
 Je-li formulář platný, tlačítko je povolené.
 V opačném případě je zablokované a nelze stisknutím spustit jeho interakci.
@@ -30,10 +30,10 @@ ViewModel upozorněný na interakci uživatele načte aktuální hodnoty formul�
 Je-li odpověd od tiskárny pozitivní (status kód odpovědi je v rozmezí 200 až 299), pak se hodnoty uloží do lokální databáze.
 Coordinator je následně upozorněn na ukončení scénáře a obrazovku zavře.
 Díky reaktivnímu přístupu a push-based strategii se rovnou tiskárna zobrazí v seznamu mezi dostupnými k použití.
-ViewModel ani ViewController seznamu nemusí být o výsledku přidání tiskárny nijak notifikovány, o propagaci této informace se postará datová vrstva aplikace.
+ViewModel ani \texttt{ViewController} seznamu nemusí být o výsledku přidání tiskárny nijak notifikovány, o propagaci této informace se postará datová vrstva aplikace.
 
 V případě selhání požadavku je vytvořena chybová hláška.
-Díky reaktivním rozšířením, které jsem vytvořil pro ViewController třídu chybu zobrazit pomocí UI bindings.
+Díky reaktivním rozšířením, které jsem vytvořil pro \texttt{ViewController} třídu chybu zobrazit pomocí UI bindings.
 
 Ukázka \ref{code:add-printer-login-request} zjednodušeně implementuje vytvoření požadavku a následné zpracování odpovědi od tiskárny.
 
