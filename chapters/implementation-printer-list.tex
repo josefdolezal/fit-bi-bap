@@ -29,14 +29,14 @@ To požaduje komplexní výpočet a dává prostor mmoha chybám.
 \subsubsection*{Uložené tiskárny}
 
 První sekce zobrazuje tiskárny načtené z lokální databáze.
-Při sestavování seznamu si CollectionView pomocí delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
+Při sestavování seznamu si CollectionView pomocí Delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
 Controller tedy využije výstup ViewModelu a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
 Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-rows}.
 
 \swiftcode{code:printer-list-number-of-rows}{Konfigurace počtu tiskáren v seznamu}{assets/code/printer-list-number-of-rows.swift}
 
 V momentě kdy CollectionView ví kolik prvků bude zobrazovat, začne vyžadovat jednotlivé položky seznamu.
-K tomu je opět využit delegate pattern.
+K tomu je opět využit Delegate pattern.
 Pro správné dodržení \acrshort{mvvm} architektury nesmí Controller využívat modelové objekty.
 Pro každou buňku je tedy potřeba vytvořit ViewModel, který ji bude obsluhovat.
 Controller si pro řádkový index vyžádá od svého ViewModelu nový ViewModel buňky a ten jí předá.
@@ -84,11 +84,11 @@ Více informací k Bonjour je dostupné na stránkách Apple \cite{apple-bonjour
 
 \subsubsection*{Reaktivní rozšíření}
 
-Standardní knihiovna nabízí pro práci s Bonjour třídy \textit{NetService} a \textit{NetServiceBrowser}, které využívají delegate pattern \cite{apple-netservicebrowser}.
+Standardní knihiovna nabízí pro práci s Bonjour třídy \textit{NetService} a \textit{NetServiceBrowser}, které využívají Delegate pattern \cite{apple-netservicebrowser}.
 Tento přístup mi nevyhovoval, protože vnesl mnoho kódu do ViewModel objektu a zhoršil tím jeho přehlednost a čitelnost.
 Kód byl navíc přímo vázaný na logiku jedné obrazovky což znemožňovalo jeho znovuvyužitelnost.
 
-Rozhodl jsem vytvořit novou třídu \textit{Bonjour}, která místo delegate pattern nabízí reaktivní přístup.
+Rozhodl jsem vytvořit novou třídu \textit{Bonjour}, která místo Delegate pattern nabízí reaktivní přístup.
 Třída je implementována jako \textit{Singleton} \cite{thatthinginswift-singletons} poskytující pouze metodu \textit{searchServices}.
 
 Tato metoda spustí vyhledávání síťových zařízení (které je asynchronní) a vrátí signál, na kterém budou jako hodnoty posílány \textit{BonjourService}, tedy objekty reprezentující tiskárny.

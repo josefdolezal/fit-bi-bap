@@ -140,7 +140,7 @@ Pro tento scénář by se architektura \acrshort{mvvm} chovala následovně:
 Vrstvy mají následující klíčové vlastnosti:
 \begin{itemize}
   \item Model definuje jakým způsobem jsou data uložena a při změně notifikuje ViewModel,
-  \item View vykresluje na obrazovku naformátované výstupy a upozorňuje controller při interakci uživatele,
+  \item View vykresluje na obrazovku naformátované výstupy a upozorňuje Controller při interakci uživatele,
   \item Controller sestavuje hierarchii View, napojuje zformátované výstupy ViewModelu na View a z uživatelské interakce vytváří vstupy pro ViewModel,
   \item ViewModel načítá data Modelu. Na základě vstupů z Controlleru nebo změny Modelu generuje výstupy pro Controller.
 \end{itemize}
@@ -157,7 +157,7 @@ Protože logika aplikace je otestována pomocí testů ViewModelu, uživatelské
 
 Při pohledu na notifikace je vidět, že přibyl typ, který nebyl v \acrshort{mvc} potřeba.
 Jedná se o notifikace směrem z ViewModelu ke Controlleru (ViewModel nemá referenci na Controller, nemůže ho notifikovat přímo).
-Některé výstupy View Modelu je tedy potřeba sledovat v čase a na jejich změny reagovat.
+Některé výstupy ViewModelu je tedy potřeba sledovat v čase a na jejich změny reagovat.
 Toto lze vyřešit pomocí \acrfull{kvo}, které nabízí Apple mezi standardními knihovnami.
 \acrshort{kvo} umožňuje objektu zaregistrovat se na notifikace o změně stavu nějakého libovolného jiného objektu.
 V případě Controlleru by se registroval na změny stavu výstupů ViewModelu.
