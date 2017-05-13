@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{pdfpages}
 \usepackage{graphicx}
-\usepackage{minted}
+\usepackage[chapter]{minted}
 \usepackage{dirtree}
 
 \definecolor{bgcode}{rgb}{0.95,0.95,0.95}
@@ -41,6 +41,10 @@
 		\caption{#3}\label{#2}
 	\end{figure}
 }
+
+% Split list of listings by chapters
+\let\Chapter\chapter
+\def\chapter{\addtocontents{lol}{\protect\addvspace{10pt}}\Chapter}
 
 \department{Katedra informačních technologií}
 \title{iOS aplikace k ovládání 3D tiskáren}
