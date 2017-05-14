@@ -58,7 +58,7 @@ Struktura odpovědí je pro všechny tři požadavky stejná, liší se pouze ob
 \subsubsection*{Nahrávání souborů}
 
 Pomocí \acrshort{api} je možné nejen číst informace o existujících souborech, ale také nahrávat nové.
-Pro nahrávání slouží koncové body \inlinestr{api/files/local} a \inlinestr{api/files/sdcard}.
+Pro nahrávání slouží koncové body \inlinestr{api/files/local} a\\*\inlinestr{api/files/sdcard}.
 Podle zvoleného koncového bodu se soubor uloží buď přímo na zařízení nebo na paměťovou kartu.
 
 Soubor se odesílá v těle požadavku kde je zároveň uveden jeho název.
@@ -86,7 +86,7 @@ Více o konfiguracích se lze dočíst v dokumentaci \cite{octoprint-api-filecom
 \subsubsection*{Smazání souboru}
 
 Další funkcionalitou, je odstranění souboru.
-Lze k ní přistupovat skrz \inlinestr{api/files/[location]/[filename]}.
+Lze k ní přistupovat skrz\\*\inlinestr{api/files/[location]/[filename]}.
 Požadavek je nutné odeslat metodou \texttt{DELETE}.
 
 \subsection{Připojení tiskárny}
@@ -185,7 +185,7 @@ Mezi tyto vlastnosti patří informace o podložce, maximální rychlost tiskov�
 Tiskové profily nejsou v mé implementaci stěžejní funkcí, rozhodl jsem se proto i analýzu nepokrývat podrobně.
 API poskytuje standardní \acrfull{crud} rozhraní pro správu profilů.
 Je tedy možné profily vytvářet, číst, aktualizovat a mazat.
-Rozhraní jsou dostupná na \inlinestr{api/printerprofiles}.
+Rozhraní jsou dostupná na\\*\inlinestr{api/printerprofiles}.
 Jednotlivým požadavkům pak odpovídají \acrshort{http} metody podle \acrshort{crud} standardu.
 
 Více informací je možné získat z oficiální dokumentace \cite{octoprint-docs-printer-profiles}, i ta je ale na toto téma velmi skromná.
