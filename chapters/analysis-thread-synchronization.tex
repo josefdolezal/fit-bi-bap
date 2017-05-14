@@ -27,8 +27,8 @@ První dvě jsou implementovány přímo v dodávaném \acrshort{sdk}, třetí m
 Grand Central Dispatch (zkráceně \acrshort{gcd}) je technologie vyvinutá společností Apple přinášející optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
 \acrshort{gcd} je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
 
-Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \textit{DispatchQueue}.
-DispatchQueue je implementována jako \texttt{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
+Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \texttt{DispatchQueue}.
+\texttt{DispatchQueue} je implementována jako \texttt{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
 Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to aby byly spuštěny ve správném pořadí.
 V závislosti na konfiguraci pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
 
@@ -64,22 +64,22 @@ To by vedlo ke snížení výkonu aplikace a špatné uživatelské zkušenosti.
 
 Přestože \acrshort{gcd} je velmi zajímavá abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
 Mezi jednotkami práce nelze vyvářet závislosti či je řetězit.
-Tuto možnost ale nábízí \textit{Foundation} framework pomocí \textit{NSOperationQueue}.
+Tuto možnost ale nábízí \texttt{Foundation} framework pomocí \texttt{OperationQueue}.
 
-\subsection{NSOperationQueue a NSOperation}
+\subsection{OperationQueue a Operation}
 
-NSOperationQueue a NSOperation je abstrakce nad metodou \acrshort{gcd} zmíněnou výše.
+\texttt{OperationQueue} a \texttt{Operation} je abstrakce nad metodou \acrshort{gcd} zmíněnou výše.
 Toto \acrshort{api} je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
 Hlavním rozdílem oproti \acrshort{gcd} je vyloučení pojmu \texttt{vlákno}.
-Jednotky práce nejsou nadále reprezentovány pomocí \texttt{first class} funkcí, ale nově pomocí instancí tříd \textit{NSOperation} o jejichž správu se stará \textit{NSOperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
+Jednotky práce nejsou nadále reprezentovány pomocí \texttt{first class} funkcí, ale nově pomocí instancí tříd \texttt{Operation} o jejichž správu se stará \texttt{OperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
 
-\subsubsection*{NSOperation}
+\subsubsection*{Operation}
 
 Pro reprezentaci jednotek práce se standardní funkce v \acrshort{gcd} nejevily jako dostatečné.
-S představením NSOperationQueue, je ale nově možné nad opakovanými jednotkami práce zakomponovat abstrakci pomocí tříd.
-Toho lze docílit pomocí vytváření vlastních tříd dědících od NSOperation.
+S představením \texttt{OperationQueue}, je ale nově možné nad opakovanými jednotkami práce zakomponovat abstrakci pomocí tříd.
+Toho lze docílit pomocí vytváření vlastních tříd dědících od \texttt{Operation}.
 
-NSOperation představuje samostatnou jednotku práce (operaci).
+\texttt{Operation} představuje samostatnou jednotku práce (operaci).
 Jedná se o abstraktní třídu zajišťující \texttt{thread-safe} přístup ke správě stavu, priority a závislostí.
 
 Jako úkol lze chápat například jednotlivé síťové požadavdy, zpracování vstupů a uživatele a jejich perzistence nebo komplexní výpočty.
@@ -96,17 +96,17 @@ Oproti \acrshort{gcd} má objektový přístup výhodu nejen v přehlednější 
   Oproti GCD, kde úkol, který se začal zpracovávat už nebylo možné zastavit, lze například do ovládání operací zapojit uživatele.
 \end{description}
 
-\subsubsection*{NSOperationQueue}
+\subsubsection*{OperationQueue}
 
 Obdobně jako GCD, je i zde potřeba určit kde a kdy se bude práce vykonávat.
-Pro tento účel slouží fronta NSOperationQueue.
+Pro tento účel slouží fronta \texttt{OperationQueue}.
 Tato fronta je implementována jako prioritní.
 Tedy v momentě kdy je vložena operace s vyšší prioritou, bude vykonána dříve než stávající operace s nízkou prioritou (pokud to její závislosti dovolí).
 Z tohoto odůvodu není zaručeno kdy se jednotlivé operace spustí.
 
 Základní vytvoření operace a vložení do fronty je vidět na ukázce \ref{code:operation-queue-demonstration}.
 
-\swiftcode{code:operation-queue-demonstration}{NSOperationQueue: Vytvoření fronty s operacemi}{assets/code/operation-queue-demonstration.swift}
+\swiftcode{code:operation-queue-demonstration}{OperationQueue: Vytvoření fronty s operacemi}{assets/code/operation-queue-demonstration.swift}
 
 \subsubsection*{Prioritizace úkolů}
 
@@ -115,10 +115,10 @@ V takovém případě se vždy jako první vykonají operace s vyšší priorito
 
 \subsubsection*{Quality of Service}
 
-Jednou z nejsilněších stránek NSOperationQueue je abstrakce front nad vlákny (tedy celého GCD).
+Jednou z nejsilněších stránek \texttt{OperationQueue} je abstrakce front nad vlákny (tedy celého GCD).
 V nastavení fronty lze zvolit stejně jako u \acrshort{gcd} výchozí QoS.
 Všechny operace pak budou vyžívat právě tuto prioritu.
-Oproti \acrshort{gcd} má však NSOperationQueue výhodu, že nepracuje pouze s jednou frontou.
+Oproti \acrshort{gcd} má však \texttt{OperationQueue} výhodu, že nepracuje pouze s jednou frontou.
 
 To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvářet více front.
 V závislosti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
@@ -131,7 +131,7 @@ Nejčastěji je tento princip spojován s programováním uživatelského rozhra
 
 Myšlenka reaktivního programování je nepřistupovat k datům jako stálým hodnotám, ale jako k proudu (streamu) hodnot v konkrétní čas.
 Implementací existuje více, např. Promise \cite{slaks-promise}, Callback \cite{yld-callback} či funkcionálně reaktivní programování.
-V analýze jsem zabýval pouze funkcionálně reaktivním programováním, konkrétně imlementací v knihovně \textit{ReactiveCocoa}.
+V analýze jsem zabýval pouze funkcionálně reaktivním programováním, konkrétně imlementací v knihovně \texttt{ReactiveCocoa}.
 
 \subsubsection*{Funkcionálně reaktivní programování -- \acrshort{frp}}
 
@@ -142,7 +142,7 @@ Je-li potřeba signál změnit, je nutné vytvořit nový signál a ten použív
 
 Signál může reprezentovat libovolnou událost v aplikaci: stisknutí tlačítka, síťový požadavek, změny hardware.
 Hodnota je v signálu dostupná pouze ve chvíli, kdy je signálem poslána a doručena objektům, které se zaregistrovali o její příjem.
-Těmto objektům se v terminologi ReactiveCocoa říká \textit{Observer}.
+Těmto objektům se v terminologi \texttt{ReactiveCocoa} říká \texttt{Observer}.
 Signály tedy nepodporují přímý přístup k hodnotám.
 
 Přestože se absence přímého přístupu může zdát jako velké negativum, v praxi to není žádný problém.
@@ -156,36 +156,36 @@ Vytvoření signálu je vidět v ukázce \ref{code:rac-signal}.
 \subsubsection*{Hot a Cold signály}
 
 Z ukázky \ref{code:rac-signal} je vidět, že hodoty prochází signálem okamžitě.
-Zde nastává problém ve chvíli, kdy se Observer o přijímání hodnot zaregistruje až po té, co nějaké hodnoty už signálem proběhly.
-V ReactiveCocoa jsou proto dva typy signálů.
+Zde nastává problém ve chvíli, kdy se \texttt{Observer} o přijímání hodnot zaregistruje až po té, co nějaké hodnoty už signálem proběhly.
+V \texttt{ReactiveCocoa} jsou proto dva typy signálů.
 
-Hot signál reprezentovaný třídou Signal odesílá hodnoty okamžitě a neudržuje jejich historii.
-Pokud se Observer zaregistruje pozdě, hodnotu nikdy neobdrží.
+\texttt{Hot} signál reprezentovaný třídou \texttt{Signal} odesílá hodnoty okamžitě a neudržuje jejich historii.
+Pokud se \texttt{Observer} zaregistruje pozdě, hodnotu nikdy neobdrží.
 U síťového požadavku by se mohlo stát, že přijde odpověď od serveru, ale nebude zpracována.
 Tento typ se tedy využívá v částech programu, kde absence některých hodnot nezpůsobí nekonzistenci.
 
-Druhým typem signálu je Cold signál reprezentovaný třídou \textit{SignalProducer}.
-Tato třída odesílá hodnoty až ve chvíli, kdy se o ně nějaký Observer přihlásí.
-Tomuto Observeru navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy dříve jak je vidět v ukázce \ref{code:rac-signalproducer}.
+Druhým typem signálu je \texttt{Cold} signál reprezentovaný třídou \texttt{SignalProducer}.
+Tato třída odesílá hodnoty až ve chvíli, kdy se o ně nějaký \texttt{Observer} přihlásí.
+Tomuto \texttt{Observeru} navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy dříve jak je vidět v ukázce \ref{code:rac-signalproducer}.
 To je ideální přístup pro manipulaci s daty či síťové požadavky.
 
 \swiftcode{code:rac-signalproducer}{Vytvoření Cold signálu}{assets/code/rac-signalproducer.swift}
 
 \subsubsection*{Operátory nad signály}
 
-Protože signály jsou konstantní a jejich hodnotu nelze editovat, nabízí ReactiveCocoa operátory nad signály.
+Protože signály jsou konstantní a jejich hodnotu nelze editovat, nabízí \texttt{ReactiveCocoa} operátory nad signály.
 Pomocí těchto operátorů je možné vytvořit nový signál stejného typu, jehož hodnota vychází z původní hodnoty libovolnou úpravou.
 
 Tyto operátory přejímají názvy z teorie funkcionálního programování.
-Dostupné jsou tedy operátory \textit{map}, \textit{filter}, \textit{reduce} a další.
+Dostupné jsou tedy operátory \texttt{map}, \texttt{filter}, \texttt{reduce} a další.
 
 Pomocí rozšíření tříd dostupných v jazyku Swift je také možné dělat vlastní operátory.
 
 \subsubsection*{Synchronizace vláken}
 
 Pomocí signálů lze jednoduše zařídit synchronizaci vláken.
-K tomu jsou dostupné knihovní funkce \textit{flatMap}, \textit{combineLatest}, \textit{merge} a další.
+K tomu jsou dostupné knihovní funkce \texttt{flatMap}, \texttt{combineLatest}, \texttt{merge} a další.
 Signály mohou vzniknout na různých vláknech, knihovna se ale stará o to, aby k signálům bylo přistupováno vždy právě z jednoho vlákna.
-Každý Observer si také může zvolit, na jakém vlákně mu budou hodnoty předávány.
+Každý \texttt{Observer} si také může zvolit, na jakém vlákně mu budou hodnoty předávány.
 
-Více informací ke knihovně RactiveCocoa a jejímu využití v reaktivním programování je dostupné na její GitHub stránce \cite{github-reactivecocoa}.
+Více informací ke knihovně \texttt{ReactiveCocoa} a jejímu využití v reaktivním programování je dostupné na její GitHub stránce \cite{github-reactivecocoa}.

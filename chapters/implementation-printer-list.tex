@@ -30,7 +30,7 @@ To požaduje komplexní výpočet a dává prostor mmoha chybám.
 
 První sekce zobrazuje tiskárny načtené z lokální databáze.
 Při sestavování seznamu si \texttt{CollectionView} pomocí Delegate pattern nejdříve vyžádá počet prvků pro tuto sekci.
-\texttt{Controller} tedy využije výstup \texttt{ViewModelu} a vrátí hodnotu jeho proměnné nazvané \textit{storedPrintersCount}.
+\texttt{Controller} tedy využije výstup \texttt{ViewModelu} a vrátí hodnotu jeho proměnné nazvané \texttt{storedPrintersCount}.
 Implementace této metody je vidět v ukázce \ref{code:printer-list-number-of-rows}.
 
 \swiftcode{code:printer-list-number-of-rows}{Konfigurace počtu tiskáren v seznamu}{assets/code/printer-list-number-of-rows.swift}
@@ -55,7 +55,7 @@ Z pohledu \texttt{Controlleru} totiž logika není podstatná, důležité jsou 
 
 Pro zobrazení druhé sekce seznamu stačí \texttt{CollectionView} předat informaci o počtu síťových tiskáren a buňkám předat odpovídající \texttt{ViewModely}.
 Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
-Počet síťových tiskáren je uložen v proměnné \textit{networkPrintersCount} a \texttt{ViewModely} je možné získat metodou \textit{networkPrinterCellViewModel}.
+Počet síťových tiskáren je uložen v proměnné \texttt{networkPrintersCount} a \texttt{ViewModely} je možné získat metodou \texttt{networkPrinterCellViewModel}.
 
 \subsection{Automatické nalezení tiskáren}
 
@@ -69,7 +69,7 @@ V případě, že je zařízení s nainstalovanou aplikací připojeno ke stejn�
 Síťové tiskárny jsou v aplikaci jako druhá část seznamu tiskáren.
 K jejich načtení a aktualizaci nemusí uživatel provádět žádnou akci, stačí aplikaci zapnout.
 
-Aplikace pomocí technologie \textit{Bonjour} prozkoumá lokální síť a uživateli zobrazí dostupná zařízení.
+Aplikace pomocí technologie \texttt{Bonjour} prozkoumá lokální síť a uživateli zobrazí dostupná zařízení.
 Rozhodne-li se uživatel přidat síťovou tiskárnu, jejím výběrem otevře obrazovku pro přihlášení.
 Na obrazovce jsou předvyplněné údaje, které aplikace o tiskárně zjistila.
 Konkrétně se jedná o její síťový název a adresu s portem.
@@ -84,14 +84,14 @@ Více informací k Bonjour je dostupné na stránkách Apple \cite{apple-bonjour
 
 \subsubsection*{Reaktivní rozšíření}
 
-Standardní knihiovna nabízí pro práci s Bonjour třídy \textit{NetService} a \textit{NetServiceBrowser}, které využívají Delegate pattern \cite{apple-netservicebrowser}.
+Standardní knihiovna nabízí pro práci s Bonjour třídy \texttt{NetService} a \texttt{NetServiceBrowser}, které využívají Delegate pattern \cite{apple-netservicebrowser}.
 Tento přístup mi nevyhovoval, protože vnesl mnoho kódu do \texttt{ViewModel} objektu a zhoršil tím jeho přehlednost a čitelnost.
 Kód byl navíc přímo vázaný na logiku jedné obrazovky což znemožňovalo jeho znovuvyužitelnost.
 
-Rozhodl jsem vytvořit novou třídu \textit{Bonjour}, která místo Delegate pattern nabízí reaktivní přístup.
-Třída je implementována jako \textit{Singleton} \cite{thatthinginswift-singletons} poskytující pouze metodu \textit{searchServices}.
+Rozhodl jsem vytvořit novou třídu \texttt{Bonjour}, která místo Delegate pattern nabízí reaktivní přístup.
+Třída je implementována jako \texttt{Singleton} \cite{thatthinginswift-singletons} poskytující pouze metodu \texttt{searchServices}.
 
-Tato metoda spustí vyhledávání síťových zařízení (které je asynchronní) a vrátí signál, na kterém budou jako hodnoty posílány \textit{BonjourService}, tedy objekty reprezentující tiskárny.
+Tato metoda spustí vyhledávání síťových zařízení (které je asynchronní) a vrátí signál, na kterém budou jako hodnoty posílány \texttt{BonjourService}, tedy objekty reprezentující tiskárny.
 Uvnitř třídy nejprve proběhne nalezení všech dostupných hostname (názvů síťových zařízení).
 Ve chvíli kdy systém ohlásí, že prohledal celou síť, spustí se překlad hostname na IP adresu.
 
@@ -119,7 +119,7 @@ Některé data není potřeba po načtení aktualizovat vůbec, jiná naopak prv
 Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z \texttt{ViewModelu} do \texttt{Controlleru}.
 \texttt{Controller} sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající \texttt{View}.
 
-Za pomoci \texttt{UI bindings} frameworku ReactiveCocoa jsem napojil signál změn na metodu překreslení seznamu.
+Za pomoci \texttt{UI bindings} frameworku \texttt{ReactiveCocoa} jsem napojil signál změn na metodu překreslení seznamu.
 \texttt{Controller} tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle \texttt{ViewModel} signál a tabulka se překreslí.
 Pro překreslení se využívá stejný postup jako při iniciálním načtení, nehrozí proto problém s čátečnou nekonzistencí.
 Výsledkem je, že uživatel vidí na obrazovce vždy aktuální data.

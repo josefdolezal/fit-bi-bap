@@ -3,15 +3,15 @@
 Pro zakomponování knihoven třetích stran jsem se rozhodl využít správce závislostí.
 Pomocí správce závislostí je možné jednoduše udržovat knihovny aktuální či s projektem svázat konkrétní verze knihoven.
 Při analyzování nástrojů na správu závislostí jsem se zabýval dvěma nejpoužívanějšími \cite{shashikantjagtap-swift-dependency-management}.
-Prvním nástrojem jsou \textit{CocoaPods} \cite{cocoapods-about}, open source nástroj řízený komunitou.
-Druhým nástrojem je \textit{Carthage} \cite{github-carthage}, vytvořený společností GitHub a nyní vedený jako open source.
+Prvním nástrojem jsou \texttt{CocoaPods} \cite{cocoapods-about}, open source nástroj řízený komunitou.
+Druhým nástrojem je \texttt{Carthage} \cite{github-carthage}, vytvořený společností GitHub a nyní vedený jako open source.
 
 \subsection{CocoaPods}
 
-CocoaPods je nástroj s rozhraním pro příkazovou řádku, který umožňuje spravovat závislosti pro Xcode projekty.
+\texttt{CocoaPods} je nástroj s rozhraním pro příkazovou řádku, který umožňuje spravovat závislosti pro Xcode projekty.
 Základem jsou takzvané \texttt{Pods}, tedy balíčky závislostí.
 Tyto balíčky může uživatel integrovat do svého projektu pomocí souboru \texttt{Podfile}, do kterého vypíše seznam seznam závislostí.
-CocoaPods následně závislosti stáhne a vytvoří pracovní \texttt{workspace}, do kterého závislosti nalinkuje.
+\texttt{CocoaPods} následně závislosti stáhne a vytvoří pracovní \texttt{workspace}, do kterého závislosti nalinkuje.
 Pro následné programování pak uživatel využívá nový workspace místo původního souboru projektu.
 
 Nevýhoda tohoto přístupu je, že jsou staženy přímo zdrojové kódy závislostí a ty jsou připojeny k projektu.
@@ -21,10 +21,10 @@ To má za následek snížení rychlosti vývoje.
 
 \subsection{Carthage}
 
-Druhým analyzovaným nástrojem je Carthage.
-Obdobně jako Cocoapods nabízí rozhraní příkazové řádky.
+Druhým analyzovaným nástrojem je \texttt{Carthage}.
+Obdobně jako \texttt{CocoaPods} nabízí rozhraní příkazové řádky.
 Hlavním rozdílem je způsob integrace.
-Carthage žádným způsobem není integrován do projektu jako takového.
+\texttt{Carthage} žádným způsobem není integrován do projektu jako takového.
 Jedinou funkcí tohoto správce závislostí je stáhnout a zkompilovat zdrojové kódy požadovaných závislostí.
 Uživatel následně musí sám knihovny do projektu naimportovat.
 

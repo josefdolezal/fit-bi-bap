@@ -49,7 +49,7 @@ Veškerou logiku obrazovky pak na \texttt{ViewModel} během svého životního c
 
 Uživatelské vstupy jsou implementovány pomocí funkcí.
 \texttt{Controller} sleduje uživatelskou interakci a volá patřičné funkce \texttt{ViewModelu}.
-Výstupy z \texttt{ViewModelu} jsou pomocí \texttt{UI bindings} napojeny na \texttt{View} v metodě \textit{bindViewModel}, která je volána těsně po načtení \texttt{View} vrstvy do paměti.
+Výstupy z \texttt{ViewModelu} jsou pomocí \texttt{UI bindings} napojeny na \texttt{View} v metodě \texttt{bindViewModel}, která je volána těsně po načtení \texttt{View} vrstvy do paměti.
 
 \texttt{Controller} vyžaduje v konstruktoru instanci implementující protokol vstupů a výstupů, nikoli konkrétní třídu.
 
@@ -68,12 +68,12 @@ S \texttt{Coordinatorem} spolupracuje \texttt{ViewModel} metodou Delegate patter
 
 \subsection{Synchronizace vláken}
 
-Pro synchronizaci vláken jsem se rozhodl použít knihovny ReactiveCocoa a ReactiveSwift, tedy reaktivní přístup.
+Pro synchronizaci vláken jsem se rozhodl použít knihovny \texttt{ReactiveCocoa} a \texttt{ReactiveSwift}, tedy reaktivní přístup.
 Díky těmto knihovnám lze jednoduše tvořit závislosti asynchronních operací.
 
-S využitím knihovny ReactiveCocoa od verze 5.0 lze navíc využít tkzv. \texttt{UI bindings}.
+S využitím knihovny \texttt{ReactiveCocoa} od verze 5.0 lze navíc využít tkzv. \texttt{UI bindings}.
 Ty zaručují, že hodnoty signálů jsou vždy zpracovány na hlavním vlákně a to i v momentě, kdy jsou odeslány z vlákna v pozadí.
-ReactiveSwift pak zaručuje konzistenci dat mezi vlákny.
+\texttt{ReactiveSwift} pak zaručuje konzistenci dat mezi vlákny.
 Dohromady tak tyto knihovny zamezují vzniku \texttt{race condition} za běhu aplikace.
 Více o těchto knihovnách lze zjistit z oficiální dokumentace \cite{github-reactiveswift} a \cite{github-reactivecocoa}.
 
@@ -84,73 +84,73 @@ Takto naformátované signály zaručí, že kdykoliv se aktualizuje modelový o
 
 \subsection{Síťová vrstva}
 
-Síťovou vrstvu jsem se zpočátku rozhodl implementovat knihovnou Alamofire.
+Síťovou vrstvu jsem se zpočátku rozhodl implementovat knihovnou \texttt{Alamofire}.
 Důvodem byla snazší implementace a integrace do aplikace.
-Protože nemá Alamofire striktně danou strukturu koncových bodů, bylo jednoduché implementovat dynamickou URL tiskárny.
+Protože nemá \texttt{Alamofire} striktně danou strukturu koncových bodů, bylo jednoduché implementovat dynamickou URL tiskárny.
 
 Chybějící podpora reaktivního programování ale velmi brzy negativně zasáhla běh aplikace.
-K synchronizaci vláken jsem nemohl využít ReactiveSwift a aplikace byla zatížena množstvím chyb vznikajících při vykonávání síťových požadavků a následné serializaci dat.
+K synchronizaci vláken jsem nemohl využít \texttt{ReactiveSwift} a aplikace byla zatížena množstvím chyb vznikajících při vykonávání síťových požadavků a následné serializaci dat.
 
-Z tohoto důvodu jsem se rozhodl využít knihovny Moya, která nabízí reaktivní rozšíření a je kompatibilní s ReactiveSwift.
+Z tohoto důvodu jsem se rozhodl využít knihovny \texttt{Moya}, která nabízí reaktivní rozšíření a je kompatibilní s \texttt{ReactiveSwift}.
 
-Veškeré síťové požadavky nakonec využívají knihovnu Moya, s jejíž implementací chyby s vlákny vymizely.
+Veškeré síťové požadavky nakonec využívají knihovnu \texttt{Moya}, s jejíž implementací chyby s vlákny vymizely.
 
 \subsubsection*{Implementace Provider objektu}
 
 Při implementaci jsem se neobešel se standardními objekty, které jsou běžné potřebné.
-Provider objekt předimplementovaný v knihovně předpokládá, že adresa vzdáleného serveru je známá již během kompilace a neumožňuje ji zadat za běhu programu.
-Z tohoto důvodu jsem také nemohl využít standardní definici koncových bodů pomocí TargetType protokolu, který URL vyžaduje staticky.
+\texttt{Provider} objekt předimplementovaný v knihovně předpokládá, že adresa vzdáleného serveru je známá již během kompilace a neumožňuje ji zadat za běhu programu.
+Z tohoto důvodu jsem také nemohl využít standardní definici koncových bodů pomocí \texttt{TargetType} protokolu, který URL vyžaduje staticky.
 
-Rozhodl jsem vytvořit podtřídu \textit{DynamicProvider}, která v konstruktoru přijme URL serveru.
-Místo využití protokolu TargetType jsem vytvořil nový protokol TargetPart, který má stejné rozhraní, jen nevyžaduje URL serveru.
+Rozhodl jsem vytvořit podtřídu \texttt{DynamicProvider}, která v konstruktoru přijme URL serveru.
+Místo využití protokolu \texttt{TargetType} jsem vytvořil nový protokol \texttt{TargetPart}, který má stejné rozhraní, jen nevyžaduje URL serveru.
 
-Má implementace Provider objektu využívá tento nový protokol pro vytvoření požadavku.
-Abych mohl využít třídu, od které můj objekt DynamicTarget dědí, musel jsem ještě vytvořit strukturu DynamicTarget, která implementuje rozhraní TargetType a využaduje tedy URL serveru.
-Tu jí ale může poskytnout v konstruktutoru DynamicProvider spolu s TargetPart koncovým bodem.
+Má implementace \texttt{Provider} objektu využívá tento nový protokol pro vytvoření požadavku.
+Abych mohl využít třídu, od které můj objekt \texttt{DynamicTarget} dědí, musel jsem ještě vytvořit strukturu \texttt{DynamicTarget}, která implementuje rozhraní \texttt{TargetType} a využaduje tedy URL serveru.
+Tu jí ale může poskytnout v konstruktutoru \texttt{DynamicProvider} spolu s \texttt{TargetPart} koncovým bodem.
 
 Tím jsem dosáhl stejného rozhraní pro požadavky jako má nadtřída, jediným rozdílem je možnost dodat URL až při běhu aplikace.
 
 \subsubsection*{Síťové požadavky mimo OctoPrint}
 
 Pro umožnění zobrazení video streamu jsem opět potřeboval dynamickou URL, ale tentokrát pro každý požadavek (uživatel zadává pouze URL, nejsou žádné koncové body).
-Tato implementace nebyla složitá, využil jsem standardních tříd knihovny Moya.
+Tato implementace nebyla složitá, využil jsem standardních tříd knihovny \texttt{Moya}.
 Vytvořil jsem nový objekt spravující koncové body a v něm definoval pouze jeden bod \texttt{get}.
 Ten pro zkonstruování využaduje koncovou URL a chová se tedy velmi podobně jako kdyby URL byla známá už v čase kompilace.
 
 Při využití je ale nutné pro každý požadavek explicitně URL zadat.
-To je krok který v DynamicProvider není nutný.
+To je krok který v \texttt{DynamicProvider} není nutný.
 
 \subsection{Datová vrstva}
 
-Jak vyplývá z části \ref{analyza-datova-vrstva} kde popisuji datovou vrstvu, rozhodl jsem se využít knihovnu Realm.
+Jak vyplývá z části \ref{analyza-datova-vrstva} kde popisuji datovou vrstvu, rozhodl jsem se využít knihovnu \texttt{Provider}.
 Díky jejím reaktivním rozšířením se skvěle hodí nejen k architektuře, ale i k síťové vrstvě.
 
-Při implementaci jsem dospěl k závěru, že standardní cestou využití Realmu opakuji spoustu kódu.
-Vytvořil jsem proto rozšíření pro ReactiveCocoa a její Cold signál.
+Při implementaci jsem dospěl k závěru, že standardní cestou využití \texttt{Provideru} opakuji spoustu kódu.
+Vytvořil jsem proto rozšíření pro \texttt{ReactiveCocoa} a její \texttt{Cold} signál.
 
-Pro SignalProducer, který jako hodnotu nese Realm objekt jsem přidal dvě metody.
-První z nich, \textit{fetch(collectionOf:)} umožňuje z databáze načíst kolekci.
-Druhou metodou je \textit{fetch(classType:, forPrimaryKey:)}.
+Pro \texttt{SignalProducer}, který jako hodnotu nese \texttt{Provider} objekt jsem přidal dvě metody.
+První z nich, \texttt{fetch(collectionOf:)} umožňuje z databáze načíst kolekci.
+Druhou metodou je \texttt{fetch(classType:, forPrimaryKey:)}.
 Ta vybere z databáze prvek podle primárního klíče.
 Využití metod je vidět v ukázce \ref{code:realm-extensions}.
 
 \swiftcode{code:realm-extensions}{Reaktivní rozšíření pro Realm}{assets/code/realm-extensions.swift}
 
 Díky těmto rozšířením jsem odstranil spoustu duplicitního kódu, navíc jsem sjednotil rozhraní využívaných knihoven.
-Mohl jsem díky tomu synchronizovat vlákna síťových volání a datové vrstvy pomocí ReactiveCocoa.
+Mohl jsem díky tomu synchronizovat vlákna síťových volání a datové vrstvy pomocí \texttt{ReactiveCocoa}.
 
 \subsection{Grafické prvky}
 
-Pro ilustrace a ikony v aplikaci jsem se rozhodl využít framework Iconic.
+Pro ilustrace a ikony v aplikaci jsem se rozhodl využít framework \texttt{Iconic}.
 Oproti zmíněnému Assets catalog v mém řešení výkon aplikace nezhoršuje, naopak poskytuje velmi snadným způsobem desítky ikon v jediném fontovém souboru.
 
 Jako grafický font jsem vybral FontAwesome verze 4.7 \cite{fontawesome-web}.
 Grafický font jsem využil pro ikony záložek na obrazovce detailu tiskárny ale také pro ikony, které nejsou běžně v systému dostupné.
 
 Protože pomocí grafického fontu není možné vytvořit ikonu aplikaci, využil jsem také Assets catalog.
-Využit je ale právě pro ikonu aplikace, ostatní potřebné ilustrace poskytuje Iconic.
+Využit je ale právě pro ikonu aplikace, ostatní potřebné ilustrace poskytuje \texttt{CoreData}.
 
-Iconic v současné době není podporován správcem závislostí, který jsem si zvolil.
+\texttt{CoreData} v současné době není podporován správcem závislostí, který jsem si zvolil.
 Z tohoto důvodu jsem potřebné soubory pomocí frameworku vygeneroval zvlášť a následně je do projektu vložil.
 
 Současně jsem také nabídl autorovi frameworku pomoc s podporou pro jiné cesty distribuce.
@@ -162,11 +162,11 @@ Více informací o tomto tématu je dostupné na stránce projektu \cite{github-
 Při výběru správce závislostí jsem své nároky směřoval především na ovlivnění kompilace aplikace.
 V konečném důsledku pracují oba zanalyzované nástroje podobně, mají ale rozdílný přístup k linkování knihoven.
 
-Přestože nastavení CocoaPods je mnohem snazší, z mého pozorování vyplynulo, že negativně ovlivňuje čas kompilace.
+Přestože nastavení \texttt{CocoaPods} je mnohem snazší, z mého pozorování vyplynulo, že negativně ovlivňuje čas kompilace.
 To je způsobeno častou kompilací jednotlivých knihoven a to i v případě, že jejich zdrojový kód nebyl upraven.
-Dále jsem vypozoroval, že prostředí Xcode je s CocoaPods méně stabilní, přestává fungovat našeptávání a zvýrazňování syntaxe.
+Dále jsem vypozoroval, že prostředí Xcode je s \texttt{CocoaPods} méně stabilní, přestává fungovat našeptávání a zvýrazňování syntaxe.
 
-Z těchto důvodů jsem zvolil Carthage.
+Z těchto důvodů jsem zvolil \texttt{Carthage}.
 Počáteční nastavení bylo nepatrně složitější z důvodu ručního integrování knihoven do projektu.
 Integrují se ale předem zkompilované knihovny, čas jednotlivých buildů aplikace se tedy nezvyšuje.
 Linkování zkompilovaných knihoven má pravděpodobně za následek lepší integraci s Xcode.
@@ -174,6 +174,6 @@ Za dobu psaní práce se stalo jen výjimečně, že by se Xcode nečekaně ukon
 Zlepšilo se také zvýrazňování syntaxe.
 To fungovalo během psaní celé práce bez problému.
 
-Výměnou za zlepšené fungování při lokálním vývoji byly problémy při kompilaci na CI serveru.
+Výměnou za zlepšené fungování při lokálním vývoji byly problémy při kompilaci na \texttt{CI} serveru.
 Nekompatibilita zkompilovaných knihoven s verzí Swift jazyka použitým při vývoji aplikace způsobila, že více než dvě třetiny kompilací na serveru selhalo.
 Přehled jednotlivých buildů je vidět na \cite{travis-octophone-builds}.

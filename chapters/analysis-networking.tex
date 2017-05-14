@@ -15,14 +15,14 @@ Mým požadavkům se nejvíce přiblížila tři možná řešení, které násl
 
 \subsection{URLSession}
 
-Jako první možnost pro analýzu jsem vybral základní knihovnu \textit{URLSession}, která je dostupná ve frameworku \textit{Foundation}.
+Jako první možnost pro analýzu jsem vybral základní knihovnu \texttt{URLSession}, která je dostupná ve frameworku \texttt{Foundation}.
 V tuto chvíli se jedná o API, které je nejvíce nízkoúrovňové, i tak ale nabízí vysokou flexibilitu.
 
-Spolu s \textit{URLSession} se pojí i mnoho dalších tříd, které jsou vzájmně závislé.
+Spolu s \texttt{URLSession} se pojí i mnoho dalších tříd, které jsou vzájmně závislé.
 
 \subsubsection*{URLSessionConfiguration}
 
-Při vytváření nové instance NSURLSession je potřeba poskytnout konfiguraci.
+Při vytváření nové instance URLSession je potřeba poskytnout konfiguraci.
 Tato konfigurace popisuje základní nastavení pro politiky cachování požadavků, využívané protokoly, nastavení cookies a správu přihlašovacích údajů.
 
 Pro jednoduché aplikace je možné využít předpřipravenou konfiguraci, ta ale přistupuje ke všem požadavkům stejně což je nevhodné pro využití při komunikaci s více vzdálenými body.
@@ -33,10 +33,10 @@ V ukázce \ref{code:urlsessionconfiguration} je vidět možná implementace dyna
 
 \subsubsection*{URLSessionTask}
 
-Pro samotnou reprezentaci požadavků se využívají podtřídy abstraktní třídy \textit{URLSessionTask}.
-Těmito podtřídami jsou \textit{URLSessionDataTask}, \textit{URLSessionUploadTask} a \textit{URLSessionDownloadTask}.
+Pro samotnou reprezentaci požadavků se využívají podtřídy abstraktní třídy \texttt{URLSessionTask}.
+Těmito podtřídami jsou \texttt{URLSessionDataTask}, \texttt{URLSessionUploadTask} a \texttt{URLSessionDownloadTask}.
 Ty zprostředkovávají získávání dat (\acrshort{json}, \acrshort{xml}, \ldots) a stahování a nahrávání souborů.
-Pro vytvoření těchto tříd nabízí \textit{URLSession} předpřipravené metody.
+Pro vytvoření těchto tříd nabízí \texttt{URLSession} předpřipravené metody.
 
 Samotné vytvoření požadavku pro stažení \acrshort{json} objektu je vidět v ukázce \ref{code:urlsessionrequest}.
 
@@ -44,7 +44,7 @@ Samotné vytvoření požadavku pro stažení \acrshort{json} objektu je vidět 
 
 \subsubsection*{Shrnutí}
 
-Přestože \textit{URLSession} nabízí velmi komplexní řešení síťových požadavků byla by implementace velmi náročná.
+Přestože \texttt{URLSession} nabízí velmi komplexní řešení síťových požadavků byla by implementace velmi náročná.
 V současné době nabízí na řetězení požadavků pouze \texttt{completion blok}, který ale není pro řetězení mnoha požadavků vhodný (časté opakování kódu, zanořování metod).
 
 Strukturování koncových bodů v základu také není řešené, bylo by tedy potřeba vytvořit novou abstraktní vrstvu.
@@ -52,11 +52,11 @@ Z tohoto důvodu jsem se rozhodl přistoupit ke zanalyzování knihoven třetíc
 
 \subsection{Alamofire}
 
-Jako první knihovnu třetích stran jsem se rozhodl zanalyzovat populární Alamofire \cite{github-alamofire}.
-Jedná se o síťovací knihovnu, naprogramovanou s využitím \textit{URLSession}.
-Alamofire nabízí oproti \textit{URLSession} moderní \acrshort{api} využívající sílu jazyka Swift, formátování požadavků (\acrshort{json}, \acrshort{url}, \ldots) a také validaci odpovědí serveru.
+Jako první knihovnu třetích stran jsem se rozhodl zanalyzovat populární \texttt{Alamofire} \cite{github-alamofire}.
+Jedná se o síťovací knihovnu, naprogramovanou s využitím \texttt{URLSession}.
+\texttt{Alamofire} nabízí oproti \texttt{URLSession} moderní \acrshort{api} využívající sílu jazyka Swift, formátování požadavků (\acrshort{json}, \acrshort{url}, \ldots) a také validaci odpovědí serveru.
 
-Alamofire navíc nabízí velmi jednoduchý a intuitivní způsob strukturování koncových bodů pomocí \texttt{Routeru}.
+\texttt{Alamofire} navíc nabízí velmi jednoduchý a intuitivní způsob strukturování koncových bodů pomocí \texttt{Routeru}.
 Další velkou výhodou je vysoká znovupoužitelnost.
 Pomocí vlastních pravidel pro serializování odpovědí serveru je možné vytvořit generické požadavky, jejichž odpovědi nebudou prostý text ale už platný Swift objekt.
 Takto serializované objekty lze následně uložit do databáze či používat bez zanesení chyby za běhu aplikace (díky typové kontrole během kompilace).
@@ -65,103 +65,103 @@ Pro samotné požadavky využívají \texttt{top-level} metody, které sdílí s
 
 \subsubsection*{Router}
 
-Pro rozsáhlejší projekty poskytuje Alamofire velmi elegantní způsob strukturování koncových bodů.
-V terminilogii Alamofire se objektu, který je struktuje říká Router.
+Pro rozsáhlejší projekty poskytuje \texttt{Alamofire} velmi elegantní způsob strukturování koncových bodů.
+V terminilogii \texttt{Alamofire} se objektu, který je struktuje říká \texttt{Router}.
 Zpravidla se jedná výčtový typ (\texttt{enum}).
 Koncové body jsou v něm reprezentovány pomocí výčtů.
 
-Tyto výčty lze pak předat do Alamofire a tím vytvořit požadavek na server.
-Ukázková implementace Router objektu je vidět v ukázce \ref{code:alamofire-router}.
+Tyto výčty lze pak předat do \texttt{Alamofire} a tím vytvořit požadavek na server.
+Ukázková implementace \texttt{Router} objektu je vidět v ukázce \ref{code:alamofire-router}.
 
-\swiftcode{code:alamofire-router}{Ukázková implementace Router objektu}{assets/code/alamofire-router.swift}
+\swiftcode{code:alamofire-router}{Ukázková implementace \texttt{Router} objektu}{assets/code/alamofire-router.swift}
 
 \subsubsection*{SessionManager}
 
 Přestože standardně používané \texttt{top-level} metody jsou běžné naprosto dostačující, pro mé řešení jsou nevhodné z důvodu sdílení společného nastavení i pro různé vzdálené body (tiskárny).
 
-Z tohoto důvodu je v Alamofire dostupná třída \textit{SessionManager}, jejíž instance mohou využívat různé nastavení.
-\textit{SessionManager} dále nabízí obdobné \acrshort{api} jako \texttt{top-level} funkce pro vytváření požadavků.
+Z tohoto důvodu je v \texttt{Alamofire} dostupná třída \texttt{SessionManager}, jejíž instance mohou využívat různé nastavení.
+\texttt{SessionManager} dále nabízí obdobné \acrshort{api} jako \texttt{top-level} funkce pro vytváření požadavků.
 
-Příklad vytvoření požadavku s nakonfigurovaným \textit{SessionManager} objektem je uveden v ukázce \ref{code:alamofire-sessionmanager}.
+Příklad vytvoření požadavku s nakonfigurovaným \texttt{SessionManager} objektem je uveden v ukázce \ref{code:alamofire-sessionmanager}.
 
 \swiftcode{code:alamofire-sessionmanager}{Vytvoření požadavku pomocí Alamofire}{assets/code/alamofire-sessionmanager.swift}
 
 \subsubsection*{Shrnutí}
 
-Alamofire je velmi rozsáhlou knihovnou pro síťové požadavky.
-Již v základu obsahuje abstraktní vrstvu nad \textit{URLSession}, kterou bych ve své implementaci musel také napsat.
-Pomocí Router objektu lze velmi přehledně a čitelně zapouzdřit jednotlivé koncové body.
+\texttt{Alamofire} je velmi rozsáhlou knihovnou pro síťové požadavky.
+Již v základu obsahuje abstraktní vrstvu nad \texttt{URLSession}, kterou bych ve své implementaci musel také napsat.
+Pomocí \texttt{Router} objektu lze velmi přehledně a čitelně zapouzdřit jednotlivé koncové body.
 Vlastní serializace odpovědí serveru pak umožňuje vysokou znovupoužitelnost bez opakování kódu.
 
 Pro zpracování je nicméně opět dostupný pouze \texttt{completion blok}.
-Řetězení požadavků zůstává prakticky stejné jako u \textit{URLSession}.
+Řetězení požadavků zůstává prakticky stejné jako u \texttt{URLSession}.
 
 \subsection{Moya}
 
-Jako poslední možné řešení síťových požadavků jsem zvážil open source knihovnu Moya \cite{github-moya}.
+Jako poslední možné řešení síťových požadavků jsem zvážil open source knihovnu \texttt{Moya} \cite{github-moya}.
 
-Moya je abstraktní vrstva nad výše zmíněným Alamofire.
+\texttt{Moya} je abstraktní vrstva nad výše zmíněným \texttt{Alamofire}.
 Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy \acrshort{url} adres, parametrů požadavku a dalšího nastavení.
 
-Druhou výhodou je zapouzdřování koncových bodů do tkzv. \textit{Provider} objektů.
-Na rozdíl od Router objektu zapouzdřuje Provider pouze ty se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
-Během kompilace tak lze ověřit, že požadavky, které vyžadují oprávnění vytváří stejný Provider.
+Druhou výhodou je zapouzdřování koncových bodů do tkzv. \texttt{Provider} objektů.
+Na rozdíl od \texttt{Router} objektu zapouzdřuje \texttt{Provider} pouze ty se stejnými vlastnostmi (např. stejná úroveň řízení přístupu).
+Během kompilace tak lze ověřit, že požadavky, které vyžadují oprávnění vytváří stejný \texttt{Provider}.
 
 \medskip
 
 Velmi užitečný je i zcela jiný přístup k vytváření požadavků.
-Moya vytváří požadavek ve třech fázích.
-Nejprve nechá uživatele vytvořit \textit{Target}, ten se následně mapuje na \textit{Endpoint} z kterého teprve Provider vytvoří samotný požadavek.
+\texttt{Moya} vytváří požadavek ve třech fázích.
+Nejprve nechá uživatele vytvořit \texttt{Target}, ten se následně mapuje na \texttt{Endpoint} z kterého teprve \texttt{Provider} vytvoří samotný požadavek.
 
 \subsubsection*{Target}
 
-Prvním krokem vytváření požadavku je Target.
-Target reprezentuje akci, která se má vykonat na vybraném vzdáleném API.
+Prvním krokem vytváření požadavku je \texttt{Target}.
+\texttt{Target} reprezentuje akci, která se má vykonat na vybraném vzdáleném API.
 Typicky implementovaný jako enum a poskytuje vysokoúrovňové \acrshort{api} pro využití ve zbytku aplikace.
-Implementace targetu je vidět v ukázce \ref{code:moya-target}.
+Implementace \texttt{Target} objektu je vidět v ukázce \ref{code:moya-target}.
 
 \swiftcode{code:moya-target}{Moya -- Implementace Target objektu}{assets/code/moya-target.swift}
 
 \subsubsection*{Endpoint}
 
-Endpoint je interní struktura reprezentující koncový bod, která je využita k sestavení požadavku.
+\texttt{Endpoint} je interní struktura reprezentující koncový bod, která je využita k sestavení požadavku.
 Hlavním cílem této struktury je možnost modifikovat způsob, jakým budou požadavky vytvořeny.
-Pomocí Endpoint objektu lze např. přidávat autorizační token či některé požadavky rušit, opozdit atp.
+Pomocí \texttt{Endpoint} objektu lze např. přidávat autorizační token či některé požadavky rušit, opozdit atp.
 
 \subsubsection*{Provider}
 
-Při použití Moyi se veškeré požadavky odesílají skrz Provider.
-Provider je generický objekt, který operuje na objektem Target.
-Tím se v době kompilace dosáhne kontroly kompatibility Provider s Target objektem.
+Při použití \texttt{Moya} se veškeré požadavky odesílají skrz \texttt{Provider}.
+Pr\texttt{Provider}ovider je generický objekt, který operuje na objektem \texttt{Target}.
+Tím se v době kompilace dosáhne kontroly kompatibility \texttt{Provider} s \texttt{Target} objektem.
 
-Provider nabízí rozhraní pro modifikaci vytvoření Endpointu i pro modifikaci požadavku.
+\texttt{Provider} nabízí rozhraní pro modifikaci vytvoření \texttt{Endpointu} i pro modifikaci požadavku.
 Vytvoření požadavku je vidět v ukázce \ref{code:moya-provider}.
 
 \swiftcode{code:moya-provider}{Moya -- vytvoření požadavku}{assets/code/moya-provider.swift}
 
 \subsubsection*{Reaktivní rozšíření}
 
-Moya v základu nabízí rozšíření pro použití s reaktivními knihovnami.
+\texttt{Moya} v základu nabízí rozšíření pro použití s reaktivními knihovnami.
 Díky tomu lze velmi dobře integrovat s architekturou \acrshort{mvvm}, konkrétně do vrstvy \texttt{ViewModel}.
-Usnadňuje tím také možnost řetězení požadavků pomocí flatMap operátoru jak je vidět v ukázce \ref{code:moya-reactive-extensions}.
+Usnadňuje tím také možnost řetězení požadavků pomocí \texttt{flatMap} operátoru jak je vidět v ukázce \ref{code:moya-reactive-extensions}.
 
 \swiftcode{code:moya-reactive-extensions}{Moya -- Řetězení požadavků}{assets/code/moya-reactive-extensions.swift}
 
 \subsubsection*{Testování}
 
-Jednou z největších výhod Moyi je možnost testování.
-V Target objektu je možné definovat, jaká data má požadavek vrátit v době kdy se aplikace testuje.
-Tím Moya zaručí, že testy nebudou selhávat v případě kdy nebude dostupná síť.
+Jednou z největších výhod \texttt{Moya} je možnost testování.
+V \texttt{Target} objektu je možné definovat, jaká data má požadavek vrátit v době kdy se aplikace testuje.
+Tím \texttt{Moya} zaručí, že testy nebudou selhávat v případě kdy nebude dostupná síť.
 
-Pro případ testování chování aplikace v momentě kdy je síť nedostupná nebo kdy požadavky selžou je možné opět využít úpravy Endpoint objektu (tedy i takovou situaci lze nasimulovat).
+Pro případ testování chování aplikace v momentě kdy je síť nedostupná nebo kdy požadavky selžou je možné opět využít úpravy \texttt{Endpoint} objektu (tedy i takovou situaci lze nasimulovat).
 
 \subsubsection*{Shrnutí}
 
-Moya je knihovna pro vytvoření abstrakce nad síťovou vrstvou.
+\texttt{Moya} je knihovna pro vytvoření abstrakce nad síťovou vrstvou.
 Tato nová vrstva se stává jediným spojením aplikace s internetem.
 
-Obsahuje totožné funkce jako knihovna Alamofire, kterou ve své implementaci využívá.
-Oproti Alamofire navíc nabízí striktní oddělení Endpoint a Terget objektů.
+Obsahuje totožné funkce jako knihovna \texttt{Alamofire}, kterou ve své implementaci využívá.
+Oproti \texttt{Alamofire} navíc nabízí striktní oddělení \texttt{Endpoint} a Terget objektů.
 
 Tím umožňuje požadavky automaticky mockovat při testování.
 

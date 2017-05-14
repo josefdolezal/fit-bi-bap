@@ -20,13 +20,13 @@ Jejich významu se věnuji níže.
 \begin{description}
   \item[Model] Reprezentuje perzistentní objekty, které aplikace využívá pro vnitřní logiku a prezentaci dat uživateli.
   Každý modelový objekt může být v relaci s libovolným počtem jiných modelových objektů.
-  Tato vrstva je často reprezentována databází, příkladem mohou být databáze CoreData, Realm nebo SQLite.
+  Tato vrstva je často reprezentována databází, příkladem mohou být databáze \texttt{Core Data}, \texttt{Realm} nebo \texttt{SQLite}.
   Ukázka \ref{code:mvc-model} prezentuje možnou podobu modelového objektu.
   \swiftcode{code:mvc-model}{Modelový objekt v architektuře \acrshort{mvc}}{assets/code/mvc-model.swift}
 
   \item[View] Datový objekt viditelný uživatelem. \texttt{View} obsahuje logiku pro vykreslení a interakci s uživatelem.
   Přestože se \texttt{View} standardně používá pro zobrazení \texttt{Model} objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
-  Na platformě iOS tuto vrstvu reprezentuje framework UIKit vytvořený Applem.
+  Na platformě iOS tuto vrstvu reprezentuje framework \texttt{UIKit} vytvořený Applem.
   Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci \texttt{View}.
 
   \item[Controller] Aplikační vrstva, která na základě vstupů z \texttt{View} aktualizuje a mění \texttt{Model} nebo překresluje \texttt{View} v případě, že zobrazovaná data už nejsou aktuální.
