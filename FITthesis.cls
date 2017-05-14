@@ -57,6 +57,22 @@
 	\fi
 \fi
 
+% support for acronyms
+% \RequirePackage [nopostdot,acronym,nonumberlist,sort=def] {glossaries}
+
+% % New glossary style for acronyms
+% \newglossarystyle {acronyms} {%
+% 	% \glossarystyle {long}  % style that uses longtable
+% 	\renewcommand {\glossarysection}[2][] {}  % disable header
+% 	% \renewcommand {\glsgroupskip} {}  % disable grouping
+
+% 	% % renew the entry field to make the entries bold
+% 	% \renewcommand* {\glossaryentryfield}[5] {%
+% 	% 	\bfseries\glsentryitem{##1}\glstarget{##1}{##2} & ##3\glspostdescription\space ##5%
+% 	% 	\tabularnewline
+% 	% }
+% }
+
 \setlrmargins{4cm}{*}{*}\checkandfixthelayout
 
 \RequirePackage{etoolbox}

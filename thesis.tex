@@ -11,7 +11,9 @@
 
 % % list of acronyms
 \usepackage[acronym]{glossaries}
-% \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
+% Remove header from glossary list
+\renewcommand {\glossarysection}[2][] {}
+
 \makeglossaries
 \input{acronyms}
 
@@ -88,14 +90,8 @@
 \bibliography{bibliography}
 
 \appendix
-
 \chapter{Seznam použitých zkratek}
-\printglossaries
-% \begin{description}
-%
-% \end{description}
-% \printglossary[type=\acronymtype,title=Seznam použitých zkratek]
-% \printglossary[type=\acronymtype]
+\printglossary[type=acronym]
 
 \chapter{Obsah přiloženého CD}
 
