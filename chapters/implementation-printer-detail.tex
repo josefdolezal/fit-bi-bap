@@ -22,7 +22,7 @@ To zařídí otevření nové obrazovky.
 Na nové obrazovce může uživatel ze seznamu dostupných portů vybrat, k jaké tiskárně se má OctoPrint připojit.
 Běžně tento seznam bude obsahovat právě jednu položku, protože každou tiskárnu obsluhuje právě jedna instance OctoPrint.
 
-\subsection{Aktuální tisk}
+\subsection{Aktuální tisk}\label{detail-tiskarny-aktualni-tisk}
 
 V momentě kdy je tiskárna v pořádku připojena k OctoPrint rozhraní, zobrazuje aplikace informace o jejím stavu.
 Součástí těchto informací jsou teploty podložky a trysky, aktuální tisk a video stream.
@@ -46,4 +46,48 @@ Aby aplikace nezatěžovala zbytečně síťové rozhraní, obrázek stahuje nej
 
 \subsection{Využití síťových socketů}
 
-\todo{Sekce o napojení detailu na sockety}
+V sekci \ref{detail-tiskarny-aktualni-tisk} se zmiňuji o zobrazení informací o aktuálním tisku.
+Ty se stahují při příchodu na obrazovku a následně se zobrazují uživateli.
+Tisk je ale kontinuální činnost a informace o něm je potřeba aktualizovat.
+Interval aktualizování dat by měl být co nejkratší, aby informace co nejpřesněji vystihovaly skutečnost.
+
+Pomocí běžných síťových požadavků by ale mohlo dojít k větší zátěži sítě a rychlejšímu vybíjení mobilního zařízení.
+OctoPrint proto poskytuje rozhraní pro komunikaci skrz sockety.
+
+Toto rozhraní umožňuje vytvořit jedno spojení s OctoPrint a pomocí něj dostávat průběžně nové informace.
+Na straně OctoPrint je rozhraní implementováno knihovnou \texttt{SockJS}.
+
+Komunikace funguje tak, že klientské zařízení otevře nové spojení na adrese \inlinestr{sockjs/[id1]/[id2]/xhr\_streaming}.
+Parametry \texttt{id1} a \texttt{id2} mohou být voleny náhodně.
+
+Po navázání komunikace OctoPrint průběžně odesílá informace klientskému zařízení.
+V těchto infomarcích se také vyskytuje \acrshort{json} obejkt s aktuálním stavem tiskárny.
+
+Ve své implementaci jsem chtěl využít knihovny \texttt{Moya}, kterou využívám ke všem ostatním síťovým požadavkům.
+V současné době ale nepodporuje tento typ komunikace.
+Musel jsem tedy využít zmíněné knihovny \texttt{Alamofire}, kterou \texttt{Moya} využívá ve své implementaci.
+
+\subsubsection*{Reaktivní rozšíření}
+
+Abych dosáhl reaktivního přístupu k tomuto typu komunikace, vytvořil jsem pro \texttt{Alamofire} obalovou třídu \texttt{WebSocket}.
+Jejím jediným účelem je vytvořit síťové spojení s libovolným síťovým zařízením, které tento typ komunikace podporuje.
+
+Pro vytvoření spojení stačí využít metodu \texttt{connect(url:\_, method:\_)}, která jako výsledek vrátí \texttt{Cold} signál.
+Tento signál je obecného typu \texttt{Data} reprezentující poslední informace odeslané OctoPrintem.
+
+Pro tuto vrstvu jsem vytvořil další obalovou třídu nazvanou\\*\texttt{OctoPrintPushEvents}, která se stará o zpracování generických dat.
+Jako veřejné rozhraní poskytuje konstruktor vyžadující \acrshort{url} tiskárny.
+Druhým veřejným rozhraním je metoda \texttt{temperatures()}, která se stará o zpracování dat z OctoPrint.
+Metoda vrací \texttt{Cold} signál s teplotami podložky a trysky.
+
+Tato metoda ve své implementaci vytváří spojení pomocí třídy \texttt{WebSocket} a zpracová data z vráceného signálu.
+Tyto data se nejdříve převedou na text, očistí se od informací o komunikaci a rozdělí se na řádky.
+V každém řádku by se nyní měl vyskytovat platný \acrshort{json} objekt.
+
+Tento objekt je následně zpracován na objekty \texttt{Bed} a \texttt{Tool}, které reprezentují teploty podložky a trysky.
+
+\subsubsection*{Propojení s ViewModelem}
+
+K implementaci ve \texttt{ViewModelu} stačí pouze vytvořit instanci\\*\texttt{OctoPrintPushEvents} s adresou tiskárny a zpracovat data signálu.
+
+Zpracování dat se provádí stejně jako u běžných požadavků knihovny \texttt{Moya}, nebylo tedy potřeba přidávat žádnou další logiku.
