@@ -22,10 +22,17 @@ To zařídí otevření nové obrazovky.
 Na nové obrazovce může uživatel ze seznamu dostupných portů vybrat, k jaké tiskárně se má OctoPrint připojit.
 Běžně tento seznam bude obsahovat právě jednu položku, protože každou tiskárnu obsluhuje právě jedna instance OctoPrint.
 
+Tuto obrazovku zachycuje obrázek \ref{fig:implementation-s-printer-detail-empty}.
+
+\image[0.5\textwidth]{fig:implementation-s-printer-detail-empty}{Ukázka aplikace: Detail nepřipojené tiskárny}{assets/implementation-s-printer-detail-empty.png}
+
 \subsection{Aktuální tisk}\label{detail-tiskarny-aktualni-tisk}
 
 V momentě kdy je tiskárna v pořádku připojena k OctoPrint rozhraní, zobrazuje aplikace informace o jejím stavu.
 Součástí těchto informací jsou teploty podložky a trysky, aktuální tisk a video stream.
+Obrazovka je zachycena na obrázku \ref{fig:implementation-s-printer-detail}.
+
+\image[0.5\textwidth]{fig:implementation-s-printer-detail}{Ukázka aplikace: Aktuální tisk}{assets/implementation-s-printer-detail.png}
 
 Protože všechny tyto informace nejsou dostupné z jediného koncového bodu, aplikace požadavky řetězí.
 Postupně jsou volány požadavky pro aktuální stav tiskárny, aktuální tisk, informace o trysce a informace o podložce.
