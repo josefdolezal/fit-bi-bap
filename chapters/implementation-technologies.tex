@@ -42,6 +42,10 @@ První protokol popisuje množinu vstupů, druhý množinu výstupů a třetí p
 Tím jsem dosáhl možnosti zaměňovat \texttt{ViewModel} obrazovky či sdílet jeden \texttt{ViewModel} mezi více obrazovkami.
 Návrhem tohoto rozhraní jsem inspiroval v open source aplikaci Kickstarter, dostupné na portálu GitHub \cite{github-kickstarter}.
 
+Rozhraní konktrétního \texttt{ViewModelu} pro obrazovku se seznamem tiskáren je vidět v diagramu tříd na obrázku \ref{fig:implementation-printer-list-classes}.
+
+\image{fig:implementation-printer-list-classes}{Diagram tříd pro ViewModel seznamu tiskáren}{assets/implementation-printer-list-classes.png}
+
 \subsubsection*{Implementace Controlleru}
 
 \texttt{Controller} při inicializaci vyžaduje instanci \texttt{ViewModelu}.
