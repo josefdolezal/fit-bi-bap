@@ -9,6 +9,8 @@ V této kapitole stručně zmiňuji princip a technologii 3D tisku.
 Tyto objekty vznikají postupným nanášením jednotlivých vrstev modelu na sebe ve vertikálním směru.
 Jedna z metod využívajících vrstvení materiálu se nazývá Fused deposition modeling (zkráceně \acrshort{fdm}).
 Princip \acrshort{fdm} spočívá v tavení plastu (případně jiných materiálů) pomocí tiskové hlavy, která následně nanáší taveninu ve vrstvách na sebe \cite{3d-print-fdm}.
+Tato tavenina se nazývá filament.
+
 Takto vytvořené plastové objekty mají velkou výhodu v nízkých nákladech na výrobu.
 Jsou tedy ideálním prostředkem k výrobě prototypů nebo produkování omezeného množství výrobků \cite{3d-print-for-prototyping}.
 
@@ -28,6 +30,15 @@ V době psaní práce je dostupná verze \acrshort{api} $1.3$, která oproti př
 Některé z nich ale sama autorka označuje za experimentální \cite{octoprint-experimental-funcs}.
 Pro mobilní aplikaci navíc nejsou stěžejní.
 Z tohoto důvodu jsem se rozhodl využít starší verzi \vapi{}, která většinu funkcí označuje jako stabilní.
+
+\section{Tisk modelů}
+
+Modely jsou vytvářeny pomocí 3D modelovacích nástrojů.
+Z nich mohou být vyexportovány do formátu \texttt{STL}.
+Tento formát popisuje třírozměrnou povrchovou geometrii modelu. \cite{3dtisk-stl}
+
+Model je následně potřeba převést do formátu \texttt{GCode}.
+To je jazyk, který popisuje jakým způsobem se bude tisková hlava pohybovat během tisku. \cite{reprap-gcode}
 
 \section{Definice pojmu tisk}\label{3d-tisk-definice-pojmu}
 
