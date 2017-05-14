@@ -61,13 +61,13 @@ Další velkou výhodou je vysoká znovupoužitelnost.
 Pomocí vlastních pravidel pro serializování odpovědí serveru je možné vytvořit generické požadavky, jejichž odpovědi nebudou prostý text ale už platný Swift objekt.
 Takto serializované objekty lze následně uložit do databáze či používat bez zanesení chyby za běhu aplikace (díky typové kontrole během kompilace).
 
-Pro samotné požadavky využívají \texttt{top-level} metody, které sdílí společné nastavení sezení (z anglického \textit{session}).
+Pro samotné požadavky využívají globální metody, které sdílí společné nastavení sezení (z anglického \textit{session}).
 
 \subsubsection*{Router}
 
 Pro rozsáhlejší projekty poskytuje \texttt{Alamofire} velmi elegantní způsob strukturování koncových bodů.
 V terminilogii \texttt{Alamofire} se objektu, který je struktuje říká \texttt{Router}.
-Zpravidla se jedná výčtový typ (\texttt{enum}).
+Zpravidla se jedná o výčtový typ (\texttt{enum}).
 Koncové body jsou v něm reprezentovány pomocí výčtů.
 
 Tyto výčty lze pak předat do \texttt{Alamofire} a tím vytvořit požadavek na server.
@@ -77,10 +77,10 @@ Ukázková implementace \texttt{Router} objektu je vidět v ukázce \ref{code:al
 
 \subsubsection*{SessionManager}
 
-Přestože standardně používané \texttt{top-level} metody jsou běžné naprosto dostačující, pro mé řešení jsou nevhodné z důvodu sdílení společného nastavení i pro různé vzdálené body (tiskárny).
+Přestože standardně používané metody jsou běžné naprosto dostačující, pro mé řešení jsou nevhodné z důvodu sdílení společného nastavení i pro různé vzdálené body (tiskárny).
 
 Z tohoto důvodu je v \texttt{Alamofire} dostupná třída \texttt{SessionManager}, jejíž instance mohou využívat různé nastavení.
-\texttt{SessionManager} dále nabízí obdobné \acrshort{api} jako \texttt{top-level} funkce pro vytváření požadavků.
+\texttt{SessionManager} dále nabízí obdobné \acrshort{api} jako globální funkce pro vytváření požadavků.
 
 Příklad vytvoření požadavku s nakonfigurovaným \texttt{SessionManager} objektem je uveden v ukázce \ref{code:alamofire-sessionmanager}.
 
@@ -98,7 +98,7 @@ Pro zpracování je nicméně opět dostupný pouze \texttt{completion blok}.
 
 \subsection{Moya}
 
-Jako poslední možné řešení síťových požadavků jsem zvážil open source knihovnu \texttt{Moya} \cite{github-moya}.
+Jako poslední možné řešení síťových požadavků jsem zvážil open-source knihovnu \texttt{Moya} \cite{github-moya}.
 
 \texttt{Moya} je abstraktní vrstva nad výše zmíněným \texttt{Alamofire}.
 Nabízí tedy stejné možnosti, klade si ale za cíl uživatele odstínit od správy \acrshort{url} adres, parametrů požadavku a dalšího nastavení.
@@ -117,7 +117,7 @@ Nejprve nechá uživatele vytvořit \texttt{Target}, ten se následně mapuje na
 
 Prvním krokem vytváření požadavku je \texttt{Target}.
 \texttt{Target} reprezentuje akci, která se má vykonat na vybraném vzdáleném API.
-Typicky implementovaný jako enum a poskytuje vysokoúrovňové \acrshort{api} pro využití ve zbytku aplikace.
+Typicky implementovaný jako výčet a poskytuje vysokoúrovňové \acrshort{api} pro využití ve zbytku aplikace.
 Implementace \texttt{Target} objektu je vidět v ukázce \ref{code:moya-target}.
 
 \swiftcode{code:moya-target}{Moya -- Implementace Target objektu}{assets/code/moya-target.swift}
@@ -158,7 +158,7 @@ Pro případ testování chování aplikace v momentě kdy je síť nedostupná 
 \subsubsection*{Shrnutí}
 
 \texttt{Moya} je knihovna pro vytvoření abstrakce nad síťovou vrstvou.
-Tato nová vrstva se stává jediným spojením aplikace s internetem.
+Tato nová vrstva se tak stává jediným spojením aplikace okolní sítí.
 
 Obsahuje totožné funkce jako knihovna \texttt{Alamofire}, kterou ve své implementaci využívá.
 Oproti \texttt{Alamofire} navíc nabízí striktní oddělení \texttt{Endpoint} a Terget objektů.

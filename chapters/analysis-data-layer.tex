@@ -7,7 +7,7 @@ Lokální uložiště následně bude sloužit jako \textit{source of truth}, te
 
 Pro lokální uložiště jsem vybral dvě technologie, které porovnám a následně jednu implementuji.
 První technologií jsou \texttt{Core Data}, technologie vyvinutá společností Apple běžně používaná na platformách iOS a macOS.
-Druhou technologií je Realm Mobile Database, open source knihovna třetí strany.
+Druhou technologií je Realm Mobile Database, open-source knihovna třetí strany.
 
 \subsection{Core Data}
 
@@ -27,7 +27,7 @@ Přestože verze 1.0 této knihovny byla vydána teprve v květnu 2016, má k dn
 
 \texttt{Provider} je modelová technologie vytvořená pro využití v mobilních zařízeních.
 Oproti běžným databázím \texttt{Provider} nevyužívá \acrshort{orm} a nekopíruje data z databáze.
-V \texttt{Provider} aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvodu jakmile jsou data jednou aktualizovány, změna se automaticky propisuje všude, kde jsou data využívána (reaktivní přístup) \cite{realm-overview}.
+V \texttt{Provider} aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvodu jakmile jsou data jednou aktualizována, změna se automaticky propisuje všude, kde jsou data využívána (reaktivní přístup) \cite{realm-overview}.
 
 \subsubsection*{Modelové objekty}
 

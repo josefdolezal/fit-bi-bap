@@ -62,7 +62,7 @@ Při vytváření front je důležité správně volit prioritu.
 Budou-li všechny fronty využívat jednu prioritu, může se stát, že systémová vlákna nebudou správně využita.
 To by vedlo ke snížení výkonu aplikace a špatné uživatelské zkušenosti.
 
-Přestože \acrshort{gcd} je velmi zajímavá abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
+Přestože \acrshort{gcd} je velmi flexibilní abstrakce nad standardními vlákny, jedná se stále o nízkoúrovňové API.
 Mezi jednotkami práce nelze vyvářet závislosti či je řetězit.
 Tuto možnost ale nábízí \texttt{Foundation} framework pomocí \texttt{OperationQueue}.
 
@@ -93,16 +93,16 @@ Oproti \acrshort{gcd} má objektový přístup výhodu nejen v přehlednější 
   Jako příklad lze uvést síťovou komunikaci, kde každý požadavek závisí na ověření dostupnosti internetu (první operace) a na patřičném ověření uživatele (druhá operace).
   Ke každému požadavku následně stačí přiřadit tyto dvě operace jako závislost, tím je zaručené že požadavek se pošle jen když je dostupné připojení k internetu a zároveň je uživatel ověřený.
   \item[Správa stavu] umožňuje operaci pozastavit, spustit znovu nebo zrušit.
-  Oproti GCD, kde úkol, který se začal zpracovávat už nebylo možné zastavit, lze například do ovládání operací zapojit uživatele.
+  Oproti GCD, kde úkol, který se začal zpracovávat, už nebylo možné zastavit, lze například do ovládání operací zapojit uživatele.
 \end{description}
 
 \subsubsection*{OperationQueue}
 
-Obdobně jako GCD, je i zde potřeba určit kde a kdy se bude práce vykonávat.
+Obdobně jako GCD, je i zde potřeba určit, kde a kdy se bude práce vykonávat.
 Pro tento účel slouží fronta \texttt{OperationQueue}.
 Tato fronta je implementována jako prioritní.
 Tedy v momentě kdy je vložena operace s vyšší prioritou, bude vykonána dříve než stávající operace s nízkou prioritou (pokud to její závislosti dovolí).
-Z tohoto odůvodu není zaručeno kdy se jednotlivé operace spustí.
+Z tohoto důvodu není zaručeno, kdy se jednotlivé operace spustí.
 
 Základní vytvoření operace a vložení do fronty je vidět na ukázce \ref{code:operation-queue-demonstration}.
 

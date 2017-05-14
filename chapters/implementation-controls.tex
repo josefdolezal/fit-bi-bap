@@ -7,7 +7,7 @@ Aby bylo uživatelské rozhraní intuitivní, sjednotil jsem osy $x$ a $y$ do ov
 \image{fig:octoprint-controls}{Ovládání tiskové hlavy v prostředí OctoPrint}{assets/implementation-octoprint-controls.png}
 
 Rozhraní je tvořeno pomocí tlačítek, kde každá osa má jedno tlačítko pro pohyb v kladném a jedno pro pohyb v záporném směru.
-Dále každý z ovladačů obsahuje tlačítko \uv{Domů}, které zavede hlavu 
+Dále každý z ovladačů obsahuje tlačítko \uv{Domů}, které zavede tiskovou hlavu na souřadnici 0 v patřičných osách.
 
 \subsection{Pohyb hlavy}
 
@@ -28,6 +28,6 @@ Implementace je znázorněna v ukázce \ref{code:printer-controls-request}.
 
 Z důvodu možnosti čištění trysky jsem přidal na tuto obrazovku tlačítko pro manuální tavení filamentu.
 Obdobně jako u pohybu tiskové hlavy ani zde jsem neumožnil uživateli zvolit množství.
-Při uživatelské interakci (stisku tlačítka \uv{Čistit}) aplikace vždy nechá roztavit 5 mm.
+Při uživatelské interakci (stisku tlačítka \uv{Tavit}) aplikace vždy nechá roztavit 5 mm.
 
 Implementace tohoto požadavku se velmi blízce podobá požadavkům na pohyb tiskové hlavy.
