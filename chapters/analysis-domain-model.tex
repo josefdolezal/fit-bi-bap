@@ -1,0 +1,17 @@
+\section{Doménový model}
+
+Během analýzy koncových bodů OctoPrint jsem sestavoval doménový model.
+Tento model pokrývá funkcionalitu koncových bodů, uvažuje také četnosti parametrů a vztahy entit.
+
+Jak je vidět z obrázku \ref{fig:analysis-domain-model}, relace se vyskytují jen mezi některými entitami.
+To je dáno tím, že aplikace v jednu chvíli pracuje vždy s právě jednou instancí tiskárny.
+
+\image{fig:analysis-domain-model}{Doménový model aplikace}{assets/analysis-domain-model.pdf}
+
+Objekty týkající se tiskárny se tedy vždy vytváří až při výběru jedné konkrétní.
+Po ukončení práce s tiskárnou se opět mažou.
+
+Tento přístup je vhodný, protože informace o tiskárně se pravděpodobně mezi jednotlivými spuštěními aplikace změní.
+Uchování starších dat sice působí při používání lépe, protože aplikace nabízí data ihned po otevření, nemusí být ale aktuální, což by vedlo ke zmatení uživatele.
+
+Jediná data, která se uchovávají mezi jednotlivými spuštěními je seznam tiskáren.
