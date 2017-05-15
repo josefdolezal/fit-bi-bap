@@ -1,7 +1,7 @@
 \section{Architektura aplikace}\label{analyza-architektura}
 
 Jako doporučenou architekturu aplikací pro platformu iOS uvádí Apple Model-View-Controller (zkráceně \acrshort{mvc}) \cite{gc-apple-recommends}.
-Přestože je \acrshort{mvc} pro vývoj aplikací nejpopulárnější, rozhodl jsem před začátkem implementace prozkoumat i jiné existující architektury.
+Přestože se \acrshort{mvc} pro vývoj aplikací jeví jako nejpopulárnější, rozhodl jsem se před začátkem implementace prozkoumat i jiné existující architektury.
 Z alternativních architektur jsem nakonec zvolil Model-View-ViewModel, kterou porovnám s doporučeným \acrshort{mvc}.
 V závislosti na výsledku porovnání zvolím ideální architekturu pro svou aplikaci.
 
@@ -24,7 +24,7 @@ Jejich významu se věnuji níže.
   Ukázka \ref{code:mvc-model} prezentuje možnou podobu modelového objektu.
   \swiftcode{code:mvc-model}{Modelový objekt v architektuře \acrshort{mvc}}{assets/code/mvc-model.swift}
 
-  \item[View] Datový objekt viditelný uživatelem. \texttt{View} obsahuje logiku pro vykreslení a interakci s uživatelem.
+  \item[View] Jedná se o datový objekt viditelný uživatelem. \texttt{View} obsahuje logiku pro vykreslení a interakci s uživatelem.
   Přestože se \texttt{View} standardně používá pro zobrazení \texttt{Model} objektů nebo jejich úpravu, jsou od sebe tyto vrstvy striktně odstíněny.
   Na platformě iOS tuto vrstvu reprezentuje framework \texttt{UIKit} vytvořený Applem.
   Ukázkový kód \ref{code:mvc-view} zobrazuje možnou implementaci \texttt{View}.
@@ -41,7 +41,7 @@ Jejich významu se věnuji níže.
 
 Z tohoto shrnutí vyplývá, že \texttt{Controller} je velmi blízce spjat s \texttt{View}. Toto propojení reprezentuje obrázek \ref{fig:massive-mvc}.
 
-\subsubsection*{\texttt{Modelový} příklad použití}
+\subsubsection*{Modelový příklad použití}
 
 Pro možné porovnání architektury jsem připravil scénář stažení libovolných dat na základě požadavku uživatele.
 V \acrshort{mvc} by se architektura chovala takto:
@@ -69,19 +69,19 @@ Shrneme-li vlastnosti vrstev, jejich klíčové role jsou:
 
 \swiftcode{code:mvc-view-controller}{ViewController v architektuře \acrshort{mvc}}{assets/code/mvc-view-controller.swift}
 
-Pro zmíněné notifikace nabízí Apple řešení pomocí Delegate pattern návrhový vzor.
+Pro zmíněné notifikace nabízí Apple řešení pomocí Delegate pattern návrhového vzoru.
 Tento návrhový vzor udává, že \texttt{Controller} musí naimplementovat specifické rozhraní, čímž se stane delegátem.
 Jako delegát se pak může zaregistrovat na notifikace obejktů, jejichž rozhraní implementoval.
 
-\acrshort{mvc} je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
+Domnívám se, že \acrshort{mvc} je v době psaní této práce nejpoužívanější architekturou a to především díky své jednoduchosti.
 Při tvorbě větších aplikací ale nemusí být vhodné.
-\texttt{Controller} se při nestandradním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
-Z tohoto důvodu se \acrshort{mvc} často přezdívá \uv{Massive \texttt{View} Controller}.
+\texttt{Controller} se při nestandardním grafickém návrhu může stát velmi složitým, což výrazně snižuje jeho čitelnost a testovatelnost.
+Z tohoto důvodu se \acrshort{mvc} občas přezdívá \uv{Massive \texttt{View} \texttt{Controller}} \cite{khanlou-massive-mvc}.
 Kvůli přímému napojení \texttt{Controlleru} na \texttt{View} se při testování jeho chování (behavior testing) musí využít simulátoru mobilního operačního systému.
 Pro simulátor je navíc nutné naskriptovat uživatelův průchod aplikací, aby bylo možné testy automatizovat.
 
 To zvyšuje časovou náročnost testování, dokonce v některých případech znemožňuje testování úplně (\texttt{Controlleru} nezle podvrhnout mock objekty).
-Tento problém se snaží řešit architektura \acrfull{mvvm} od společnosti Microsoft.
+Tento problém se snaží řešit architektura \acrfull{mvvm} od společnosti Microsoft \cite{srdan-from-mvc-to-mvvm}.
 
 \begin{figure}\centering
 	\includegraphics[width=0.75\textwidth]{assets/analysis-massive-view-controller.pdf}
@@ -91,14 +91,14 @@ Tento problém se snaží řešit architektura \acrfull{mvvm} od společnosti Mi
 \subsection{MVVM: Model-View-ViewModel}\label{analyza-mvvm}
 
 Z důvodu nárustu nároků na mobilní aplikace se v posledních letech rozmáhá architektura \acrshort{mvvm}.
-Tato architektura vychází ze zmíněného \acrshort{mvc} a jejím základním úkolem je zjednodušit \texttt{Controller}.
+Tato architektura vychází ze zmíněného \acrshort{mvc} a jejím základním úkolem je zjednodušit \texttt{Controller}. \cite{srdan-from-mvc-to-mvvm}
 
 \subsubsection*{Popis architektury} \label{architektura-mvvm-popis}
 
 Za účelem zjednodušení \texttt{Controlleru} se ke stávajícím třem vrstvám přidává \texttt{ViewModel}, který se stará o přípravu dat z Modelu pro zobrazení a také o perzistenci změn.
 
 \begin{description}
-  \item[ViewModel] je objekt vlastněný \texttt{Controllerem} za pomoci kompozice.
+  \item[ViewModel] Objekt vlastněný \texttt{Controllerem} za pomoci kompozice.
   Pro \texttt{Controller} připravuje naformátované výstupy a poskytuje mu rozhraní pro vstupy.
   Výstupem se rozumí veškerá data, která jsou potřebná pro sestavení \texttt{View}.
   To může být např. datum ve specifickém formátu, cena včetně měny nebo informace o tom, kolik řádků bude obsahovat tabulka na obrazovce.
@@ -162,9 +162,9 @@ Toto lze vyřešit pomocí \acrfull{kvo}, které nabízí Apple mezi standardní
 \acrshort{kvo} umožňuje objektu zaregistrovat se na notifikace o změně stavu nějakého libovolného jiného objektu.
 V případě \texttt{Controlleru} by se registroval na změny stavu výstupů \texttt{ViewModelu}.
 Kdykoliv by se výstup změnil, \texttt{Controller} by dostal notifikaci.
-Tento přístup ale není běžný pro použití s jazykem Swift.
+Tento přístup ale není běžný pro použití s jazykem Swift \cite{scottlogic-exploring-alt-kvo}.
 Tento postup navíc neřeší synchronizaci vláken, z tohoto důvodu by mohlo docházet k nekonzistenci dat či neočekávanému chování.
-Místo \acrshort{kvo} se nyní standardně používají reaktivní rozšíření, které popisuji v následujících kapitolách.
+Místo \acrshort{kvo} se nyní standardně používají reaktivní rozšíření, které popisuji v následujících kapitolách \cite{scottlogic-exploring-alt-kvo}.
 
 Přestože mnou implementovaná aplikace není v ohledu na uživatelské scénáře nijak složitá, obsahuje mnoho obrazovek.
 Obrazovky jsou vysoce interaktivní a více se k jejich implementaci hodí reaktivní přístup.
