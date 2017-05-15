@@ -12,10 +12,10 @@ Druhým nástrojem je \texttt{Carthage} \cite{github-carthage}, vytvořený spol
 Základem jsou takzvané \texttt{Pods}, tedy balíčky závislostí.
 Tyto balíčky může uživatel integrovat do svého projektu pomocí souboru \texttt{Podfile}, do kterého vypíše seznam seznam závislostí.
 \texttt{CocoaPods} následně závislosti stáhne a vytvoří pracovní \texttt{workspace}, do kterého závislosti nalinkuje.
-Pro následné programování pak uživatel využívá nový workspace místo původního souboru projektu.
+Pro následné programování pak uživatel využívá nový \texttt{workspace} místo původního souboru projektu.
 
 Nevýhoda tohoto přístupu je, že jsou staženy přímo zdrojové kódy závislostí a ty jsou připojeny k projektu.
-Z tohoto důvodu se při kompilaci může stát, že se kompilují soubory nejen aplikace, ale i všech závislostí.
+Z tohoto důvodu se při překladu kódu může stát, že se kompilují soubory nejen aplikace, ale i všech závislostí.
 Tím se zvyšuje čas potřebný ke zkompilování aplikace.
 To má za následek snížení rychlosti vývoje.
 
@@ -29,7 +29,7 @@ Jedinou funkcí tohoto správce závislostí je stáhnout a zkompilovat zdrojov�
 Uživatel následně musí sám knihovny do projektu naimportovat.
 
 Pro urychlení kompilace mohou správci knihoven předkompilovat knihovny do binární formy, ta se následně pouze stáhne.
-Předkompilované knihovny ale musí být napsané ve stejné verzi Swiftu jako používá aplikace sama, v opačném případě nepůjde knihovny slinkovat ani zkompilovat aplikaci.
+Předkompilované knihovny ale musí být napsané ve stejné verzi Swiftu jako používá aplikace sama, v opačném případě nepůjde knihovny slinkovat, ani zkompilovat aplikaci.
 Takový případ není v lokálním vývoji velkou komplikací, může ale narušit funkcionalitu integračního procesu na vzdáleném serveru.
 I to je ale situace, která se vyskytne pouze v době vydání nové verze nástroje Xcode.
 To bývá zpravidla jen několikrát ročně.

@@ -22,40 +22,40 @@ Z tohoto důvodu jsem neprováděl hlubší analýzu.
 
 \subsection{Realm Mobile Database}\label{datova-vrstva-realm}
 
-Jako druhou možnost jsem zvolil technologii \texttt{Provider}.
+Jako druhou možnost jsem zvolil technologii \texttt{Realm}.
 Přestože verze 1.0 této knihovny byla vydána teprve v květnu 2016, má k dnešnímu dni má dohromady více než dvacet tisíc hvězdiček na službě Github \cite{github-realm-repos}.
 
-\texttt{Provider} je modelová technologie vytvořená pro využití v mobilních zařízeních.
-Oproti běžným databázím \texttt{Provider} nevyužívá \acrshort{orm} a nekopíruje data z databáze.
-V \texttt{Provider} aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvodu jakmile jsou data jednou aktualizována, změna se automaticky propisuje všude, kde jsou data využívána (reaktivní přístup) \cite{realm-overview}.
+\texttt{Realm} je modelová technologie vytvořená pro využití v mobilních zařízeních.
+Oproti běžným databázím \texttt{Realm} nevyužívá \acrshort{orm} a nekopíruje data z databáze.
+V \texttt{Realm} aplikace pracuje s reálnými daty uloženými na disku, z tohoto důvodu jakmile jsou data jednou aktualizována, změna se automaticky propisuje všude, kde jsou data využívána (reaktivní přístup) \cite{realm-overview}.
 
 \subsubsection*{Modelové objekty}
 
-\texttt{Provider} je založen na modelových objektech.
+\texttt{Realm} je založen na modelových objektech.
 Ty se definují v jazyku, ve kterém je aplikace programována (v mém případě Swift).
 Databázový soubor se následně na disku vytvoří z těchto modelových objektů.
-Přístup je tedy opačný než u \acrshort{orm}, kde se v aplikaci vytváří objekty podle toho, jak jsou uloženy v databázi.
+Přístup je tedy opačný než u \acrshort{orm}, kde se v aplikaci vytváří objekty podle toho, jak jsou uložené v databázi.
 Jedinou podmínkou při vytváření objektu je nutnost dědit od třídy \texttt{Object} a využít správné datové typy (ne všechny je možné serializovat na disk). V ukázce \ref{code:realm-object} je třída \texttt{Printer}, kterou lze použít pro reprezentaci objektu tiskárny.
 
 \swiftcode{code:realm-object}{Modelový objekt v technologii Realm}{assets/code/realm-object.swift}
 
 \subsubsection*{Relace}
 
-\texttt{Provider} implementačně sice není relační databází, nabízí ale podobné \acrshort{api} pro relace mezi objekty.
+\texttt{Realm} implementačně sice není relační databází, nabízí ale podobné \acrshort{api} pro relace mezi objekty.
 Objekty mohou být v relacích \texttt{M:N}, \texttt{1:M} nebo \texttt{1:1}.
 Na základě těchto vlastností je následně možné vytvářet databázové dotazy.
 
 \subsubsection*{Transakce}
 
 Z důvodu zajištění konzistence dat v aplikaci je nutné modelové objekty upravovat v transakcích \cite{realm-swift}.
-\texttt{Provider} neodděluje standardní {\acrshort{crud} operace, místo toho je zavedena \texttt{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
+\texttt{Realm} neodděluje standardní {\acrshort{crud} operace, místo toho je zavedena \texttt{write} transakce, v níž je možné CRUD operace využít. Transakce implementuji v ukázce \ref{code:realm-write}.
 
 \swiftcode{code:realm-write}{Transakce v technologii Realm}{assets/code/realm-write.swift}
 
 \subsubsection*{Notifikace}
 
 Velkou výhodou této technologie jsou notifikace.
-\texttt{Provider} umožňuje notifikovat o změnách objektů v databázi.
+\texttt{Realm} umožňuje notifikovat o změnách objektů v databázi.
 Na základě těchto notifikací pak lze např. překreslit obrazovku či změnit stav aplikace.
 
 Notifikace lze zaregistrovat i na změny kolekcí.

@@ -9,27 +9,27 @@ To provádí telefon na vlákně v pozadí.
 Tím je zaručené, že hlavní vlákno aplikace (které se mimo jiné stará o vykreslování) není blokované a s aplikací lze bez problému intereagovat.
 Jakmile jsou dostupné informace o poloze, aplikace zažádá systém o prostředky na hlavním vlákně a získanou polohu prezentuje uživateli.
 
-Tento přístup je v \acrfull{sdk} poskytovaným Applem velmi obvyklý a využívá ho mnoho standardních knihoven.
+Tento přístup se jeví v \acrfull{sdk} poskytovaným Applem velmi obvyklým a využívá ho mnoho standardních knihoven.
 Ne vždy je ale běžné, aby výsledek byl prezentovaný na hlavním vlákně.
-Takový princip je využit u síťových požadavků.
+Takový princip lze využít u síťových požadavků.
 
 Síťový požadavek se vykonává na vlákně v pozadí a na stejném vlákně je zpracována i odpověď ze vzdáleného serveru.
 Je-li potřeba odpověď zpracovat na hlavním vlákně, musí vývojář explicitně čas na hlavním vlákně vyžádat pomocí Grand Central Dispatch či vlákna synchronizovat jiným spůsobem.
 Od verze systému iOS 9 je navíc nemožné udělat síťový požadavek synchronně (blokovat vlákno, které požadavek vytvořilo až do konce zpracování) \cite{apple-whats-new-in-ios}.
 
-Otázkou tedy zůstává jak správně synchronizovat všechny úkoly, které potřebují zpracovat data na jednom společném vlákně.
+Otázkou tedy zůstává, jak správně synchronizovat všechny úkoly, které potřebují zpracovat data na jednom společném vlákně.
 
 Při analýze tohoto problému jsem se zaměřil na tři možná řešení.
 První dvě jsou implementovány přímo v dodávaném \acrshort{sdk}, třetí možnost je knihovna od společnosti GitHub.
 
 \subsection{Grand Central Dispatch}
 
-Grand Central Dispatch (zkráceně \acrshort{gcd}) je technologie vyvinutá společností Apple přinášející optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
+Grand Central Dispatch (zkráceně \acrshort{gcd}) je technologie vyvinutá společností Apple přinášející, optimalizovanou podporu pro aplikace fungující na vícejádrových procesorech.
 \acrshort{gcd} je implementována nad standardními systémovými vlákny, vývojáři ale nabízí mnohem jednoduší rozhranní.
 
 Pro zjednodušení je využit princip front (z angl. queue), které jsou reprenzentovány třídou \texttt{DispatchQueue}.
-\texttt{DispatchQueue} je implementována jako \texttt{thread-safe}, je tedy možné k nim přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
-Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to aby byly spuštěny ve správném pořadí.
+\texttt{DispatchQueue} je implementována jako \texttt{thread-safe}, je tedy možné k ní přistupovat ve stejný okamžik z několik vláken najednou \cite{apple-concurrency-programming-guide}.
+Do této fronty je možné vkládat jednotky práce, \acrshort{gcd} se postará o to, aby byly spuštěny ve správném pořadí.
 V závislosti na konfiguraci pak umožňuje jednotlivé úkoly spouštět synchronně nebo asynchronně.
 
 V základu je dostupná hlavní (\texttt{main}) fronta, která je synchronní a umožňuje vykonat práci na hlavním vlákně.
@@ -42,13 +42,13 @@ Vytvoření nové fronty běžící v pozadí je vidět v ukázce \ref{code:crea
 
 \subsubsection*{Quality of Service}
 
-Pro možnost rozlišení priorit front využívá Apple Quality of Service (zkráceně QoS).
+Pro možnost rozlišení priorit front využívá Apple \texttt{Quality of Service} (zkráceně QoS).
 Díky QoS je možné určit, jakou prioritu bude mít danná fronta při rozdělování vláken.
 V současné době existují čtyři QoS priority \cite{apple-prioritize-work-with-qos}:
 
 \begin{description}
   \item[User-interactive] Práce, se kterou uživatel přímo interaguje.
-  Tato fronta má nejvyšší prioritu, nejčastěji se v ní provádí překreslování uživatelského rozhranní či animace.
+  Tato fronta má nejvyšší prioritu, nejčastěji se v ní provádí překreslování uživatelského rozhraní či animace.
   Jednotlivé úkoly z fronty jsou vykonané ihned.
   \item[User-initiated] Práce, kterou zadal uživatel a vyžaduje okamžitý výsledek.
   Nejčastěji se stará o akce, které nastanou po interakci s některým z ovládacích prvků (např. tlačítko).
@@ -71,7 +71,7 @@ Tuto možnost ale nábízí \texttt{Foundation} framework pomocí \texttt{Operat
 \texttt{OperationQueue} a \texttt{Operation} je abstrakce nad metodou \acrshort{gcd} zmíněnou výše.
 Toto \acrshort{api} je od verze systému iOS 4 implementováno právě pomocí GCD, nabízí ale nové možnosti přístupu k prováděným jednotkám práce.
 Hlavním rozdílem oproti \acrshort{gcd} je vyloučení pojmu \texttt{vlákno}.
-Jednotky práce nejsou nadále reprezentovány pomocí \texttt{first class} funkcí, ale nově pomocí instancí tříd \texttt{Operation} o jejichž správu se stará \texttt{OperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
+Jednotky práce nejsou nadále reprezentovány pomocí \texttt{first class} funkcí, ale nově pomocí instancí podtříd \texttt{Operation}, o jejichž správu se stará \texttt{OperationQueue}. \cite{cocoacasts-nsoperation-vs-gcd}
 
 \subsubsection*{Operation}
 
@@ -88,20 +88,21 @@ Jako úkol lze chápat například jednotlivé síťové požadavdy, zpracován�
 Oproti \acrshort{gcd} má objektový přístup výhodu nejen v přehlednější strukturování, ale i v možnosti vytváření závislostí a správě stavu \cite{apple-operation-queues}.
 
 \begin{description}
-  \item[Závislosti] definují, jaké další operace musí být vykonány před tím, než bude daná operace spuštěna.
+  \item[Závislosti] Definují, jaké další operace musí být vykonány před tím, než bude daná operace spuštěna.
   Přidat lze libovolný počet dalších operací, tím lze dosáhnout komplexního procesu za pomoci skládání menších bloků.
   Jako příklad lze uvést síťovou komunikaci, kde každý požadavek závisí na ověření dostupnosti internetu (první operace) a na patřičném ověření uživatele (druhá operace).
-  Ke každému požadavku následně stačí přiřadit tyto dvě operace jako závislost, tím je zaručené že požadavek se pošle jen když je dostupné připojení k internetu a zároveň je uživatel ověřený.
-  \item[Správa stavu] umožňuje operaci pozastavit, spustit znovu nebo zrušit.
-  Oproti GCD, kde úkol, který se začal zpracovávat, už nebylo možné zastavit, lze například do ovládání operací zapojit uživatele.
+  Ke každému požadavku následně stačí přiřadit tyto dvě operace jako závislost, tím je zaručené že požadavek se odešle, jen když je dostupné připojení k internetu a zároveň je uživatel ověřený.
+  \item[Správa stavu] Umožňuje operaci pozastavit, spustit znovu nebo zrušit.
+  Oproti \acrshort{gcd} lze například do ovládání operací zapojit uživatele.
+  V \acrshort{gcd} naopak úkol, který se začal zpracovávat, už nebylo možné zastavit. 
 \end{description}
 
 \subsubsection*{OperationQueue}
 
-Obdobně jako GCD, je i zde potřeba určit, kde a kdy se bude práce vykonávat.
+Obdobně jako u \acrshort{gcd}, je i zde potřeba určit, kde a kdy se bude práce vykonávat.
 Pro tento účel slouží fronta \texttt{OperationQueue}.
 Tato fronta je implementována jako prioritní.
-Tedy v momentě kdy je vložena operace s vyšší prioritou, bude vykonána dříve než stávající operace s nízkou prioritou (pokud to její závislosti dovolí).
+Tedy v momentě, kdy je vložena operace s vyšší prioritou, bude vykonána dříve než stávající operace s nízkou prioritou (pokud to její závislosti dovolí).
 Z tohoto důvodu není zaručeno, kdy se jednotlivé operace spustí.
 
 Základní vytvoření operace a vložení do fronty je vidět na ukázce \ref{code:operation-queue-demonstration}.
@@ -117,10 +118,10 @@ V takovém případě se vždy jako první vykonají operace s vyšší priorito
 
 Jednou z nejsilněších stránek \texttt{OperationQueue} je abstrakce front nad vlákny (tedy celého GCD).
 V nastavení fronty lze zvolit stejně jako u \acrshort{gcd} výchozí QoS.
-Všechny operace pak budou vyžívat právě tuto prioritu.
+Všechny operace pak budou využívat právě tuto prioritu.
 Oproti \acrshort{gcd} má však \texttt{OperationQueue} výhodu, že nepracuje pouze s jednou frontou.
 
-To dává vývojáři možnost definovat QoS pro každou operaci zvlášť a to bez nutnosti vytvářet více front.
+To dává vývojáři možnost definovat QoS pro každou operaci zvlášť, a to bez nutnosti vytvářet více front.
 V závislosti na této vlastnosti je dále možné definovat, kolik operací může být \textit{maximálně} spuštěno v jeden okamžik.
 
 \subsection{Reaktivní programování}\label{vlakna-rac}
@@ -147,7 +148,7 @@ Signály tedy nepodporují přímý přístup k hodnotám.
 
 Přestože se absence přímého přístupu může zdát jako velké negativum, v praxi to není žádný problém.
 Místo standardního přístupu k hodnotám se využívá kombinování, řetězení a přetváření signálů.
-V aplikaci pak není nutné využívat pull-based přístup pro získání dat.
+V aplikaci pak není nutné k datům přistupovat na vyžádání.
 Jakmile jsou totiž nová data dostupná, zpropagují se na patřičná místa podle předem namodelovaného procesu.
 Vytvoření signálu je vidět v ukázce \ref{code:rac-signal}.
 
@@ -164,22 +165,22 @@ Pokud se \texttt{Observer} zaregistruje pozdě, hodnotu nikdy neobdrží.
 U síťového požadavku by se mohlo stát, že přijde odpověď od serveru, ale nebude zpracována.
 Tento typ se tedy využívá v částech programu, kde absence některých hodnot nezpůsobí nekonzistenci.
 
-Druhým typem signálu je \texttt{Cold} signál reprezentovaný třídou \texttt{SignalProducer}.
+Druhým typem signálu je \texttt{Cold} signál reprezentovaný třídou\\*\texttt{SignalProducer}.
 Tato třída odesílá hodnoty až ve chvíli, kdy se o ně nějaký \texttt{Observer} přihlásí.
-Tomuto \texttt{Observeru} navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy dříve jak je vidět v ukázce \ref{code:rac-signalproducer}.
+Tomuto \texttt{Observeru} navíc budou odeslány postupně všechny hodnoty, které byly do tohoto signálu vloženy dříve, jak je vidět v ukázce \ref{code:rac-signalproducer}.
 To je ideální přístup pro manipulaci s daty či síťové požadavky.
 
 \swiftcode{code:rac-signalproducer}{Vytvoření Cold signálu}{assets/code/rac-signalproducer.swift}
 
 \subsubsection*{Operátory nad signály}
 
-Protože signály jsou konstantní a jejich hodnotu nelze editovat, nabízí \texttt{ReactiveCocoa} operátory nad signály.
+Protože signály jsou konstantní a jejich hodnotu nelze editovat, nabízí\\*\texttt{ReactiveCocoa} operátory nad signály.
 Pomocí těchto operátorů je možné vytvořit nový signál stejného typu, jehož hodnota vychází z původní hodnoty libovolnou úpravou.
 
 Tyto operátory přejímají názvy z teorie funkcionálního programování.
 Dostupné jsou tedy operátory \texttt{map}, \texttt{filter}, \texttt{reduce} a další.
 
-Pomocí rozšíření tříd dostupných v jazyku Swift je také možné dělat vlastní operátory.
+Pomocí rozšíření tříd dostupných v jazyku Swift je také možné programovat vlastní operátory.
 
 \subsubsection*{Synchronizace vláken}
 

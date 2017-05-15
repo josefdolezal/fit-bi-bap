@@ -5,7 +5,7 @@ Jako úvodní obrazovku jsem zvolil seznam tiskáren.
 V případě, že již uživatel aplikaci dříve používal, zobrazí se v seznamu na prvních místech tiskárny, které si dříve uložil.
 Na dalších místech jsou pak tiskárny dostupné na stejné síti, které aplikace automaticky nalezla.
 
-Pokud aplikace požadovanou tiskárnu nenalezla, je ze seznamu tiskáren možné přejít na obrazovku pro manuální přidání tiskárny.
+Pokud aplikace požadovanou tiskárnu nenalezla, je ze seznamu tiskáren možné přejít na obrazovku pro manuální přidání tiskárny jejím výběrem.
 
 \subsection{Implementace seznamu}
 
@@ -21,7 +21,7 @@ Jednotlivé obrazovky pak využívají třídy dědící z \texttt{BaseCollectio
 Seznam tiskáren je rozdělen na dvě základní sekce.
 Pomocí rozdělení do samostatných sekcí jsem dosáhl vytvoření nezávislých řádkových indexů pro každou sekci.
 \texttt{ViewModel} pro \texttt{Controller} poskytuje počet řádků pro každou ze sekcí samostatně.
-Při vytváření seznamu stačí tedy ověřit pro jakou sekci se záznam v seznamu vytváří a následně \texttt{ViewModel} požádat o data s konkrátním řádkovým indexem číslovaným od nuly.
+Při vytváření seznamu stačí tedy ověřit, pro jakou sekci se záznam v seznamu vytváří a následně \texttt{ViewModel} požádat o data s konkrétním řádkovým indexem číslovaným od nuly.
 
 V případě jedné sekce by bylo nutné vzájmně porovnávat aktuální číslo řádku s počtem uložených tiskáren a tiskáren nalezených.
 To požaduje komplexní výpočet a dává prostor mmoha chybám.
@@ -58,8 +58,8 @@ Z pohledu \texttt{Controlleru} totiž logika není podstatná, důležité jsou 
 \texttt{ViewModel} pro seznam tiskáren jsem proto navrh tak, aby poskytoval obdobné rozhraní jako poskytuje pro uložené tiskárny.
 
 Pro zobrazení druhé sekce seznamu stačí \texttt{CollectionView} předat informaci o počtu síťových tiskáren a buňkám předat odpovídající \texttt{ViewModely}.
-Toho se docílí ve stejných metodách jako pro uložnené tiskárny.
-Počet síťových tiskáren je uložen v proměnné \texttt{networkPrintersCount} a \texttt{ViewModely} je možné získat metodou \texttt{networkPrinterCellViewModel}.
+Toho se docílí ve stejných metodách jako pro uložené tiskárny.
+Počet síťových tiskáren je uložen v proměnné \texttt{networkPrintersCount} a \texttt{ViewModely} buněk je možné získat metodou \texttt{networkPrinterCellViewModel}.
 
 \subsection{Automatické nalezení tiskáren}
 
@@ -88,7 +88,7 @@ Více informací k Bonjour je dostupné na stránkách Apple \cite{apple-bonjour
 
 \subsubsection*{Reaktivní rozšíření}
 
-Standardní knihovna nabízí pro práci s Bonjour třídy \texttt{NetService} a \texttt{NetServiceBrowser}, které využívají Delegate pattern \cite{apple-netservicebrowser}.
+Standardní knihovna nabízí pro práci s Bonjour třídy \texttt{NetService} a\\*\texttt{NetServiceBrowser}, které využívají Delegate pattern \cite{apple-netservicebrowser}.
 Tento přístup mi nevyhovoval, protože vnesl mnoho kódu do \texttt{ViewModel} objektu a zhoršil tím jeho přehlednost a čitelnost.
 Kód byl navíc přímo vázaný na logiku jedné obrazovky což znemožňovalo jeho znovuvyužitelnost.
 
@@ -107,7 +107,7 @@ Díky reaktivnímu přístupu tak \texttt{Controller} dostane informaci o novém
 \subsection{Automatické aktualizace}
 
 Abych zajistil přijemnou uživatelskou zkušenost z aplikace, rozhodl jsem se seznam tiskáren implementovat jako \texttt{push-based}.
-Tato strategie udává, že při změně dat jejich vlastník (např. \texttt{ViewModel}) upozorní své odběratele (\texttt{Controller}).
+Tato strategie udává, že při změně dat jejich vlastník (např. \texttt{ViewModel}) upozorní své odběratele\\*(\texttt{Controller}).
 Každý odběratel se sám rozhodne, jakým způsobem informaci využít.
 V mé konkrétní implementaci lze vidět rozdíl od \texttt{pull-based} strategie v automatických aktualizacích.
 
@@ -116,15 +116,16 @@ To znamená, že změní-li se data (např. bude-li nalezena nová síťová tis
 Zde vzniká otázka, jak často se dotazovat, zda změna proběhala či nikoli.
 
 Odpověď se odvíjí konkrétního využití.
-Některé data není potřeba po načtení aktualizovat vůbec, jiná naopak prvidelně s krátkými intervaly.
+Některá data není potřeba po načtení aktualizovat vůbec, jiná naopak prvidelně s krátkými intervaly.
 
 \bigskip
 
-Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii push-based směrem z \texttt{ViewModelu} do \texttt{Controlleru}.
+Abych zajistil konzistenci napříč celou aplikací, rozhodl jsem se využít strategii \texttt{push-based} směrem z \texttt{ViewModelu} do \texttt{Controlleru}.
 \texttt{Controller} sleduje signál změn a pokaždé když se na signálu objeví hodnota (obvykle typu Void), překreslí odpovídající \texttt{View}.
 
 Za pomoci \texttt{UI bindings} frameworku \texttt{ReactiveCocoa} jsem napojil signál změn na metodu překreslení seznamu.
-\texttt{Controller} tedy nemusí o data explicitně žádat, kdykoliv se totiž změní vyšle \texttt{ViewModel} signál a tabulka se překreslí.
+\texttt{Controller} tedy nemusí o data explicitně žádat.
+Kdykoliv se totiž změní vyšle \texttt{ViewModel} signál a tabulka se překreslí.
 Pro překreslení se využívá stejný postup jako při iniciálním načtení, nehrozí proto problém s čátečnou nekonzistencí.
 Výsledkem je, že uživatel vidí na obrazovce vždy aktuální data.
 Ukázka \ref{code:printer-list-ui-binding} demonstruje překreslení seznamu pomocí \texttt{UI bindings}.
@@ -147,7 +148,7 @@ Průběh je vidět v ukázce \ref{code:printer-list-coordinator-flow}.
 Na základě notifikace \texttt{Coordinator} vytvoří potřebné objekty k sestavení obrazovky a prezentuje ji uživateli.
 Až do uzavření obrazovky je seznam tiskáren neaktivní.
 
-Pokud uživatel tiskárnu úspěšně přidá, seznam je automaticky aktualizovaný díky push-based strategii.
+Pokud uživatel tiskárnu úspěšně přidá, seznam je automaticky aktualizovaný díky \texttt{push-based} strategii.
 
 \swiftcode{code:printer-list-coordinator-flow}{Průběh zobrazení nové obrazovky}{assets/code/printer-list-coordinator-flow.swift}
 

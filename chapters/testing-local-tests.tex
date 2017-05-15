@@ -1,12 +1,12 @@
 \section{Lokální testování}
 
-Protože aplikace komunikuje výhradně s tiskárnou musí být tiskárna dostupná i během vývoje.
+Protože aplikace komunikuje výhradně s tiskárnou, musí být tiskárna dostupná i během vývoje.
 Abych nemusel tiskárnu pořizovat, využil jsem možnost vytvořit virtuální tiskárnu.
 
 S využitím technologie Docker jsem vytvořil kontejner s nainstalovanou aplikací OctoPrint.
 Pomocí konfiguračního souboru jsem povolil vytvoření virtuální tiskárny.
 
-OctoPrint byl takto spuštěný lokálně na mém počítači.
+OctoPrint jsem takto mohl mít spuštěný lokálně na počítači.
 Po připojení OctoPrint k virtuálnímu portu tiskárny jsem mohl vyvíjet aplikaci i bez nutnosti vlastnit tiskárnu.
 
 V ukázce \ref{code:docker} demonstruji spuštění kontejneru s virtuální tiskárnou z příkazové řádky svého počítače.
