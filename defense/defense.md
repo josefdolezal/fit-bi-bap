@@ -30,6 +30,10 @@
 
 ---
 
+# Distribuce aplikace
+
+---
+
 # [fit] Dĕkuji za pozornost
 
 ## Prostor pro dotazy
