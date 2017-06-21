@@ -14,19 +14,22 @@
 
 ---
 
-# Architektura aplikace
+## Architektura
+## aplikace
 
 ---
 
-# Síťová vrstva, sockety
+## Síťová vrstva,
+## sockety
 
 ---
 
-# Reaktivní programování
+## Reaktivní
+## programování
 
 ---
 
-# _Demo_
+## _Demo_
 
 ---
 
@@ -34,10 +37,9 @@
 
 ---
 
-# Distribuce aplikace
+## Distribuce
+## aplikace
 
 ---
 
 # [fit] Dĕkuji za pozornost
-
-## Prostor pro dotazy
