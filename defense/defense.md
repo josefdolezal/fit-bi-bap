@@ -8,6 +8,10 @@
 
 # 3D tisk
 
+![inline](3d-printer.jpg)
+
+![right](3d-protez.jpg)
+
 ---
 
 # Architektura aplikace
