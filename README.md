@@ -2,6 +2,8 @@
 Repozitář k rešeršní části bakalářské práce.
 V rešeršní části se zabývám návrhem a implementací mobilní aplikace pro ovládání 3D tiskárny.
 
+Prezentace k obhajobě je dostupná [zde](defense/defense.pdf)
+
 ## PDF verze
 
 Jednotlivé verze práce jsou dostupné v záložce [Releases](https://github.com/josefdolezal/fit-bi-bap/releases). Výsledná odevzdaná práce je [verze 1.0.0](https://github.com/josefdolezal/fit-bi-bap/releases/tag/1.0.0).
